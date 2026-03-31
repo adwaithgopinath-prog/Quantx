@@ -1,0 +1,31 @@
+{
+    "balance": 99638.12,
+    "positions": {
+        "RELIANCE.NS": {
+            "avg_price": 148.6,
+            "quantity": 1
+        },
+        "NTPC.NS": {
+            "avg_price": 213.28,
+            "quantity": 1
+        }
+    },
+    "history": [
+        {
+            "type": "BUY",
+            "symbol": "RELIANCE.NS",
+            "price": 148.6,
+            "quantity": 1,
+            "total": 148.6,
+            "timestamp": "Now"
+        },
+        {
+            "type": "BUY",
+            "symbol": "NTPC.NS",
+            "price": 213.28,
+            "quantity": 1,
+            "total": 213.28,
+            "timestamp": "Now"
+        }
+    ]
+}
