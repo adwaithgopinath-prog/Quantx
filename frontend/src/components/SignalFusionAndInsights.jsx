@@ -16,8 +16,8 @@ export default function SignalFusionAndInsights({ fusion, news, predictions, ris
   return (
     <div className="grid lg:grid-cols-2 gap-6">
       
-      {/* Groww-style Analysis Card */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="groww-card !p-8 flex flex-col relative overflow-hidden">
+      {/* Adwaith's-style Analysis Card */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="adwaith-card !p-8 flex flex-col relative overflow-hidden">
         <h2 className="text-xl font-black flex items-center gap-3 text-[#44475b] mb-8 uppercase tracking-wider">
           <Brain size={24} className="text-[#5367ff]" /> Smart Suggestion
         </h2>
@@ -104,7 +104,7 @@ export default function SignalFusionAndInsights({ fusion, news, predictions, ris
       <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }} className="flex flex-col gap-6">
         
         {/* ML Models & Risk */}
-        <div className="groww-card !p-8 group">
+        <div className="adwaith-card !p-8 group">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg font-black text-[#44475b] uppercase tracking-wider flex items-center gap-3">
                <Gauge size={20} className="text-[#5367ff]"/> Predictive Engine
@@ -160,7 +160,7 @@ export default function SignalFusionAndInsights({ fusion, news, predictions, ris
         </div>
 
         {/* Sentiment Analysis Node */}
-        <div className="groww-card !p-8 border-l-4 border-l-[#5367ff]">
+        <div className="adwaith-card !p-8 border-l-4 border-l-[#5367ff]">
           <h2 className="text-lg font-black text-[#44475b] uppercase tracking-wider mb-6 flex items-center gap-3">
              <Newspaper size={20} className="text-[#5367ff]" /> Sentiment Intelligence
           </h2>
@@ -264,7 +264,7 @@ export default function SignalFusionAndInsights({ fusion, news, predictions, ris
         </div>
         {/* External Data Node (FRED, FMP, OpenAI) */}
         {externalData && (
-          <div className="groww-card !p-8 border-l-4 border-l-[#ffb100]">
+          <div className="adwaith-card !p-8 border-l-4 border-l-[#ffb100]">
             <h2 className="text-lg font-black text-[#44475b] uppercase tracking-wider mb-6 flex items-center gap-3">
                <Globe size={20} className="text-[#ffb100]" /> Macro & Fundamentals
             </h2>

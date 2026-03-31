@@ -25,7 +25,7 @@ export default function MarketWatch({ onSelectSymbol, currentSymbol }) {
   }, []);
 
   return (
-    <div className="groww-card !p-6 flex flex-col h-full">
+    <div className="adwaith-card !p-6 flex flex-col h-full">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-sm font-black text-[#44475b] flex items-center gap-2 uppercase tracking-wider">
           <Eye size={18} className="text-[#5367ff]" /> Top Assets

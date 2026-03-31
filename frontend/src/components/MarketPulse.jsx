@@ -9,7 +9,7 @@ export default function MarketPulse({ state }) {
 
   return (
     <div className="space-y-6">
-      <div className="groww-card !p-8 border-l-4 border-l-[#00d09c]">
+      <div className="adwaith-card !p-8 border-l-4 border-l-[#00d09c]">
         <div className="flex justify-between items-center mb-8">
            <h2 className="text-xl font-black text-[#44475b] uppercase tracking-wider flex items-center gap-3">
              <Globe size={24} className="text-[#00d09c]" /> Global Market Pulse
@@ -52,7 +52,7 @@ export default function MarketPulse({ state }) {
         </div>
       </div>
 
-      <div className="groww-card !p-8">
+      <div className="adwaith-card !p-8">
          <h2 className="text-xl font-black text-[#44475b] uppercase tracking-wider mb-8 flex items-center gap-3">
            <Database size={24} className="text-[#5367ff]" /> Sector Rotation
          </h2>
@@ -79,7 +79,7 @@ export default function MarketPulse({ state }) {
          </div>
       </div>
       {/* Feature Engineering Pipeline Stats */}
-      <div className="groww-card !p-8 border-l-4 border-l-[#5367ff]">
+      <div className="adwaith-card !p-8 border-l-4 border-l-[#5367ff]">
          <div className="flex justify-between items-center mb-8">
             <h2 className="text-xl font-black text-[#44475b] uppercase tracking-wider flex items-center gap-3">
               <RefreshCcw size={24} className="text-[#5367ff]" /> Predictive Ingestion Pipeline

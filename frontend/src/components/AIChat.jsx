@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function AIChat({ symbol }) {
   const [query, setQuery] = useState('');
   const [chatLog, setChatLog] = useState([
-    { sender: 'ai', text: `Hi! I'm your Groww AI assistant. I've analyzed ${symbol.toUpperCase()} for you. Ask me anything about its technicals or recent signals.` }
+    { sender: 'ai', text: `Hi! I'm your Adwaith's AI assistant. I've analyzed ${symbol.toUpperCase()} for you. Ask me anything about its technicals or recent signals.` }
   ]);
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef(null);
@@ -34,7 +34,7 @@ export default function AIChat({ symbol }) {
   };
 
   return (
-    <div className="groww-card flex flex-col h-[500px] !p-0 overflow-hidden relative border border-gray-100 shadow-sm">
+    <div className="adwaith-card flex flex-col h-[500px] !p-0 overflow-hidden relative border border-gray-100 shadow-sm">
       
       <div className="p-5 border-b border-gray-50 flex justify-between items-center bg-white shadow-sm">
         <div className="flex gap-3 items-center">
@@ -42,7 +42,7 @@ export default function AIChat({ symbol }) {
              <Sparkles size={20} />
           </div>
           <div>
-             <h3 className="font-bold text-[#44475b] text-sm">Groww AI Insights</h3>
+             <h3 className="font-bold text-[#44475b] text-sm">Adwaith's AI Insights</h3>
              <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00d09c] animate-pulse"></span>
                 <p className="text-[10px] text-[#7c7e8c] font-bold uppercase tracking-widest pl-0.5">Active</p>

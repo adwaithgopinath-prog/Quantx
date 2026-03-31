@@ -49,7 +49,7 @@ export default function TopAssetsScreener({ onSelectSymbol, onQuickTrade }) {
   };
 
   return (
-    <div className="groww-card !p-0 overflow-hidden border border-gray-100 shadow-sm mt-8">
+    <div className="adwaith-card !p-0 overflow-hidden border border-gray-100 shadow-sm mt-8">
       
       {/* Header & Filters */}
       <div className="p-6 border-b border-gray-100 bg-white shadow-sm relative z-10">

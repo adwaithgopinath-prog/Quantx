@@ -127,12 +127,12 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#f8f9fa] text-[#44475b]">
       
-      {/* Groww-style Navbar */}
+      {/* Adwaith's-style Navbar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-12">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.reload()}>
              <div className="w-8 h-8 bg-[#00d09c] rounded-lg flex items-center justify-center text-white font-black">G</div>
-             <h1 className="text-xl font-bold tracking-tight text-[#44475b]">Groww <span className="text-[#00d09c] text-xs font-black ml-1 uppercase bg-emerald-50 px-1 rounded">QuantX AI</span></h1>
+             <h1 className="text-xl font-bold tracking-tight text-[#44475b]">Adwaith's <span className="text-[#00d09c] text-xs font-black ml-1 uppercase bg-emerald-50 px-1 rounded">QuantX AI</span></h1>
           </div>
 
           <div className="hidden md:flex items-center gap-8">
@@ -180,7 +180,7 @@ export default function App() {
         {/* Indices Section */}
         <div className="flex gap-4 mb-8 overflow-x-auto pb-2 hide-scrollbar">
            {[ { name: 'NIFTY 50', val: '22,479.50', chg: '+0.85%' }, { name: 'SENSEX', val: '74,119.39', chg: '+0.78%' }, { name: 'BANK NIFTY', val: '47,835.80', chg: '-0.12%' }, { name: 'NIFTY NEXT 50', val: '60,123.45', chg: '+1.24%' }].map((idx, i) => (
-             <div key={i} className="min-w-[180px] groww-card py-4 px-6 flex flex-col gap-1 cursor-pointer">
+             <div key={i} className="min-w-[180px] adwaith-card py-4 px-6 flex flex-col gap-1 cursor-pointer">
                 <span className="text-[10px] font-bold text-[#7c7e8c] uppercase tracking-wider">{idx.name}</span>
                 <div className="flex items-center justify-between">
                    <span className="text-sm font-bold text-[#44475b]">{idx.val}</span>
@@ -247,7 +247,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="groww-card !p-0 overflow-hidden border border-gray-100 shadow-sm min-h-[450px]">
+                <div className="adwaith-card !p-0 overflow-hidden border border-gray-100 shadow-sm min-h-[450px]">
                   <div className="p-6 border-b border-gray-100 flex gap-6">
                      <button className="text-[11px] font-black text-[#00d09c] border-b-2 border-[#00d09c] pb-2 uppercase tracking-wider">Technical Chart</button>
                      <button className="text-[11px] font-bold text-[#7c7e8c] hover:text-[#44475b] pb-2 uppercase tracking-wider">Market Depth</button>
@@ -257,7 +257,7 @@ export default function App() {
                 </div>
 
                 {/* Company Vitals Dashboard */}
-                <div className="groww-card !p-8 border border-gray-100 shadow-sm">
+                <div className="adwaith-card !p-8 border border-gray-100 shadow-sm">
                   <h3 className="text-[11px] font-black text-[#44475b] uppercase tracking-wider mb-6">Company Vitals (Real-time via Market Engine)</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                      {[
@@ -284,7 +284,7 @@ export default function App() {
                       externalData={data.external_data}
                     />
 
-                    <div className="groww-card bg-indigo-50/20 border-indigo-100/50 p-8">
+                    <div className="adwaith-card bg-indigo-50/20 border-indigo-100/50 p-8">
                       <div className="flex items-center gap-3 mb-6">
                          <Activity size={20} className="text-[#5367ff]" />
                          <h3 className="text-[11px] font-black text-[#44475b] uppercase tracking-wider">Technical Guard Radar</h3>
@@ -300,7 +300,7 @@ export default function App() {
               <div className="space-y-6">
                 
                 {/* Buy/Sell Mock Section */}
-                <div className="groww-card space-y-6 sticky top-24 border border-gray-100 shadow-md">
+                <div className="adwaith-card space-y-6 sticky top-24 border border-gray-100 shadow-md">
                   <div className="flex border-b border-gray-100 -mx-6 px-6 pb-4 mb-4">
                     <button className="flex-1 text-sm font-black text-[#00d09c] border-b-2 border-[#00d09c] pb-2">BUY</button>
                     <button className="flex-1 text-sm font-black text-[#7c7e8c] pb-2">SELL</button>
@@ -343,7 +343,7 @@ export default function App() {
 
                 <MarketWatch onSelectSymbol={setSymbol} currentSymbol={symbol} />
 
-                <div className="groww-card border border-gray-100 shadow-sm">
+                <div className="adwaith-card border border-gray-100 shadow-sm">
                    <h3 className="text-sm font-black text-[#44475b] flex items-center gap-2 mb-6 uppercase tracking-wider">
                      <PieChart size={18} className="text-[#5367ff]" /> Strategy Edge
                    </h3>
@@ -368,7 +368,7 @@ export default function App() {
                 </div>
 
                 {/* Execution Stream */}
-                <div className="groww-card border border-gray-100 shadow-sm">
+                <div className="adwaith-card border border-gray-100 shadow-sm">
                    <h3 className="text-sm font-black text-[#44475b] flex items-center gap-2 mb-6 uppercase tracking-wider">
                      <Activity size={18} className="text-[#00d09c]" /> Live Trade Executions
                    </h3>
@@ -399,14 +399,14 @@ export default function App() {
                   { label: 'Total Equity', val: `₹${portfolio?.total_equity?.toLocaleString() || "0"}`, color: 'text-[#5367ff]' }, 
                   { label: 'Total P&L', val: `₹${portfolio?.total_pnl?.toLocaleString() || "0"}`, color: portfolio?.total_pnl >= 0 ? 'text-[#00d09c]' : 'text-[#eb5b3c]' }
                 ].map((stat, i) => (
-                  <div key={i} className="groww-card !p-8 border border-gray-100 shadow-sm">
+                  <div key={i} className="adwaith-card !p-8 border border-gray-100 shadow-sm">
                      <p className="text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest mb-2">{stat.label}</p>
                      <p className={`text-3xl font-black ${stat.color || 'text-[#44475b]'}`}>{stat.val}</p>
                   </div>
                 ))}
              </div>
              
-             <div className="groww-card border border-gray-100 shadow-md">
+             <div className="adwaith-card border border-gray-100 shadow-md">
                 <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
                   <LayoutDashboard size={20} className="text-[#00d09c]" /> Your Holdings ({portfolio?.positions?.length || 0})
                 </h3>
@@ -449,7 +449,7 @@ export default function App() {
              </div>
 
              {/* TRADE HISTORY SECTION */}
-             <div className="groww-card border border-gray-100 shadow-md">
+             <div className="adwaith-card border border-gray-100 shadow-md">
                 <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
                   <Activity size={20} className="text-[#5367ff]" /> Trade History
                 </h3>
@@ -504,13 +504,13 @@ export default function App() {
             <div className="space-y-6">
               <div className="flex items-center gap-2">
                  <div className="w-8 h-8 bg-[#00d09c] rounded-lg flex items-center justify-center text-white text-xs font-black">G</div>
-                 <span className="text-lg font-bold text-[#44475b]">Groww QuantX AI</span>
+                 <span className="text-lg font-bold text-[#44475b]">Adwaith's QuantX AI</span>
               </div>
               <p className="text-xs text-[#7c7e8c] font-medium leading-[1.8]">
                 India's most advanced AI-integrated trading terminal. Built for the modern Indian investor who demands precision and speed.
               </p>
             </div>
-            {[ { title: 'Products', items: ['Stocks', 'Mutual Funds', 'US Stocks', 'Gold', 'Fixed Deposits'] }, { title: 'Groww', items: ['About Us', 'Contact Us', 'Careers', 'Media Kit'] }, { title: 'Quick Links', items: ['AMC Mutual Funds', 'Calculators', 'Glossary', 'Sitemap'] }].map(col => (
+            {[ { title: 'Products', items: ['Stocks', 'Mutual Funds', 'US Stocks', 'Gold', 'Fixed Deposits'] }, { title: 'Adwaith\'s', items: ['About Us', 'Contact Us', 'Careers', 'Media Kit'] }, { title: 'Quick Links', items: ['AMC Mutual Funds', 'Calculators', 'Glossary', 'Sitemap'] }].map(col => (
                <div key={col.title} className="space-y-6">
                   <h4 className="text-[11px] font-black text-[#44475b] uppercase tracking-widest">{col.title}</h4>
                   <div className="flex flex-col gap-3">
