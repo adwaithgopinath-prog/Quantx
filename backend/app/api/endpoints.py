@@ -92,8 +92,8 @@ def get_portfolio():
     return portfolio_manager.get_stats({})
 
 @router.get("/portfolio/analytics")
-def get_portfolio_analytics():
-    return portfolio_analytics.calculate_analytics()
+def get_portfolio_analytics(rfr: float = 0.05):
+    return portfolio_analytics.calculate_analytics(rfr)
 
 @router.post("/trade")
 def execute_trade(trade: TradeRequest):

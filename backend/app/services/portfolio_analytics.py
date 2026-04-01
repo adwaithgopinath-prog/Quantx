@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from app.services import data_fetcher, portfolio_manager
 
-def calculate_analytics():
+def calculate_analytics(rfr: float = 0.05):
     portfolio = portfolio_manager.get_portfolio()
     positions = portfolio.get("positions", {})
     
@@ -12,6 +12,7 @@ def calculate_analytics():
             "expected_return": "0.00%",
             "portfolio_risk": "0.00%",
             "sharpe_ratio": "0.00",
+            "efficiency": "N/A",
             "weights": {}
         }
 
@@ -26,6 +27,7 @@ def calculate_analytics():
             "expected_return": "0.00%",
             "portfolio_risk": "0.00%",
             "sharpe_ratio": "0.00",
+            "efficiency": "N/A",
             "weights": {}
         }
     
@@ -52,6 +54,7 @@ def calculate_analytics():
             "expected_return": "0.00%",
             "portfolio_risk": "0.00%",
             "sharpe_ratio": "0.00",
+            "efficiency": "N/A",
             "weights": {}
         }
 
@@ -66,9 +69,16 @@ def calculate_analytics():
     cov_matrix = returns.cov() * 252
     port_risk = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
     
-    # 3. Sharpe Ratio (assuming 5% risk free rate)
-    rfr = 0.05
+    # 3. Sharpe Ratio
     sharpe = (exp_return - rfr) / port_risk if port_risk > 0 else 0
+    
+    # 4. Efficiency Classification
+    if sharpe < 1:
+        efficiency = "Sub-optimal / Risky"
+    elif sharpe < 2:
+        efficiency = "Good / Efficient"
+    else:
+        efficiency = "Exceptional / Highly Efficient"
     
     weight_details = {sym: f"{round((val_map[sym]/total_val)*100, 2)}%" for sym in valid_symbols}
     
@@ -76,5 +86,6 @@ def calculate_analytics():
         "expected_return": f"{round(exp_return * 100, 2)}%",
         "portfolio_risk": f"{round(port_risk * 100, 2)}%",
         "sharpe_ratio": str(round(sharpe, 2)),
+        "efficiency": efficiency,
         "weights": weight_details
     }

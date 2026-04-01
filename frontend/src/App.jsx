@@ -85,6 +85,7 @@ export default function App() {
 
   const [portfolio, setPortfolio] = useState(null);
   const [analytics, setAnalytics] = useState(null);
+  const [riskFreeRate, setRiskFreeRate] = useState(5.0);
   const [tradeAmount, setTradeAmount] = useState(1);
 
   const fetchPortfolio = async () => {
@@ -96,9 +97,9 @@ export default function App() {
     }
   };
 
-  const fetchPortfolioAnalytics = async () => {
+  const fetchPortfolioAnalytics = async (rfr = riskFreeRate) => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/portfolio/analytics`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/portfolio/analytics?rfr=${rfr / 100}`);
       setAnalytics(res.data);
     } catch (err) {
       console.error("Analytics error", err);
@@ -437,9 +438,21 @@ export default function App() {
                         <p className="text-[10px] font-bold text-[#7c7e8c] pt-2">Via Covariance Matrix</p>
                      </div>
                      <div className="space-y-2">
-                        <p className="text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest">Sharpe Ratio</p>
+                        <div className="flex items-center justify-between">
+                            <p className="text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest">Sharpe Ratio</p>
+                            <div className="flex items-center gap-1">
+                               <p className="text-[8px] font-bold text-[#7c7e8c] uppercase">RFR:</p>
+                               <input type="number" 
+                                      className="w-12 text-[9px] font-black text-[#44475b] bg-gray-100 rounded px-1.5 py-0.5 outline-none custom-number-input" 
+                                      value={riskFreeRate} 
+                                      onChange={(e) => setRiskFreeRate(Number(e.target.value))} 
+                                      onBlur={(e) => fetchPortfolioAnalytics(Number(e.target.value))}
+                               />
+                               <span className="text-[9px] font-black text-[#44475b]">%</span>
+                            </div>
+                        </div>
                         <p className="text-4xl font-black text-[#5367ff] tracking-tight">{analytics.sharpe_ratio}</p>
-                        <p className="text-[10px] font-bold text-[#7c7e8c] pt-2">Risk-adjusted performance</p>
+                        <p className={`text-[10px] font-bold pt-2 ${analytics.efficiency.includes('Risky') ? 'text-[#eb5b3c]' : 'text-[#00d09c]'}`}>{analytics.efficiency}</p>
                      </div>
                   </div>
                 ) : (
