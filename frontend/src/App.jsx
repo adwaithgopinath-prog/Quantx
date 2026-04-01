@@ -84,6 +84,7 @@ export default function App() {
   };
 
   const [portfolio, setPortfolio] = useState(null);
+  const [analytics, setAnalytics] = useState(null);
   const [tradeAmount, setTradeAmount] = useState(1);
 
   const fetchPortfolio = async () => {
@@ -92,6 +93,15 @@ export default function App() {
       setPortfolio(res.data);
     } catch (err) {
       console.error("Portfolio error", err);
+    }
+  };
+
+  const fetchPortfolioAnalytics = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/portfolio/analytics`);
+      setAnalytics(res.data);
+    } catch (err) {
+      console.error("Analytics error", err);
     }
   };
 
@@ -107,6 +117,7 @@ export default function App() {
       });
       alert(`Successfully executed ${side} order for ${tradeAmount || 1} shares of ${execSymbol}`);
       fetchPortfolio();
+      fetchPortfolioAnalytics();
     } catch (err) {
       alert(err.response?.data?.detail || "Trade failed");
     }
@@ -115,6 +126,7 @@ export default function App() {
   useEffect(() => {
     fetchDashboardData(symbol);
     fetchPortfolio();
+    fetchPortfolioAnalytics();
   }, [symbol]);
 
   const handleSearch = (e) => {
@@ -406,6 +418,39 @@ export default function App() {
                 ))}
              </div>
              
+             <div className="adwaith-card border border-gray-100 shadow-md">
+                <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
+                  <PieChart size={20} className="text-[#00d09c]" /> Portfolio Analytics
+                </h3>
+                {analytics && analytics.weights ? (
+                  <div className="grid md:grid-cols-3 gap-8 px-2">
+                     <div className="space-y-2">
+                        <p className="text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest">Expected Return (Ann.)</p>
+                        <p className={`text-4xl font-black tracking-tight ${analytics.expected_return.startsWith('-') ? 'text-[#eb5b3c]' : 'text-[#00d09c]'}`}>
+                          {analytics.expected_return}
+                        </p>
+                        <p className="text-[10px] font-bold text-[#7c7e8c] pt-2">Based on daily historical changes</p>
+                     </div>
+                     <div className="space-y-2">
+                        <p className="text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest">Portfolio Risk (Std Dev)</p>
+                        <p className="text-4xl font-black text-[#44475b] tracking-tight">{analytics.portfolio_risk}</p>
+                        <p className="text-[10px] font-bold text-[#7c7e8c] pt-2">Via Covariance Matrix</p>
+                     </div>
+                     <div className="space-y-2">
+                        <p className="text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest">Sharpe Ratio</p>
+                        <p className="text-4xl font-black text-[#5367ff] tracking-tight">{analytics.sharpe_ratio}</p>
+                        <p className="text-[10px] font-bold text-[#7c7e8c] pt-2">Risk-adjusted performance</p>
+                     </div>
+                  </div>
+                ) : (
+                  <div className="flex animate-pulse space-x-4 px-2">
+                    <div className="flex-1 h-20 bg-gray-50 rounded-xl"></div>
+                    <div className="flex-1 h-20 bg-gray-50 rounded-xl"></div>
+                    <div className="flex-1 h-20 bg-gray-50 rounded-xl"></div>
+                  </div>
+                )}
+             </div>
+
              <div className="adwaith-card border border-gray-100 shadow-md">
                 <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
                   <LayoutDashboard size={20} className="text-[#00d09c]" /> Your Holdings ({portfolio?.positions?.length || 0})

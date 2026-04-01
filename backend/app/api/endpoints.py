@@ -4,7 +4,7 @@ from app.services import (
     data_fetcher, technical_indicators, news_sentiment,
     ml_models, signal_fusion, backtester, risk_analysis,
     portfolio_manager, market_engine, feature_pipeline,
-    external_apis, screener_engine
+    external_apis, screener_engine, portfolio_analytics
 )
 import pandas as pd
 from typing import Optional
@@ -90,6 +90,10 @@ def get_portfolio():
     # In a real app, we'd fetch current prices for all symbols in portfolio
     # For now, we'll return the base portfolio stats
     return portfolio_manager.get_stats({})
+
+@router.get("/portfolio/analytics")
+def get_portfolio_analytics():
+    return portfolio_analytics.calculate_analytics()
 
 @router.post("/trade")
 def execute_trade(trade: TradeRequest):
