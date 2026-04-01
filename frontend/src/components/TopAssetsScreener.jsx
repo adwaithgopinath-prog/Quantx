@@ -23,7 +23,7 @@ export default function TopAssetsScreener({ onSelectSymbol, onQuickTrade }) {
   const fetchAssets = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:8000/api/screener`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/screener`, {
         params: {
           min_price: minPrice,
           max_price: maxPrice,

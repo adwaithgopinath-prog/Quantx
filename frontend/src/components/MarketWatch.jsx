@@ -10,7 +10,7 @@ export default function MarketWatch({ onSelectSymbol, currentSymbol }) {
   const fetchTrending = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:8000/api/market/trending');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || "http://localhost:8000"}`}/api/market/trending`);
       setTrending(res.data);
     } catch (err) {
       console.error("Market Watch error", err);
