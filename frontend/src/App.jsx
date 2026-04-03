@@ -201,10 +201,10 @@ export default function App() {
                    className="w-full bg-[#f3f5f8] border-transparent rounded-[20px] pl-14 pr-6 py-3.5 focus:bg-white focus:ring-4 focus:ring-[#00d09c]/10 focus:border-[#00d09c]/20 transition-all text-xs font-bold outline-none border hover:border-gray-200"
                  />
               </form>
-              {showDropdown && searchInput && (
+              {showDropdown && (
                 <div className="absolute top-full mt-2 w-full bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden z-[100] max-h-[300px] overflow-y-auto">
-                  {["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "ICICIBANK.NS", "SBI.NS", "HINDUNILVR.NS", "BHARTIARTL.NS", "ADANIENT.NS", "ITC.NS", "WIPRO.NS", "ASIANPAINT.NS", "MARUTI.NS", "TATAMOTORS.NS", "SUNPHARMA.NS", "AAPL", "MSFT", "TSLA", "NVDA", "AMZN"]
-                    .filter(s => s.toLowerCase().includes(searchInput.toLowerCase()))
+                  {["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "ICICIBANK.NS", "SBI.NS", "HINDUNILVR.NS", "BHARTIARTL.NS", "ADANIENT.NS", "ITC.NS", "WIPRO.NS", "ASIANPAINT.NS", "MARUTI.NS", "TATAMOTORS.NS", "SUNPHARMA.NS", "AAPL", "MSFT", "TSLA", "NVDA", "AMZN", "AXISBANK.NS", "KOTAKBANK.NS", "BAJFINANCE.NS", "LT.NS", "TITAN.NS", "ULTRACEMCO.NS", "TATASTEEL.NS", "POWERGRID.NS", "NTPC.NS", "BAJAJFINSV.NS", "M&M.NS", "LTIM.NS", "ADANIPORTS.NS", "ONGC.NS", "DRREDDY.NS", "HCLTECH.NS", "JSWSTEEL.NS", "GRASIM.NS", "CIPLA.NS", "SBILIFE.NS", "HDFCLIFE.NS", "BRITANNIA.NS", "TECHM.NS", "APOLLOHOSP.NS", "EICHERMOT.NS", "INDUSINDBK.NS", "DIVISLAB.NS", "BPCL.NS", "HEROMOTOCO.NS", "TATARETAIL.NS"]
+                    .filter(s => !searchInput.trim() || s.toLowerCase().includes(searchInput.toLowerCase()))
                     .map((s) => (
                       <div 
                         key={s} 
@@ -218,7 +218,7 @@ export default function App() {
                          <Search size={14} className="text-gray-400" /> {s}
                       </div>
                   ))}
-                  {searchInput.trim().length > 0 && (
+                  {searchInput.trim().length > 0 && !["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "ICICIBANK.NS", "SBI.NS", "HINDUNILVR.NS", "BHARTIARTL.NS", "ADANIENT.NS", "ITC.NS", "WIPRO.NS", "ASIANPAINT.NS", "MARUTI.NS", "TATAMOTORS.NS", "SUNPHARMA.NS", "AAPL", "MSFT", "TSLA", "NVDA", "AMZN", "AXISBANK.NS", "KOTAKBANK.NS", "BAJFINANCE.NS", "LT.NS", "TITAN.NS", "ULTRACEMCO.NS", "TATASTEEL.NS", "POWERGRID.NS", "NTPC.NS", "BAJAJFINSV.NS", "M&M.NS", "LTIM.NS", "ADANIPORTS.NS", "ONGC.NS", "DRREDDY.NS", "HCLTECH.NS", "JSWSTEEL.NS", "GRASIM.NS", "CIPLA.NS", "SBILIFE.NS", "HDFCLIFE.NS", "BRITANNIA.NS", "TECHM.NS", "APOLLOHOSP.NS", "EICHERMOT.NS", "INDUSINDBK.NS", "DIVISLAB.NS", "BPCL.NS", "HEROMOTOCO.NS", "TATARETAIL.NS"].some(s => s.toLowerCase() === searchInput.toLowerCase()) && (
                      <div 
                         className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-sm font-bold text-[#44475b] flex items-center gap-3 border-t border-gray-50"
                         onClick={() => {
@@ -226,7 +226,7 @@ export default function App() {
                            setShowDropdown(false);
                         }}
                       >
-                         <Search size={14} className="text-gray-400" /> Search for "{searchInput}"
+                         <Search size={14} className="text-gray-400" /> Search externally for "{searchInput}"
                       </div>
                   )}
                 </div>
