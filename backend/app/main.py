@@ -69,6 +69,9 @@ async def trade_websocket(websocket: WebSocket, symbol: str):
 def read_root():
     return {"status": "ok", "message": "QuantX Engine Running"}
 
+import os
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
