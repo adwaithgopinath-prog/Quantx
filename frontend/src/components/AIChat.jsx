@@ -3,6 +3,8 @@ import axios from 'axios';
 import { MessageSquare, Send, Bot, User as UserIcon, Loader2, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { API_BASE } from '../api';
+
 export default function AIChat({ symbol }) {
   const [query, setQuery] = useState('');
   const [chatLog, setChatLog] = useState([
@@ -25,7 +27,7 @@ export default function AIChat({ symbol }) {
     setLoading(true);
     
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/chat`, { params: { query: userMsg, symbol }});
+      const res = await axios.get(`${API_BASE}/api/chat`, { params: { query: userMsg, symbol }});
       setChatLog(prev => [...prev, { sender: 'ai', text: res.data.response }]);
     } catch (e) {
       setChatLog(prev => [...prev, { sender: 'ai', text: "I'm having some trouble connecting to my brain. Please try again in a moment!" }]);

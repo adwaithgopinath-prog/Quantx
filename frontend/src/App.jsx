@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE, WS_BASE } from './api';
 import { 
   LineChart, 
   Search, 
@@ -47,8 +48,8 @@ export default function App() {
 
   const fetchMarketEngine = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/market/engine`);
-      const pipeStats = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/pipeline/stats`);
+      const res = await axios.get(`${API_BASE}/api/market/engine`);
+      const pipeStats = await axios.get(`${API_BASE}/api/pipeline/stats`);
       setMarketEngine({ ...res.data, pipeline_stats: pipeStats.data });
     } catch (err) {
       console.error("Market Engine fetch error", err);
@@ -65,13 +66,13 @@ export default function App() {
     let ws;
     let tradeWs;
     if (symbol) {
-      ws = new WebSocket(`${(import.meta.env.VITE_API_URL || "http://localhost:8000").replace("http", "ws")}/ws/ticker/${symbol}`);
+      ws = new WebSocket(`${WS_BASE}/ws/ticker/${symbol}`);
       ws.onmessage = (event) => {
         const msg = JSON.parse(event.data);
         setLivePrice(msg);
       };
 
-      tradeWs = new WebSocket(`${(import.meta.env.VITE_API_URL || "http://localhost:8000").replace("http", "ws")}/ws/trades/${symbol}`);
+      tradeWs = new WebSocket(`${WS_BASE}/ws/trades/${symbol}`);
       tradeWs.onmessage = (event) => {
         const msg = JSON.parse(event.data);
         setTradeFeed(prev => [msg, ...prev].slice(0, 5));
@@ -86,9 +87,9 @@ export default function App() {
   const fetchDashboardData = async (sym) => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/dashboard/${sym}`);
+      const res = await axios.get(`${API_BASE}/api/dashboard/${sym}`);
       setData(res.data);
-      const btRes = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/backtest/${sym}`);
+      const btRes = await axios.get(`${API_BASE}/api/backtest/${sym}`);
       setBacktest(btRes.data);
     } catch (err) {
       console.error("Dashboard backend error", err);
@@ -104,7 +105,7 @@ export default function App() {
 
   const fetchPortfolio = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/portfolio`);
+      const res = await axios.get(`${API_BASE}/api/portfolio`);
       setPortfolio(res.data);
     } catch (err) {
       console.error("Portfolio error", err);
@@ -113,7 +114,7 @@ export default function App() {
 
   const fetchPortfolioAnalytics = async (rfr = riskFreeRate) => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/portfolio/analytics?rfr=${rfr / 100}`);
+      const res = await axios.get(`${API_BASE}/api/portfolio/analytics?rfr=${rfr / 100}`);
       setAnalytics(res.data);
     } catch (err) {
       console.error("Analytics error", err);
@@ -124,7 +125,7 @@ export default function App() {
     try {
       const execSymbol = customSymbol || symbol;
       const execPrice = customPrice || livePrice?.price || data?.current_price || 150.0;
-      await axios.post(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/trade`, {
+      await axios.post(`${API_BASE}/api/trade`, {
         symbol: execSymbol,
         side: side,
         quantity: parseInt(tradeAmount) || 1,

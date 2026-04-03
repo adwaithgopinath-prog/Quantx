@@ -4,6 +4,8 @@ import { LineChart, Line, YAxis } from 'recharts';
 import { Filter, Zap, Target, TrendingUp, AlertTriangle, ShieldCheck, Plus, ExternalLink, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { API_BASE } from '../api';
+
 export default function TopAssetsScreener({ onSelectSymbol, onQuickTrade }) {
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ export default function TopAssetsScreener({ onSelectSymbol, onQuickTrade }) {
   const fetchAssets = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/screener`, {
+      const res = await axios.get(`${API_BASE}/api/screener`, {
         params: {
           min_price: minPrice,
           max_price: maxPrice,
