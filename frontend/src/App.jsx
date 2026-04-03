@@ -34,6 +34,7 @@ import { Menu, Target, Layers } from 'lucide-react';
 export default function App() {
   const [symbol, setSymbol] = useState('RELIANCE.NS');
   const [searchInput, setSearchInput] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
   const [data, setData] = useState(null);
   const [backtest, setBacktest] = useState(null);
   const [marketEngine, setMarketEngine] = useState(null);
@@ -99,6 +100,7 @@ export default function App() {
   const [analytics, setAnalytics] = useState(null);
   const [riskFreeRate, setRiskFreeRate] = useState(5.0);
   const [tradeAmount, setTradeAmount] = useState(1);
+  const [tradeSide, setTradeSide] = useState('BUY');
 
   const fetchPortfolio = async () => {
     try {
@@ -186,16 +188,50 @@ export default function App() {
           </div>
 
           <div className="flex-1 max-w-[600px] mx-4 lg:mx-10 hidden md:block">
-            <form onSubmit={handleSearch} className="relative group">
-               <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#00d09c] transition-colors" size={20} />
-               <input 
-                 type="text" 
-                 placeholder="Search assets..."
-                 value={searchInput}
-                 onChange={(e) => setSearchInput(e.target.value)}
-                 className="w-full bg-[#f3f5f8] border-transparent rounded-[20px] pl-14 pr-6 py-3.5 focus:bg-white focus:ring-4 focus:ring-[#00d09c]/10 focus:border-[#00d09c]/20 transition-all text-xs font-bold outline-none border hover:border-gray-200"
-               />
-            </form>
+            <div className="relative group">
+              <form onSubmit={handleSearch}>
+                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#00d09c] transition-colors" size={20} />
+                 <input 
+                   type="text" 
+                   placeholder="Search assets..."
+                   value={searchInput}
+                   onChange={(e) => {setSearchInput(e.target.value); setShowDropdown(true);}}
+                   onFocus={() => setShowDropdown(true)}
+                   onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+                   className="w-full bg-[#f3f5f8] border-transparent rounded-[20px] pl-14 pr-6 py-3.5 focus:bg-white focus:ring-4 focus:ring-[#00d09c]/10 focus:border-[#00d09c]/20 transition-all text-xs font-bold outline-none border hover:border-gray-200"
+                 />
+              </form>
+              {showDropdown && searchInput && (
+                <div className="absolute top-full mt-2 w-full bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden z-[100] max-h-[300px] overflow-y-auto">
+                  {["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "ICICIBANK.NS", "SBI.NS", "HINDUNILVR.NS", "BHARTIARTL.NS", "ADANIENT.NS", "ITC.NS", "WIPRO.NS", "ASIANPAINT.NS", "MARUTI.NS", "TATAMOTORS.NS", "SUNPHARMA.NS", "AAPL", "MSFT", "TSLA", "NVDA", "AMZN"]
+                    .filter(s => s.toLowerCase().includes(searchInput.toLowerCase()))
+                    .map((s) => (
+                      <div 
+                        key={s} 
+                        className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-sm font-bold text-[#44475b] flex items-center gap-3"
+                        onClick={() => {
+                           setSearchInput(s);
+                           setSymbol(s);
+                           setShowDropdown(false);
+                        }}
+                      >
+                         <Search size={14} className="text-gray-400" /> {s}
+                      </div>
+                  ))}
+                  {searchInput.trim().length > 0 && (
+                     <div 
+                        className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-sm font-bold text-[#44475b] flex items-center gap-3 border-t border-gray-50"
+                        onClick={() => {
+                           setSymbol(searchInput.toUpperCase());
+                           setShowDropdown(false);
+                        }}
+                      >
+                         <Search size={14} className="text-gray-400" /> Search for "{searchInput}"
+                      </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex items-center gap-4 lg:gap-8">
@@ -335,8 +371,14 @@ export default function App() {
                 {/* Buy/Sell Mock Section */}
                 <div className="adwaith-card space-y-6 sticky top-24 border border-gray-100 shadow-md">
                   <div className="flex border-b border-gray-100 -mx-6 px-6 pb-4 mb-4">
-                    <button className="flex-1 text-sm font-black text-[#00d09c] border-b-2 border-[#00d09c] pb-2">BUY</button>
-                    <button className="flex-1 text-sm font-black text-[#7c7e8c] pb-2">SELL</button>
+                    <button 
+                      className={`flex-1 text-sm font-black pb-2 transition-colors ${tradeSide === 'BUY' ? 'text-[#00d09c] border-b-2 border-[#00d09c]' : 'text-[#7c7e8c] hover:text-[#44475b]'}`}
+                      onClick={() => setTradeSide('BUY')}
+                    >BUY</button>
+                    <button 
+                      className={`flex-1 text-sm font-black pb-2 transition-colors ${tradeSide === 'SELL' ? 'text-[#eb5b3c] border-b-2 border-[#eb5b3c]' : 'text-[#7c7e8c] hover:text-[#44475b]'}`}
+                      onClick={() => setTradeSide('SELL')}
+                    >SELL</button>
                   </div>
                   
                   <div className="space-y-4">
@@ -366,10 +408,10 @@ export default function App() {
                     </div>
 
                     <button 
-                      onClick={() => handleTrade('BUY')}
-                      className="w-full bg-[#00d09c] hover:bg-[#00b085] text-white py-4 rounded-xl shadow-xl shadow-emerald-500/10 font-black text-sm tracking-wider uppercase transition-all"
+                      onClick={() => handleTrade(tradeSide)}
+                      className={`w-full text-white py-4 rounded-xl shadow-xl font-black text-sm tracking-wider uppercase transition-all ${tradeSide === 'BUY' ? 'bg-[#00d09c] hover:bg-[#00b085] shadow-emerald-500/10' : 'bg-[#eb5b3c] hover:bg-[#d64528] shadow-rose-500/10'}`}
                     >
-                      BUY {data.symbol.split('.')[0]}
+                      {tradeSide} {data.symbol.split('.')[0]}
                     </button>
                   </div>
                 </div>
