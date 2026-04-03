@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { TrendingUp, RefreshCw, BarChart3, LineChart as LineChartIcon, Maximize2 } from 'lucide-react';
-import { ComposedChart, Bar, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ComposedChart, Bar, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const Candle = (props) => {
   const { x, y, width, height, low, high, open, close } = props;
@@ -44,6 +44,9 @@ const Candle = (props) => {
 
 export default function ChartPanel({ data, symbol }) {
   const [view, setView] = useState('area'); 
+  const [showSMA20, setShowSMA20] = useState(false);
+  const [showSMA50, setShowSMA50] = useState(false);
+  const [showSMA200, setShowSMA200] = useState(false);
 
   const chartData = useMemo(() => {
     return data.map(d => ({
@@ -81,6 +84,11 @@ export default function ChartPanel({ data, symbol }) {
            <span className="text-[10px] font-bold text-[#7c7e8c] uppercase tracking-widest bg-gray-50 px-2 py-1 rounded">1D</span>
            <span className="text-[10px] font-bold text-[#7c7e8c] uppercase tracking-widest bg-gray-50 px-2 py-1 rounded">1W</span>
            <span className="text-[10px] font-bold text-[#7c7e8c] uppercase tracking-widest bg-gray-50 px-2 py-1 rounded">1M</span>
+           <div className="flex bg-[#f0f3f7] p-1 rounded-lg ml-4">
+              <button onClick={() => setShowSMA20(!showSMA20)} className={`px-2 py-1 rounded text-[9px] font-black transition-all ${showSMA20 ? 'bg-[#f59e0b] text-white' : 'text-[#7c7e8c] hover:text-[#44475b]'}`}>MA20</button>
+              <button onClick={() => setShowSMA50(!showSMA50)} className={`px-2 py-1 rounded text-[9px] font-black transition-all ${showSMA50 ? 'bg-[#3b82f6] text-white' : 'text-[#7c7e8c] hover:text-[#44475b]'}`}>MA50</button>
+              <button onClick={() => setShowSMA200(!showSMA200)} className={`px-2 py-1 rounded text-[9px] font-black transition-all ${showSMA200 ? 'bg-[#ec4899] text-white' : 'text-[#7c7e8c] hover:text-[#44475b]'}`}>MA200</button>
+           </div>
         </div>
         <div className="flex gap-2">
            <button className="p-2 text-[#7c7e8c] hover:text-[#00d09c] hover:bg-emerald-50 rounded-lg transition-all">
@@ -124,6 +132,13 @@ export default function ChartPanel({ data, symbol }) {
                           <span className="text-[#7c7e8c] font-bold text-[9px]">CLOSE</span>
                           <span className="text-[#44475b] font-black">₹{d.close}</span>
                         </div>
+                        {(showSMA20 || showSMA50 || showSMA200) && (
+                           <div className="flex flex-col gap-0.5 mt-1 pt-1 border-t border-gray-50">
+                              {showSMA20 && d.sma20 && <div className="flex justify-between items-center text-[9px]"><span className="text-[#f59e0b] font-bold">MA20</span><span className="text-[#44475b] font-black">₹{d.sma20}</span></div>}
+                              {showSMA50 && d.sma50 && <div className="flex justify-between items-center text-[9px]"><span className="text-[#3b82f6] font-bold">MA50</span><span className="text-[#44475b] font-black">₹{d.sma50}</span></div>}
+                              {showSMA200 && d.sma200 && <div className="flex justify-between items-center text-[9px]"><span className="text-[#ec4899] font-bold">MA200</span><span className="text-[#44475b] font-black">₹{d.sma200}</span></div>}
+                           </div>
+                        )}
                         {view === 'candle' && (
                           <div className="grid grid-cols-2 gap-x-3 gap-y-1 mt-1 pt-1 border-t border-gray-50">
                              <div className="text-[8px] text-[#00d09c] font-bold">H: ₹{d.high}</div>
@@ -156,6 +171,11 @@ export default function ChartPanel({ data, symbol }) {
                 activeDot={{ r: 4, fill: "#00d09c", strokeWidth: 2, stroke: "#fff" }}
               />
             )}
+            
+            {showSMA20 && <Line type="monotone" dataKey="sma20" stroke="#f59e0b" strokeWidth={1.5} dot={false} activeDot={false} isAnimationActive={false} />}
+            {showSMA50 && <Line type="monotone" dataKey="sma50" stroke="#3b82f6" strokeWidth={1.5} dot={false} activeDot={false} isAnimationActive={false} />}
+            {showSMA200 && <Line type="monotone" dataKey="sma200" stroke="#ec4899" strokeWidth={1.5} dot={false} activeDot={false} isAnimationActive={false} />}
+
           </ComposedChart>
         </ResponsiveContainer>
       </div>

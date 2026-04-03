@@ -10,9 +10,17 @@ import {
   CreditCard, 
   User, 
   PieChart,
-  Zap
+  Zap,
+  Compass, 
+  Briefcase, 
+  BarChart4, 
+  Settings, 
+  HelpCircle, 
+  ChevronRight, 
+  Wallet
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ScatterChart, Scatter, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceDot, LineChart as RechartsLineChart, Line as RechartsLine, PieChart as RechartsPieChart, Pie, Cell, AreaChart as RechartsAreaChart, Area as RechartsArea } from 'recharts';
 import MarketWatch from './components/MarketWatch';
 import ChartPanel from './components/ChartPanel';
 import IndicatorsPanel from './components/IndicatorsPanel';
@@ -20,6 +28,8 @@ import SignalFusionAndInsights from './components/SignalFusionAndInsights';
 import AIChat from './components/AIChat';
 import MarketPulse from './components/MarketPulse';
 import TopAssetsScreener from './components/TopAssetsScreener';
+import Sidebar from './components/Sidebar';
+import { Menu, Target, Layers } from 'lucide-react';
 
 export default function App() {
   const [symbol, setSymbol] = useState('RELIANCE.NS');
@@ -31,6 +41,8 @@ export default function App() {
   const [livePrice, setLivePrice] = useState(null);
   const [tradeFeed, setTradeFeed] = useState([]);
   const [activeTab, setActiveTab] = useState('Explore');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const fetchMarketEngine = async () => {
     try {
@@ -138,57 +150,77 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-[#44475b]">
+    <div className="min-h-screen bg-[#f8f9fa] text-[#44475b] flex">
       
-      {/* Adwaith's-style Navbar */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between shadow-sm">
-        <div className="flex items-center gap-12">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.reload()}>
-             <div className="w-8 h-8 bg-[#00d09c] rounded-lg flex items-center justify-center text-white font-black">G</div>
-             <h1 className="text-xl font-bold tracking-tight text-[#44475b]">Adwaith's <span className="text-[#00d09c] text-xs font-black ml-1 uppercase bg-emerald-50 px-1 rounded">QuantX AI</span></h1>
+      {/* PERSISTENT CONTEXTUAL SIDEBAR */}
+      <Sidebar 
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isOpen={isSidebarOpen}
+        setIsOpen={setIsSidebarOpen}
+        isCollapsed={isSidebarCollapsed}
+        setIsCollapsed={setIsSidebarCollapsed}
+        symbol={symbol}
+        setSymbol={setSymbol}
+        livePrice={livePrice}
+        data={data}
+        portfolio={portfolio}
+        handleTrade={handleTrade}
+      />
+
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto overflow-x-hidden">
+        {/* NAV HEADER */}
+        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-6 lg:px-10 py-5 flex items-center justify-between shadow-sm">
+          <div className="flex items-center gap-4 lg:gap-8">
+            <button 
+              onClick={() => setIsSidebarOpen(true)}
+              className="xl:hidden p-2 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors"
+            >
+              <Menu size={24} />
+            </button>
+            <h2 className="text-sm lg:text-base font-black text-[#44475b] uppercase tracking-widest flex items-center gap-3">
+               {activeTab === 'Explore' ? <Compass size={20} className="text-[#00d09c]"/> : activeTab === 'Investments' ? <Briefcase size={20} className="text-[#5367ff]"/> : activeTab === 'Pulse' ? <BarChart4 size={20} className="text-[#00d09c]"/> : activeTab === 'Signals' ? <Zap size={20} className="text-[#5367ff]"/> : <Activity size={20} className="text-[#ec4899]"/>}
+               <span className="hidden sm:inline">{activeTab} View</span>
+               <span className="sm:hidden">{activeTab}</span>
+            </h2>
           </div>
 
-          <div className="hidden md:flex items-center gap-8">
-            {['Explore', 'Investments'].map(tab => (
-              <button 
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`text-sm font-bold transition-all border-b-2 py-4 -mb-4 ${activeTab === tab ? 'border-[#00d09c] text-[#00d09c]' : 'border-transparent text-[#7c7e8c] hover:text-[#44475b]'}`}
-              >
-                {tab}
-              </button>
-            ))}
+          <div className="flex-1 max-w-[600px] mx-4 lg:mx-10 hidden md:block">
+            <form onSubmit={handleSearch} className="relative group">
+               <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#00d09c] transition-colors" size={20} />
+               <input 
+                 type="text" 
+                 placeholder="Search assets..."
+                 value={searchInput}
+                 onChange={(e) => setSearchInput(e.target.value)}
+                 className="w-full bg-[#f3f5f8] border-transparent rounded-[20px] pl-14 pr-6 py-3.5 focus:bg-white focus:ring-4 focus:ring-[#00d09c]/10 focus:border-[#00d09c]/20 transition-all text-xs font-bold outline-none border hover:border-gray-200"
+               />
+            </form>
           </div>
-        </div>
 
-        <div className="flex-1 max-w-xl mx-12 hidden lg:block">
-          <form onSubmit={handleSearch} className="relative">
-             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-             <input 
-               type="text" 
-               placeholder="What are you looking for today?"
-               value={searchInput}
-               onChange={(e) => setSearchInput(e.target.value)}
-               className="w-full bg-[#f0f3f7] border-none rounded-lg pl-12 pr-4 py-2.5 focus:ring-2 focus:ring-[#00d09c]/20 transition-all text-sm font-medium outline-none"
-             />
-          </form>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <button className="text-[#7c7e8c] hover:text-[#44475b] relative">
-            <Bell size={22} />
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#eb5b3c] rounded-full border-2 border-white"></span>
-          </button>
-          <button className="text-[#7c7e8c] hover:text-[#44475b]">
-            <CreditCard size={22} />
-          </button>
-          <div className="w-8 h-8 rounded-full bg-[#5367ff]/10 text-[#5367ff] flex items-center justify-center font-bold text-xs border border-[#5367ff]/20">
-            AQ
+          <div className="flex items-center gap-4 lg:gap-8">
+            <button className="text-[#7c7e8c] hover:text-[#44475b] transition-colors relative">
+              <Bell size={24} />
+              <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-[#eb5b3c] rounded-full border-2 border-white"></span>
+            </button>
+            <div className="flex md:hidden items-center">
+                <div className="w-10 h-10 rounded-2xl bg-[#5367ff] text-white flex items-center justify-center font-black text-sm shadow-lg shadow-indigo-500/20">
+                  AG
+                </div>
+            </div>
+            <div className="hidden md:flex items-center gap-4 border-l border-gray-100 pl-8">
+               <div className="text-right hidden lg:block">
+                  <p className="text-xs font-black text-[#44475b]">Adwaith G.</p>
+                  <p className="text-[10px] font-bold text-[#00d09c] uppercase">Pro Tier</p>
+               </div>
+               <div className="w-10 h-10 rounded-2xl bg-[#5367ff] text-white flex items-center justify-center font-black text-sm shadow-lg shadow-indigo-500/20">
+                 AG
+               </div>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      <div className="max-w-[1400px] mx-auto px-6 py-8">
+        <main className="flex-1 max-w-[1400px] w-full mx-auto px-10 py-10">
         
         {/* Indices Section */}
         <div className="flex gap-4 mb-8 overflow-x-auto pb-2 hide-scrollbar">
@@ -222,22 +254,21 @@ export default function App() {
               BACK TO DEFAULT
             </button>
           </div>
-        ) : activeTab === 'Explore' ? (
+        ) : activeTab === 'Pulse' ? (
           <div className="animate-fade-in space-y-8">
-            
-            {/* Market Pulse Header */}
             <MarketPulse state={marketEngine} />
-
-            {/* AI Screener Dashboard Section */}
             <TopAssetsScreener 
               onSelectSymbol={(sym) => {
                 setSymbol(sym);
+                setActiveTab('Explore');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }} 
               onQuickTrade={(sym, price) => handleTrade('BUY', sym, price)}
             />
-
-            <div className="grid lg:grid-cols-[1fr_400px] gap-8 mt-8">
+          </div>
+        ) : activeTab === 'Explore' ? (
+          <div className="animate-fade-in space-y-8">
+            <div className="grid lg:grid-cols-[1fr_400px] gap-8 mt-4">
               
               {/* Left Column: Asset View */}
               <div className="space-y-6">
@@ -287,23 +318,12 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Advanced AI Insights Section */}
-                <div className="space-y-6">
-                    <SignalFusionAndInsights 
-                      fusion={data.fusion_signal} 
-                      news={data.news_sentiment} 
-                      predictions={data.predictions} 
-                      risk={data.risk || { score: 45, rating: "Medium", risk_factors: [] }}
-                      externalData={data.external_data}
-                    />
-
-                    <div className="adwaith-card bg-indigo-50/20 border-indigo-100/50 p-8">
-                      <div className="flex items-center gap-3 mb-6">
-                         <Activity size={20} className="text-[#5367ff]" />
-                         <h3 className="text-[11px] font-black text-[#44475b] uppercase tracking-wider">Technical Guard Radar</h3>
-                      </div>
-                      <IndicatorsPanel indicators={data.indicators} patterns={data.patterns} />
-                    </div>
+                <div className="adwaith-card bg-indigo-50/20 border-indigo-100/50 p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                     <Activity size={20} className="text-[#5367ff]" />
+                     <h3 className="text-[11px] font-black text-[#44475b] uppercase tracking-wider">Technical Guard Radar</h3>
+                  </div>
+                  <IndicatorsPanel indicators={data.indicators} patterns={data.patterns} />
                 </div>
 
                 <AIChat symbol={data.symbol} />
@@ -361,7 +381,7 @@ export default function App() {
                      <PieChart size={18} className="text-[#5367ff]" /> Strategy Edge
                    </h3>
                    {backtest ? (
-                     <div className="space-y-6">
+                     <div className="space-y-4">
                         <div className="flex justify-between items-end">
                            <div>
                               <p className="text-[10px] font-bold text-[#7c7e8c] uppercase tracking-widest mb-1">Projected Return</p>
@@ -374,6 +394,24 @@ export default function App() {
                               <span className="text-sm font-black text-[#44475b] bg-[#f0f3f7] px-2 py-1 rounded">{backtest.win_rate}</span>
                            </div>
                         </div>
+                        {backtest.equity_curve && (
+                           <div className="w-full h-[180px] mt-4 border border-gray-100 rounded-xl overflow-hidden p-2">
+                             <ResponsiveContainer width="100%" height="100%">
+                                <RechartsAreaChart data={backtest.equity_curve} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+                                  <defs>
+                                    <linearGradient id="colorEq" x1="0" y1="0" x2="0" y2="1">
+                                      <stop offset="5%" stopColor="#5367ff" stopOpacity={0.2}/>
+                                      <stop offset="95%" stopColor="#5367ff" stopOpacity={0}/>
+                                    </linearGradient>
+                                  </defs>
+                                  <XAxis dataKey="date" hide={true} />
+                                  <YAxis domain={['dataMin - 1000', 'dataMax + 1000']} hide={true} />
+                                  <RechartsTooltip cursor={{ stroke: '#e2e4e7', strokeWidth: 1 }} contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', fontSize: '11px', fontWeight: '900', color: '#44475b'}} formatter={(val) => `₹${val}`} labelFormatter={(label) => `Date: ${label}`} />
+                                  <RechartsArea type="monotone" dataKey="value" stroke="#5367ff" strokeWidth={2} fillOpacity={1} fill="url(#colorEq)" activeDot={{ r: 4, strokeWidth: 0, fill: '#5367ff' }} />
+                                </RechartsAreaChart>
+                             </ResponsiveContainer>
+                           </div>
+                        )}
                      </div>
                    ) : (
                      <div className="animate-pulse h-24 bg-gray-50 rounded-xl"></div>
@@ -403,7 +441,23 @@ export default function App() {
               </div>
             </div>
           </div>
-        ) : (
+        ) : activeTab === 'Signals' ? (
+           <div className="animate-fade-in space-y-8">
+              <SignalFusionAndInsights 
+                fusion={data.fusion_signal} 
+                news={data.news_sentiment} 
+                predictions={data.predictions} 
+                risk={data.risk || { score: 45, rating: "Medium", risk_factors: [] }}
+                externalData={data.external_data}
+              />
+              <div className="adwaith-card border border-indigo-100 bg-indigo-50/10">
+                 <h3 className="text-sm font-black text-[#44475b] mb-4 uppercase">AI Signal Strategy Explanation</h3>
+                 <p className="text-xs text-[#7c7e8c] leading-relaxed">
+                   The Signal Fusion engine combines real-time technical indicators, social sentiment from X/Telegram, and deep learning prediction models to provide a unified trading recommendation. It currently monitors {data.symbol} with a confidence score of {data.predictions?.confidence || '0.00'}%.
+                 </p>
+              </div>
+           </div>
+        ) : activeTab === 'Investments' ? (
           /* Investments Tab View - Linked to Real Backend Portfolio */
           <div className="animate-fade-in space-y-8">
              <div className="grid md:grid-cols-3 gap-6">
@@ -464,10 +518,200 @@ export default function App() {
                 )}
              </div>
 
+             {/* OPTIMIZATION SECTION */}
+             <div className="adwaith-card border border-gray-100 shadow-md">
+                <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
+                  <Zap size={20} className="text-[#5367ff]" /> Portfolio Optimization Engine
+                </h3>
+                {analytics && analytics.optimization && (Object.keys(analytics.optimization.max_sharpe).length > 0 || Object.keys(analytics.optimization.min_risk).length > 0) ? (
+                   <div className="space-y-8 px-2">
+                      <div className="grid md:grid-cols-2 gap-8">
+                         <div className="border border-gray-100 rounded-xl p-6 bg-emerald-50/30">
+                            <h4 className="text-[12px] font-black text-[#00d09c] uppercase tracking-widest mb-2">Max Sharpe Allocation</h4>
+                            <p className="text-xs font-bold text-[#7c7e8c] mb-6">Mean-Variance Optimization for highest risk-adjusted expected return.</p>
+                            <div className="space-y-4">
+                               {Object.entries(analytics.optimization.max_sharpe).map(([sym, weight]) => (
+                                  <div key={sym} className="flex justify-between items-center text-sm font-black text-[#44475b] border-b border-gray-100 pb-2 last:border-0">
+                                     <span>{sym}</span>
+                                     <span className="text-[#00d09c]">{weight}</span>
+                                  </div>
+                               ))}
+                            </div>
+                         </div>
+                         <div className="border border-gray-100 rounded-xl p-6 bg-indigo-50/30">
+                            <h4 className="text-[12px] font-black text-[#5367ff] uppercase tracking-widest mb-2">Minimum Risk Allocation</h4>
+                            <p className="text-xs font-bold text-[#7c7e8c] mb-6">Mean-Variance Optimization focused purely on lowering portfolio variance.</p>
+                            <div className="space-y-4">
+                               {Object.entries(analytics.optimization.min_risk).map(([sym, weight]) => (
+                                  <div key={sym} className="flex justify-between items-center text-sm font-black text-[#44475b] border-b border-gray-100 pb-2 last:border-0">
+                                     <span>{sym}</span>
+                                     <span className="text-[#5367ff]">{weight}</span>
+                                  </div>
+                               ))}
+                            </div>
+                         </div>
+                      </div>
+                      
+                      {analytics.efficient_frontier && analytics.efficient_frontier.length > 0 && (
+                         <div className="border border-gray-100 rounded-xl p-6 bg-white overflow-hidden shadow-sm">
+                            <h4 className="text-[12px] font-black text-[#44475b] uppercase tracking-widest mb-2">Efficient Frontier Mapping</h4>
+                            <p className="text-xs font-bold text-[#7c7e8c] mb-6">Visualizing simulated portfolios. X-axis: Risk (Std Dev %), Y-axis: Return (Ann %)</p>
+                            <div className="h-[300px] w-full">
+                               <ResponsiveContainer width="100%" height="100%">
+                                  <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                                     <XAxis type="number" dataKey="risk" name="Risk" unit="%" tick={{fontSize: 10, fill: '#7c7e8c', fontWeight: 900}} stroke="#f0f3f7" tickLine={false} domain={['auto', 'auto']} />
+                                     <YAxis type="number" dataKey="return" name="Return" unit="%" tick={{fontSize: 10, fill: '#7c7e8c', fontWeight: 900}} stroke="#f0f3f7" tickLine={false} domain={['auto', 'auto']} />
+                                     <RechartsTooltip cursor={{strokeDasharray: '3 3'}} contentStyle={{borderRadius: '12px', border: 'none', boxShadow: '0 10px 25px rgba(0,0,0,0.05)', fontSize: '12px', fontWeight: '900', color: '#44475b'}} />
+                                     <Scatter name="Portfolios" data={analytics.efficient_frontier} fill="#5367ff" opacity={0.3} line={false} />
+                                     
+                                     {analytics.optimization.max_sharpe_stats && (
+                                        <ReferenceDot x={analytics.optimization.max_sharpe_stats.risk} y={analytics.optimization.max_sharpe_stats.return} r={6} fill="#00d09c" stroke="white" strokeWidth={2} />
+                                     )}
+                                     {analytics.optimization.min_risk_stats && (
+                                        <ReferenceDot x={analytics.optimization.min_risk_stats.risk} y={analytics.optimization.min_risk_stats.return} r={6} fill="#eb5b3c" stroke="white" strokeWidth={2} />
+                                     )}
+                                  </ScatterChart>
+                               </ResponsiveContainer>
+                            </div>
+                            <div className="flex justify-center gap-6 mt-4">
+                               <div className="flex items-center gap-2">
+                                  <div className="w-3 h-3 rounded-full bg-[#00d09c]"></div>
+                                  <span className="text-[10px] uppercase font-black text-[#7c7e8c]">Max Sharpe Portfolio</span>
+                               </div>
+                               <div className="flex items-center gap-2">
+                                  <div className="w-3 h-3 rounded-full bg-[#eb5b3c]"></div>
+                                  <span className="text-[10px] uppercase font-black text-[#7c7e8c]">Min Risk Portfolio</span>
+                               </div>
+                            </div>
+                         </div>
+                      )}
+                   </div>
+                ) : (
+                   <div className="px-2 text-[#7c7e8c] text-sm font-bold italic py-4 bg-gray-50 rounded-xl text-center">Buy at least two distinct assets to ignite the Mean-Variance Optimization Engine.</div>
+                )}
+             </div>
+
+             {/* MONTE CARLO SIMULATION SECTION */}
+             <div className="adwaith-card border border-gray-100 shadow-md">
+                <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
+                  <Activity size={20} className="text-[#ec4899]" /> Monte Carlo Simulation
+                </h3>
+                {analytics && analytics.monte_carlo && analytics.monte_carlo.length > 0 ? (
+                   <div className="space-y-4 px-2">
+                       <p className="text-xs font-bold text-[#7c7e8c] mb-6">50 Simulated Portfolio Value Trajectories (1-Year Outlook)</p>
+                       <div className="w-full h-[350px] bg-white border border-gray-100 rounded-xl p-4 overflow-hidden shadow-sm">
+                          <ResponsiveContainer width="100%" height="100%">
+                             <RechartsLineChart margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
+                                <XAxis dataKey="day" type="category" name="Day" stroke="#e2e4e7" tick={{fontSize: 10, fill: '#7c7e8c', fontWeight: 900}} tickLine={false} allowDuplicatedCategory={false} />
+                                <YAxis type="number" name="Value" domain={['auto', 'auto']} stroke="#e2e4e7" tick={{fontSize: 10, fill: '#7c7e8c', fontWeight: 900}} tickLine={false} tickFormatter={(val) => `₹${(val / 1000).toFixed(0)}k`} />
+                                <RechartsTooltip cursor={{ stroke: '#e2e4e7', strokeWidth: 1 }} contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', fontSize: '11px', fontWeight: '900', color: '#44475b'}} formatter={(val) => `₹${val}`} labelFormatter={(label) => `Day ${label}`} />
+                                {analytics.monte_carlo.map((sim, i) => {
+                                   const lineData = sim.map((val, idx) => ({ day: idx.toString(), value: val }));
+                                   return (
+                                     <RechartsLine 
+                                        key={i} 
+                                        data={lineData} 
+                                        type="monotone" 
+                                        dataKey="value" 
+                                        stroke={i % 5 === 0 ? "#00d09c" : i % 5 === 1 ? "#5367ff" : "#ec4899"} 
+                                        strokeWidth={1} 
+                                        dot={false} 
+                                        activeDot={false} 
+                                        opacity={0.3} 
+                                        isAnimationActive={true}
+                                        animationDuration={1500 + i * 50} 
+                                     />
+                                   );
+                                })}
+                             </RechartsLineChart>
+                          </ResponsiveContainer>
+                       </div>
+                   </div>
+                ) : (
+                   <div className="px-2 text-[#7c7e8c] text-sm font-bold italic py-4 bg-gray-50 rounded-xl text-center">Fund your portfolio to run robust 1-Year Monte Carlo Projections.</div>
+                )}
+             </div>
+
+             <div className="grid lg:grid-cols-2 gap-8">
+                 {/* ASSET RISK VS RETURN */}
+                 <div className="adwaith-card border border-gray-100 shadow-md">
+                    <h3 className="text-lg font-black text-[#44475b] mb-4 uppercase tracking-wider px-2 flex items-center gap-3">
+                      <Target size={20} className="text-[#00d09c]" /> Asset Risk vs Return
+                    </h3>
+                    {analytics && analytics.assets_risk_return && analytics.assets_risk_return.length > 0 ? (
+                       <div className="w-full h-[300px]">
+                          <ResponsiveContainer width="100%" height="100%">
+                             <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                                <XAxis type="number" dataKey="risk" name="Risk" unit="%" tick={{fontSize: 10, fill: '#7c7e8c', fontWeight: 900}} stroke="#f0f3f7" tickLine={false} domain={['auto', 'auto']} />
+                                <YAxis type="number" dataKey="return" name="Return" unit="%" tick={{fontSize: 10, fill: '#7c7e8c', fontWeight: 900}} stroke="#f0f3f7" tickLine={false} domain={['auto', 'auto']} />
+                                <RechartsTooltip cursor={{strokeDasharray: '3 3'}} contentStyle={{borderRadius: '12px', border: 'none', boxShadow: '0 10px 25px rgba(0,0,0,0.05)', fontSize: '12px', fontWeight: '900', color: '#44475b'}} formatter={(val, name, props) => [`${val}%`, name]} />
+                                <Scatter name="Assets" data={analytics.assets_risk_return} fill="#5367ff">
+                                  {analytics.assets_risk_return.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={['#00d09c', '#5367ff', '#eb5b3c', '#f59e0b', '#8b5cf6'][index % 5]} />
+                                  ))}
+                                </Scatter>
+                             </ScatterChart>
+                          </ResponsiveContainer>
+                       </div>
+                    ) : (
+                       <div className="px-2 text-[#7c7e8c] text-sm font-bold italic py-4 bg-gray-50 rounded-xl text-center">Not enough data to map asset matrix.</div>
+                    )}
+                 </div>
+
+                 {/* CORRELATION HEATMAP */}
+                 <div className="adwaith-card border border-gray-100 shadow-md flex flex-col">
+                    <h3 className="text-lg font-black text-[#44475b] mb-4 uppercase tracking-wider px-2 flex items-center gap-3">
+                      <Layers size={20} className="text-[#f59e0b]" /> Correlation Heatmap
+                    </h3>
+                    {analytics && analytics.correlation && Object.keys(analytics.correlation).length > 0 ? (
+                       <div className="flex-1 overflow-auto rounded-xl border border-gray-100 p-2">
+                           <div className="grid gap-1" style={{ gridTemplateColumns: `auto repeat(${Object.keys(analytics.correlation).length}, minmax(40px, 1fr))` }}>
+                               <div className="font-bold text-[9px] text-[#7c7e8c]"></div>
+                               {Object.keys(analytics.correlation).map(k => <div key={`h-`+k} className="text-center font-black text-[9px] truncate px-1 text-[#44475b]">{k.split('.')[0]}</div>)}
+                               
+                               {Object.entries(analytics.correlation).map(([rowKey, rowData]) => (
+                                  <React.Fragment key={`r-`+rowKey}>
+                                     <div className="flex items-center text-[9px] font-black text-[#44475b] pr-2 truncate">{rowKey.split('.')[0]}</div>
+                                     {Object.keys(analytics.correlation).map(colKey => {
+                                         const val = rowData[colKey];
+                                         const bgIntensity = Math.floor(Math.abs(val) * 100);
+                                         const bgColor = val >= 0 ? `rgba(0, 208, 156, ${val})` : `rgba(235, 91, 60, ${Math.abs(val)})`;
+                                         const isDark = Math.abs(val) > 0.6;
+                                         return (
+                                            <div key={`c-${rowKey}-${colKey}`} className="flex items-center justify-center rounded-md h-8 text-[9px] font-black" style={{ backgroundColor: bgColor, color: isDark ? 'white' : '#44475b' }}>
+                                              {val}
+                                            </div>
+                                         );
+                                     })}
+                                  </React.Fragment>
+                               ))}
+                            </div>
+                        </div>
+                     ) : (
+                       <div className="px-2 text-[#7c7e8c] text-sm font-bold italic py-4 bg-gray-50 rounded-xl text-center">Not enough data to generate correlation heatmap.</div>
+                    )}
+                 </div>
+             </div>
+
              <div className="adwaith-card border border-gray-100 shadow-md">
                 <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
                   <LayoutDashboard size={20} className="text-[#00d09c]" /> Your Holdings ({portfolio?.positions?.length || 0})
                 </h3>
+                        
+                {portfolio?.positions?.length > 0 && (
+                  <div className="w-full h-[220px] mb-8">
+                     <ResponsiveContainer width="100%" height="100%">
+                        <RechartsPieChart>
+                          <Pie data={portfolio.positions} dataKey="quantity" nameKey="symbol" cx="50%" cy="50%" innerRadius={60} outerRadius={100} paddingAngle={5}>
+                             {portfolio.positions.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={['#00d09c', '#5367ff', '#eb5b3c', '#f59e0b', '#8b5cf6'][index % 5]} />
+                             ))}
+                          </Pie>
+                          <RechartsTooltip contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', fontSize: '11px', fontWeight: '900', color: '#44475b'}} formatter={(val, name) => [`${val} Shares`, name]} />
+                        </RechartsPieChart>
+                     </ResponsiveContainer>
+                  </div>
+                )}
                 <div className="overflow-x-auto">
                    <table className="w-full text-left">
                       <thead>
@@ -481,7 +725,7 @@ export default function App() {
                       </thead>
                       <tbody className="text-sm font-bold text-[#44475b]">
                          {portfolio?.positions?.map((stock, i) => (
-                           <tr key={i} className="border-b border-gray-50 last:border-0 hover:bg-gray-50 cursor-pointer transition-colors" onClick={() => setSymbol(stock.symbol)}>
+                           <tr key={i} className="border-b border-gray-50 last:border-0 hover:bg-gray-50 cursor-pointer transition-colors" onClick={() => {setSymbol(stock.symbol); setActiveTab('Explore');}}>
                               <td className="py-5 px-4 font-black">
                                 <div className="flex flex-col">
                                   <span>{stock.symbol}</span>
@@ -505,57 +749,58 @@ export default function App() {
                    </table>
                 </div>
              </div>
-
-             {/* TRADE HISTORY SECTION */}
-             <div className="adwaith-card border border-gray-100 shadow-md">
-                <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
-                  <Activity size={20} className="text-[#5367ff]" /> Trade History
-                </h3>
-                <div className="overflow-x-auto">
-                   <table className="w-full text-left">
-                      <thead>
-                         <tr className="border-b border-gray-100 text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest">
-                            <th className="pb-4 px-4">Action</th>
-                            <th className="pb-4">Asset Name</th>
-                            <th className="pb-4">Quantity</th>
-                            <th className="pb-4">Execute Price</th>
-                            <th className="pb-4 text-right pr-4">Total Value</th>
-                         </tr>
-                      </thead>
-                      <tbody className="text-sm font-bold text-[#44475b]">
-                         {portfolio?.history?.slice().reverse().map((trade, i) => (
-                           <tr key={i} className="border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors">
-                              <td className="py-5 px-4">
-                                <span className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider ${trade.type === 'BUY' ? 'bg-[#00d09c]/10 text-[#00d09c]' : 'bg-[#eb5b3c]/10 text-[#eb5b3c]'}`}>
-                                   {trade.type}
-                                </span>
-                              </td>
-                              <td className="py-5">
-                                <div className="flex flex-col">
-                                  <span className="font-black text-[#44475b]">{trade.symbol}</span>
-                                  <span className="text-[9px] text-[#7c7e8c] font-bold uppercase">{trade.timestamp}</span>
-                                </div>
-                              </td>
-                              <td className="py-5">{trade.quantity}</td>
-                              <td className="py-5">₹{trade.price.toLocaleString()}</td>
-                              <td className="py-5 text-right pr-4 font-black">
-                                ₹{trade.total.toLocaleString()}
-                              </td>
-                           </tr>
-                         ))}
-                         {(!portfolio?.history || portfolio.history.length === 0) && (
-                           <tr>
-                             <td colSpan="5" className="py-12 text-center text-[#7c7e8c] italic font-medium">No previous trades recorded.</td>
-                           </tr>
-                         )}
-                      </tbody>
-                   </table>
-                </div>
-             </div>
-
           </div>
-        )}
-      </div>
+        ) : activeTab === 'History' ? (
+             <div className="animate-fade-in space-y-8">
+              {/* TRADE HISTORY SECTION */}
+              <div className="adwaith-card border border-gray-100 shadow-md">
+                 <h3 className="text-lg font-black text-[#44475b] mb-8 uppercase tracking-wider px-2 flex items-center gap-3">
+                   <Activity size={20} className="text-[#ec4899]" /> Trade Execution History
+                 </h3>
+                 <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                       <thead>
+                          <tr className="border-b border-gray-100 text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest">
+                             <th className="pb-4 px-4">Action</th>
+                             <th className="pb-4">Asset Name</th>
+                             <th className="pb-4">Quantity</th>
+                             <th className="pb-4">Execute Price</th>
+                             <th className="pb-4 text-right pr-4">Total Value</th>
+                          </tr>
+                       </thead>
+                       <tbody className="text-sm font-bold text-[#44475b]">
+                          {portfolio?.history?.slice().reverse().map((trade, i) => (
+                            <tr key={i} className="border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors">
+                               <td className="py-5 px-4">
+                                 <span className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider ${trade.type === 'BUY' ? 'bg-[#00d09c]/10 text-[#00d09c]' : 'bg-[#eb5b3c]/10 text-[#eb5b3c]'}`}>
+                                    {trade.type}
+                                 </span>
+                               </td>
+                               <td className="py-5">
+                                 <div className="flex flex-col">
+                                   <span className="font-black text-[#44475b]">{trade.symbol}</span>
+                                   <span className="text-[9px] text-[#7c7e8c] font-bold uppercase">{new Date(trade.timestamp).toLocaleString()}</span>
+                                 </div>
+                               </td>
+                               <td className="py-5">{trade.quantity}</td>
+                               <td className="py-5">₹{trade.price.toLocaleString()}</td>
+                               <td className="py-5 text-right pr-4 font-black">
+                                 ₹{trade.total.toLocaleString()}
+                               </td>
+                            </tr>
+                          ))}
+                          {(!portfolio?.history || portfolio.history.length === 0) && (
+                            <tr>
+                              <td colSpan="5" className="py-12 text-center text-[#7c7e8c] italic font-medium">No previous trades recorded.</td>
+                            </tr>
+                          )}
+                       </tbody>
+                    </table>
+                 </div>
+              </div>
+             </div>
+        ) : null}
+      </main>
 
       <footer className="bg-white border-t border-gray-100 py-16 px-6 mt-20">
          <div className="max-w-[1400px] mx-auto grid md:grid-cols-4 gap-12">
@@ -577,9 +822,10 @@ export default function App() {
                      ))}
                   </div>
                </div>
-            ))}
-         </div>
-      </footer>
-    </div>
-  );
-}
+             ))}
+           </div>
+          </footer>
+        </div>
+      </div>
+    );
+  }

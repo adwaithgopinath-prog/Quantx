@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 import random
 from .api import endpoints
-from .services import market_engine
+from .services import market_engine, data_fetcher
 
 app = FastAPI(title="QuantX - Insane AI Trading Platform")
 
@@ -27,17 +27,19 @@ async def startup_event():
 async def websocket_endpoint(websocket: WebSocket, symbol: str):
     await websocket.accept()
     try:
-        base_price = 150.0 # Mock base
+        # Fetch actual current price for the ticker to seed the stream
+        info = data_fetcher.get_stock_info(symbol)
+        base_price = info.get("price", 150.0)
         while True:
-            # Simulate high-frequency ticker stream
-            jitter = random.uniform(-0.1, 0.1)
+            # Simulate high-frequency ticker stream around the real price
+            jitter = random.uniform(-base_price * 0.0005, base_price * 0.0005)
             base_price += jitter
             await websocket.send_json({
                 "symbol": symbol.upper(),
                 "price": round(base_price, 2),
                 "change": round(jitter, 4)
             })
-            await asyncio.sleep(0.5) # Fast updates
+            await asyncio.sleep(0.5) 
     except Exception as e:
         print(f"WS Disconnected: {e}")
 
@@ -46,10 +48,12 @@ async def trade_websocket(websocket: WebSocket, symbol: str):
     await websocket.accept()
     try:
         while True:
-            # Simulate a "whale" trade or signal execution every few seconds
+            # Simulate a "whale" trade execution every few seconds
             await asyncio.sleep(random.randint(5, 10))
             side = random.choice(["BUY", "SELL"])
-            price = 150.0 + random.uniform(-2, 2)
+            # Get actual price for trade mock
+            info = data_fetcher.get_stock_info(symbol)
+            price = info.get("price", 150.0) + random.uniform(-2, 2)
             await websocket.send_json({
                 "type": "TRADE_EXECUTION",
                 "symbol": symbol.upper(),

@@ -66,8 +66,9 @@ def start_engine():
     scheduler.add_job(sync_market_data, 'interval', minutes=2)
     scheduler.start()
     
-    # Run initial sync
-    sync_market_data()
+    # Run initial sync in a non-blocking way
+    import threading
+    threading.Thread(target=sync_market_data, daemon=True).start()
 
 def get_market_state():
     return MARKET_CACHE

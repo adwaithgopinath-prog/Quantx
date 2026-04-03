@@ -28,17 +28,23 @@ export default function IndicatorsPanel({ indicators, patterns }) {
           </div>
         </div>
 
-        {/* Momentum: Stochastic Oscillator */}
+        {/* Trend Momentum: MACD */}
         <div className="bg-gray-50/50 p-5 rounded-2xl border border-gray-100 hover:border-[#5367ff]/20 transition-all flex flex-col justify-between h-36">
           <div className="text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest mb-2 flex items-center gap-2">
-            Stochastic (K/D) <div className="h-[1px] flex-1 bg-gray-200"></div>
+            MACD (12,26,9) <div className="h-[1px] flex-1 bg-gray-200"></div>
           </div>
-          <div className="flex items-baseline gap-3">
-             <span className="text-2xl font-black text-[#44475b]">{indicators.stochastic?.k || 0}</span>
-             <span className="text-xs font-bold text-[#7c7e8c]">K% / {indicators.stochastic?.d || 0} D%</span>
+          <div className="flex flex-col gap-1">
+             <div className="flex justify-between items-center text-xs font-black">
+                <span className="text-[#7c7e8c]">MACD Line</span>
+                <span className="text-[#44475b]">{indicators.macd?.value || 0}</span>
+             </div>
+             <div className="flex justify-between items-center text-xs font-black">
+                <span className="text-[#7c7e8c]">Signal</span>
+                <span className="text-[#44475b]">{indicators.macd?.signal_line || 0}</span>
+             </div>
           </div>
-          <span className={`text-[9px] font-black uppercase tracking-widest ${indicators.stochastic?.signal === 'Oversold' ? 'text-[#00d09c]' : indicators.stochastic?.signal === 'Overbought' ? 'text-[#eb5b3c]' : 'text-[#7c7e8c]'}`}>
-            {indicators.stochastic?.signal || "WAITING"} MOMENTUM
+          <span className={`text-[9px] font-black py-1 px-2 rounded w-fit uppercase tracking-widest ${(indicators.macd?.sentiment || "").includes('Bullish') ? 'bg-[#00d09c]/10 text-[#00d09c]' : 'bg-[#eb5b3c]/10 text-[#eb5b3c]'}`}>
+            {indicators.macd?.sentiment || "SYNCING"}
           </span>
         </div>
 
@@ -82,22 +88,19 @@ export default function IndicatorsPanel({ indicators, patterns }) {
           </span>
         </div>
 
-        {/* Volatility: ATR & Volume */}
+        {/* Trend: Exponential Moving Average */}
         <div className="bg-gray-50/50 p-5 rounded-2xl border border-gray-100 hover:border-[#5367ff]/20 transition-all flex flex-col justify-between h-36">
           <div className="text-[10px] font-black text-[#7c7e8c] uppercase tracking-widest mb-2 flex items-center gap-2">
-            Volatility Radar <div className="h-[1px] flex-1 bg-gray-200"></div>
+            EMA (20) <div className="h-[1px] flex-1 bg-gray-200"></div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-2">
              <div className="flex flex-col">
-                <span className="text-[9px] font-black text-[#7c7e8c] uppercase">ATR Score</span>
-                <span className="text-xl font-black text-[#44475b]">{indicators.atr}</span>
+                <span className="text-[9px] font-black text-[#7c7e8c] uppercase">Exp. Mean</span>
+                <span className="text-2xl font-black text-[#44475b]">₹{indicators.moving_averages?.ema20 || 0}</span>
              </div>
-             <div className="flex flex-col text-right">
-                <span className="text-[9px] font-black text-[#7c7e8c] uppercase">Vol. Spike</span>
-                <span className={`text-xl font-black ${indicators.volume_spike > 1.5 ? 'text-[#00d09c]' : 'text-[#44475b]'}`}>{indicators.volume_spike}x</span>
-             </div>
+             <Activity size={24} className="text-[#5367ff]/30" />
           </div>
-          <BarChart3 size={16} className="text-[#7c7e8c]/30 ml-auto" />
+          <span className="text-[9px] font-bold text-[#7c7e8c] uppercase mt-2">Weight prioritizes recent price</span>
         </div>
 
         {/* Pattern Recognition AI */}

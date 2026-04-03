@@ -20,7 +20,7 @@ class TradeRequest(BaseModel):
 @router.get("/dashboard/{symbol}")
 async def get_dashboard_data(symbol: str):
     # 1. Fetch Price History
-    history = data_fetcher.get_stock_history(symbol)
+    history = data_fetcher.get_stock_history(symbol, period="2y")
     stock_info = data_fetcher.get_stock_info(symbol)
 
     # 2. Check if data exists

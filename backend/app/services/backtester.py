@@ -22,6 +22,7 @@ def run_simple_backtest(df: pd.DataFrame, strategy="RSI"):
     cash = 100000.0
     shares = 0
     trades = []
+    equity_curve = []
     
     for i in range(15, len(df)):
         current_rsi = rsi.iloc[i]
@@ -41,6 +42,10 @@ def run_simple_backtest(df: pd.DataFrame, strategy="RSI"):
             cash += shares * current_price
             trades.append({"date": date, "type": "SELL", "price": round(current_price, 2)})
             shares = 0
+            
+        # Record equity curve
+        current_equity = cash + (shares * current_price)
+        equity_curve.append({"date": date, "value": round(current_equity, 2)})
             
     # Final value
     final_price = close.iloc[-1]
@@ -65,5 +70,6 @@ def run_simple_backtest(df: pd.DataFrame, strategy="RSI"):
         "total_return_pct": round(total_return, 2),
         "win_rate": f"{round(win_rate, 1)}%",
         "trades_count": len(trades),
-        "max_drawdown": "6.4%" # Simplified mock for drawdown
+        "max_drawdown": "6.4%", # Simplified mock for drawdown
+        "equity_curve": equity_curve
     }
