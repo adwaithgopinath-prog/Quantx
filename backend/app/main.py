@@ -1,13 +1,20 @@
-from fastapi import FastAPI, WebSocket
-from fastapi.middleware.cors import CORSMiddleware
+import sys
+import os
 import asyncio
 import random
-from .api import endpoints
-from .services import market_engine, data_fetcher
 
-app = FastAPI(title="QuantX - Insane AI Trading Platform")
+# Ensure the backend directory is on the Python path so that
+# both local (uvicorn) and Vercel/Render serverless invocations work correctly.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# CORS setup
+from fastapi import FastAPI, WebSocket
+from fastapi.middleware.cors import CORSMiddleware
+from app.api import endpoints
+from app.services import market_engine, data_fetcher
+
+app = FastAPI(title="QuantX - AI Trading Platform")
+
+# CORS setup - allow all origins so Vercel frontend can connect
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -27,11 +34,9 @@ async def startup_event():
 async def websocket_endpoint(websocket: WebSocket, symbol: str):
     await websocket.accept()
     try:
-        # Fetch actual current price for the ticker to seed the stream
         info = data_fetcher.get_stock_info(symbol)
         base_price = info.get("price", 150.0)
         while True:
-            # Simulate high-frequency ticker stream around the real price
             jitter = random.uniform(-base_price * 0.0005, base_price * 0.0005)
             base_price += jitter
             await websocket.send_json({
@@ -39,7 +44,7 @@ async def websocket_endpoint(websocket: WebSocket, symbol: str):
                 "price": round(base_price, 2),
                 "change": round(jitter, 4)
             })
-            await asyncio.sleep(0.5) 
+            await asyncio.sleep(0.5)
     except Exception as e:
         print(f"WS Disconnected: {e}")
 
@@ -48,10 +53,8 @@ async def trade_websocket(websocket: WebSocket, symbol: str):
     await websocket.accept()
     try:
         while True:
-            # Simulate a "whale" trade execution every few seconds
             await asyncio.sleep(random.randint(5, 10))
             side = random.choice(["BUY", "SELL"])
-            # Get actual price for trade mock
             info = data_fetcher.get_stock_info(symbol)
             price = info.get("price", 150.0) + random.uniform(-2, 2)
             await websocket.send_json({
@@ -68,8 +71,6 @@ async def trade_websocket(websocket: WebSocket, symbol: str):
 @app.get("/")
 def read_root():
     return {"status": "ok", "message": "QuantX Engine Running"}
-
-import os
 
 if __name__ == "__main__":
     import uvicorn

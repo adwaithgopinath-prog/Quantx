@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from app.services import (
@@ -87,9 +91,13 @@ def get_market_engine_state():
 
 @router.get("/portfolio")
 def get_portfolio():
-    # In a real app, we'd fetch current prices for all symbols in portfolio
-    # For now, we'll return the base portfolio stats
-    return portfolio_manager.get_stats({})
+    port = portfolio_manager.get_portfolio()
+    current_prices = {}
+    for sym in port.get("positions", {}).keys():
+        hist = data_fetcher.get_stock_history(sym, period="5d")
+        if not hist.empty:
+            current_prices[sym] = hist["Close"].iloc[-1]
+    return portfolio_manager.get_stats(current_prices)
 
 @router.get("/portfolio/analytics")
 def get_portfolio_analytics(rfr: float = 0.05):
@@ -106,7 +114,7 @@ def execute_trade(trade: TradeRequest):
 
 @router.get("/backtest/{symbol}")
 def run_backtest(symbol: str):
-    history = data_fetcher.get_stock_history(symbol, period="1y")
+    history = data_fetcher.get_stock_history(symbol, period="2y")
     result = backtester.run_simple_backtest(history)
     return {
         "symbol": symbol.upper(),

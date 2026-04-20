@@ -1,9 +1,9 @@
 {
-    "balance": 90000.0,
+    "balance": 87261.98,
     "positions": {
         "RELIANCE.NS": {
-            "avg_price": 2500.0,
-            "quantity": 2
+            "avg_price": 1934.51,
+            "quantity": 4
         },
         "TCS.NS": {
             "avg_price": 3400.0,
@@ -26,6 +26,22 @@
             "quantity": 1,
             "total": 3400.0,
             "timestamp": "2024-03-21 11:00:00"
+        },
+        {
+            "type": "BUY",
+            "symbol": "RELIANCE.NS",
+            "price": 1368.67,
+            "quantity": 1,
+            "total": 1368.67,
+            "timestamp": "2026-04-20 15:09:26"
+        },
+        {
+            "type": "BUY",
+            "symbol": "RELIANCE.NS",
+            "price": 1369.35,
+            "quantity": 1,
+            "total": 1369.35,
+            "timestamp": "2026-04-20 15:09:26"
         }
     ]
 }

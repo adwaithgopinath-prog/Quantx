@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { TrendingUp, TrendingDown, Eye, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-import { API_BASE } from '../api';
+import api from '../api';
 
 export default function MarketWatch({ onSelectSymbol, currentSymbol }) {
   const [trending, setTrending] = useState([]);
@@ -12,12 +10,13 @@ export default function MarketWatch({ onSelectSymbol, currentSymbol }) {
   const fetchTrending = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${API_BASE}/api/market/trending`);
+      const res = await api.get(`/api/market/trending`);
       setTrending(res.data);
     } catch (err) {
       console.error("Market Watch error", err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { LineChart, Line, YAxis } from 'recharts';
 import { Filter, Zap, Target, TrendingUp, AlertTriangle, ShieldCheck, Plus, ExternalLink, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-import { API_BASE } from '../api';
+import api from '../api';
 
 export default function TopAssetsScreener({ onSelectSymbol, onQuickTrade }) {
   const [assets, setAssets] = useState([]);
@@ -25,7 +23,7 @@ export default function TopAssetsScreener({ onSelectSymbol, onQuickTrade }) {
   const fetchAssets = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${API_BASE}/api/screener`, {
+      const res = await api.get(`/api/screener`, {
         params: {
           min_price: minPrice,
           max_price: maxPrice,
@@ -35,8 +33,9 @@ export default function TopAssetsScreener({ onSelectSymbol, onQuickTrade }) {
       setAssets(res.data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
