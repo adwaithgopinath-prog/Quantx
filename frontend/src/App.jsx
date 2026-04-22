@@ -8,6 +8,13 @@ import TickerStrip from './TickerStrip';
 import CountUp from './CountUp';
 import InstitutionalChart from './InstitutionalChart';
 import AIChat from './components/AIChat';
+import MarketPulse from './components/MarketPulse';
+import AITerminal from './components/AITerminal';
+import AISignals from './components/AISignals';
+import AIScreener from './components/AIScreener';
+import PortfolioView from './components/PortfolioView';
+import OrdersView from './components/OrdersView';
+import ErrorBoundary from './components/ErrorBoundary';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip as RechartsTooltip, PieChart, Pie, Cell } from 'recharts';
 
 export default function App() {
@@ -85,9 +92,9 @@ export default function App() {
     } catch (err) {}
   };
 
-  const handleTrade = async (side) => {
+  const handleTrade = async (side, customExecPrice) => {
     try {
-      const execPrice = livePrice?.price || data?.current_price || 150.0;
+      const execPrice = customExecPrice || livePrice?.price || data?.current_price || 150.0;
       await api.post(`/api/trade`, { symbol, side, quantity: parseInt(tradeAmount) || 1, price: execPrice });
       fetchPortfolio();
       fetchPortfolioAnalytics();
@@ -125,10 +132,13 @@ export default function App() {
           <Terminal size={24} className="text-[var(--color-gold)]" />
           <h1 className="text-xl font-bold tracking-widest text-white uppercase">Quant<span className="text-[var(--color-gold)]">X</span></h1>
         </div>
-        <div className="hidden md:flex gap-8 text-[11px] font-mono tracking-widest uppercase text-[var(--color-silver)]">
-          <a href="#markets" onClick={(e) => { e.preventDefault(); document.getElementById('markets').scrollIntoView({behavior: 'smooth'})}} className="hover:text-[var(--color-gold)] transition-colors">Markets</a>
-          <a href="#strategy" onClick={(e) => { e.preventDefault(); document.getElementById('strategy').scrollIntoView({behavior: 'smooth'})}} className="hover:text-[var(--color-gold)] transition-colors">Strategy</a>
-          <a href="#portfolio" onClick={(e) => { e.preventDefault(); document.getElementById('portfolio').scrollIntoView({behavior: 'smooth'})}} className="hover:text-[var(--color-gold)] transition-colors">Portfolio</a>
+        <div className="hidden md:flex gap-5 text-[11px] font-[Inter] tracking-wider uppercase text-[#8a9ab5] font-bold">
+          <a href="#market-pulse" onClick={(e) => { e.preventDefault(); document.getElementById('market-pulse').scrollIntoView({behavior: 'smooth'})}} className="hover:text-white transition-colors">Pulse</a>
+          <a href="#terminal" onClick={(e) => { e.preventDefault(); document.getElementById('terminal').scrollIntoView({behavior: 'smooth'})}} className="hover:text-white transition-colors">Terminal</a>
+          <a href="#ai-signals" onClick={(e) => { e.preventDefault(); document.getElementById('ai-signals').scrollIntoView({behavior: 'smooth'})}} className="hover:text-white transition-colors">Signals</a>
+          <a href="#screener" onClick={(e) => { e.preventDefault(); document.getElementById('screener').scrollIntoView({behavior: 'smooth'})}} className="hover:text-white transition-colors">Screener</a>
+          <a href="#portfolio" onClick={(e) => { e.preventDefault(); document.getElementById('portfolio').scrollIntoView({behavior: 'smooth'})}} className="hover:text-white transition-colors">Portfolio</a>
+          <a href="#orders" onClick={(e) => { e.preventDefault(); document.getElementById('orders').scrollIntoView({behavior: 'smooth'})}} className="hover:text-white transition-colors">Orders</a>
         </div>
         <div className="flex gap-4">
           <button className="px-5 py-2 text-xs font-mono uppercase border border-[var(--color-panel-border)] rounded hover:border-[var(--color-gold)] transition-colors bg-[var(--color-panel)]">Log In</button>
@@ -137,7 +147,7 @@ export default function App() {
       </nav>
 
       {/* Scrolling Ticker */}
-      <TickerStrip />
+      <TickerStrip state={marketEngine} />
 
       {/* Hero Section */}
       <motion.section 
@@ -178,133 +188,65 @@ export default function App() {
         </motion.div>
       </motion.section>
 
-      {/* Main Dashboard Layout */}
+      {/* Market Pulse Section */}
+      <section id="market-pulse" className="max-w-[1600px] mx-auto px-4 pb-24 border-t border-[#1e2333] pt-24">
+         <div className="mb-8 flex items-center justify-between">
+           <h2 className="text-3xl font-[Space_Grotesk] font-bold uppercase text-white">Market <span className="text-[#00e676]">Pulse</span></h2>
+         </div>
+         <ErrorBoundary>
+          {marketEngine ? (
+              <MarketPulse state={marketEngine} />
+          ) : (
+              <div className="text-sm font-mono text-[#8a9ab5] animate-pulse">Initializing Global Market Engine...</div>
+          )}
+         </ErrorBoundary>
+      </section>
+
+      {/* Main Dashboard Layout / Terminal */}
       <div 
-        id="markets"
+        id="terminal"
         ref={dashboardRef} 
-        className={`px-4 pb-24 transition-all duration-1000 ease-out ${isDashboardInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
+        className={`px-4 pb-24 transition-all duration-1000 ease-out ${isDashboardInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'} pt-16`}
       >
-        <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
-          {/* Left Column: Watchlist & Nav */}
-          <div className="col-span-1 lg:col-span-3 space-y-6">
-             <div className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-5 rounded-lg">
-                <form onSubmit={(e) => { e.preventDefault(); setSymbol(searchInput.toUpperCase()); }} className="relative mb-6">
-                   <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-silver)]" />
-                   <input type="text" placeholder="Search Symbol..." value={searchInput} onChange={e => setSearchInput(e.target.value)}
-                          className="w-full bg-[#03040a] border border-[var(--color-panel-border)] text-white font-mono text-xs p-3 pl-10 rounded focus:outline-none focus:border-[var(--color-gold)] transition-colors" />
-                </form>
-                <div className="text-[10px] font-mono text-[var(--color-silver)] uppercase tracking-widest mb-4">Live Watchlist</div>
-                <div className="space-y-3">
-                   {['RELIANCE.NS','TCS.NS','HDFCBANK.NS','AAPL','MSFT'].map(s => (
-                     <div key={s} onClick={() => setSymbol(s)} className={`flex justify-between items-center p-3 rounded cursor-pointer border ${symbol === s ? 'bg-[var(--color-gold)]/10 border-[var(--color-gold)]/50' : 'bg-[#03040a] border-transparent hover:border-[var(--color-panel-border)]'} transition-colors`}>
-                        <div>
-                           <div className="text-xs font-bold text-white mb-1">{s}</div>
-                           <div className="text-[9px] text-[var(--color-silver)] font-mono">Series EQ</div>
-                        </div>
-                        <div className="text-right">
-                           <div className="text-xs font-mono text-white">---</div>
-                           <div className="text-[9px] font-mono text-[var(--color-bullish)]">+0.00%</div>
-                        </div>
-                     </div>
-                   ))}
-                </div>
-             </div>
-          </div>
-
-          {/* Center Column: Chart & Indicators */}
-          <div className="col-span-1 lg:col-span-6 space-y-6">
-             <div className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-5 rounded-lg flex flex-col">
-                <div className="flex justify-between items-end mb-6">
-                   <div>
-                      <h2 className="text-2xl font-bold uppercase tracking-widest mb-1">{symbol}</h2>
-                      <div className="text-[10px] font-mono text-[var(--color-silver)] uppercase">{data?.info?.sector || 'Global Equity'}</div>
-                   </div>
-                   <div className="text-right relative">
-                      <div className="text-3xl font-mono relative overflow-hidden transition-all flashing-price">
-                        {livePrice ? livePrice.price : (data?.current_price || '---')}
-                      </div>
-                      <div className={`text-xs font-mono mt-1 ${livePrice?.change >= 0 ? 'text-[var(--color-bullish)]' : 'text-[var(--color-bearish)]'}`}>
-                         {livePrice?.change >= 0 ? '+' : ''}{livePrice?.change || '0.00'}
-                      </div>
-                   </div>
-                </div>
-                
-                {/* Canvas Chart */}
-                <InstitutionalChart data={data?.history} livePrice={livePrice} />
-             </div>
-
-             {/* Indicators Row */}
-             <div className="grid grid-cols-4 gap-4">
-                 {[{name:'RSI', val: data?.indicators?.rsi != null ? Number(data.indicators.rsi).toFixed(2) : '0.00'},
-                  {name:'MACD', val: data?.indicators?.macd?.value != null ? Number(data.indicators.macd.value).toFixed(2) : '0.00'},
-                  {name:'VOL', val: data?.history && data.history.length > 0 ? (data.history[data.history.length-1].volume / 1000).toFixed(0)+'K' : '---'},
-                  {name:'AI SIG', val: (data?.fusion?.recommendation && data.fusion.recommendation.includes('BUY')) ? 'BUY' : 'HOLD', color: 'text-[var(--color-bullish)]'}
-                ].map((ind, i) => (
-                  <div key={i} className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-4 rounded hover:border-[var(--color-gold)] transition-colors group cursor-default">
-                     <div className="text-[9px] text-[var(--color-silver)] font-mono mb-2 uppercase">{ind.name}</div>
-                     <div className={`text-sm font-mono font-bold ${ind.color || 'text-white'}`}>{ind.val}</div>
-                  </div>
-                ))}
-             </div>
-          </div>
-
-          {/* Right Column: AI, Order, P&L */}
-          <div className="col-span-1 lg:col-span-3 space-y-6">
-             
-             {/* AI Agent Box */}
-             <div className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] rounded-lg relative overflow-hidden max-h-[350px] overflow-y-auto">
-                <AIChat symbol={symbol} />
-             </div>
-
-             {/* Order Form */}
-             <div className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-5 rounded-lg">
-                <div className="flex border-b border-[var(--color-panel-border)] mb-5">
-                   <button onClick={() => setTradeSide('BUY')} className={`flex-1 py-2 text-xs font-mono font-bold tracking-widest ${tradeSide === 'BUY' ? 'text-[var(--color-bullish)] border-b border-[var(--color-bullish)] bg-[var(--color-bullish)]/5' : 'text-[var(--color-silver)] hover:bg-white/5'}`}>BUY</button>
-                   <button onClick={() => setTradeSide('SELL')} className={`flex-1 py-2 text-xs font-mono font-bold tracking-widest ${tradeSide === 'SELL' ? 'text-[var(--color-bearish)] border-b border-[var(--color-bearish)] bg-[var(--color-bearish)]/5' : 'text-[var(--color-silver)] hover:bg-white/5'}`}>SELL</button>
-                </div>
-                <div className="flex justify-between items-center bg-[#03040a] border border-[var(--color-panel-border)] p-3 rounded mb-3">
-                   <span className="text-[10px] font-mono text-[var(--color-silver)]">PRICE</span>
-                   <span className="text-xs font-mono font-bold">{livePrice?.price || data?.current_price || '---'}</span>
-                </div>
-                <div className="flex justify-between items-center bg-[#03040a] border border-[var(--color-panel-border)] p-3 rounded mb-4">
-                   <span className="text-[10px] font-mono text-[var(--color-silver)]">QTY</span>
-                   <input type="number" value={tradeAmount} onChange={e => setTradeAmount(e.target.value)} className="bg-transparent text-right outline-none text-xs font-mono font-bold w-20" />
-                </div>
-                <div className="flex gap-2 mb-6">
-                   {['25%','50%','75%','MAX'].map(pct => (
-                      <button key={pct} className="flex-1 py-1 text-[9px] font-mono text-[var(--color-silver)] bg-[#03040a] border border-[var(--color-panel-border)] rounded hover:border-[var(--color-gold)] hover:text-white transition-colors">{pct}</button>
-                   ))}
-                </div>
-                <div className="flex justify-between text-[10px] font-mono mb-4 text-[var(--color-silver)]">
-                   <span>VALUE</span>
-                   <span className="text-white">₹{((livePrice?.price || data?.current_price || 0) * tradeAmount).toFixed(2)}</span>
-                </div>
-                <button onClick={() => handleTrade(tradeSide)} className={`w-full py-4 rounded text-xs font-mono font-bold tracking-widest uppercase glint-sweep ${tradeSide === 'BUY' ? 'bg-[var(--color-bullish)] text-[#060810]' : 'bg-[var(--color-bearish)] text-white'}`}>
-                   EXECUTE {tradeSide}
-                </button>
-             </div>
-
-             {/* Portfolio Short */}
-             <div className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-5 rounded-lg">
-                <div className="text-[10px] font-mono text-[var(--color-silver)] uppercase tracking-widest mb-4">Active Holdings</div>
-                <div className="space-y-3 mb-4">
-                   {portfolio?.positions?.slice(0,3).map((p,i) => (
-                      <div key={i} className="flex justify-between text-xs font-mono">
-                         <div className="text-white">{p.symbol.split('.')[0]}</div>
-                         <div className={p.pnl >= 0 ? 'text-[var(--color-bullish)]' : 'text-[var(--color-bearish)]'}>{p.pnl >= 0 ? '+' : ''}{p.pnl.toFixed(2)}</div>
-                      </div>
-                   ))}
-                </div>
-                <div className="border-t border-[var(--color-panel-border)] pt-3 flex justify-between text-xs font-mono font-bold">
-                   <span className="text-[var(--color-gold)]">TOTAL NAV</span>
-                   <span className="text-[var(--color-gold)]">₹{totalNAV.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
-                </div>
-             </div>
-
-          </div>
-        </div>
+        <ErrorBoundary>
+          <AITerminal 
+             symbol={symbol}
+             setSymbol={setSymbol}
+             data={data}
+             livePrice={livePrice}
+             handleTrade={handleTrade}
+             portfolio={portfolio}
+             tradeSide={tradeSide}
+             setTradeSide={setTradeSide}
+             tradeAmount={tradeAmount}
+             setTradeAmount={setTradeAmount}
+             totalNAV={totalNAV}
+          />
+        </ErrorBoundary>
       </div>
+
+      {/* AI Signals Section */}
+      <section id="ai-signals" className="max-w-[1600px] mx-auto px-4 pb-24 border-t border-[#1e2333] pt-24">
+         <div className="mb-8 flex items-center justify-between">
+           <h2 className="text-3xl font-[Space_Grotesk] font-bold uppercase text-white">AI <span className="text-[#00e676]">Signals</span></h2>
+         </div>
+         <ErrorBoundary>
+          <AISignals 
+              symbol={symbol}
+              setSymbol={setSymbol}
+              data={data}
+              livePrice={livePrice}
+              marketEngine={marketEngine}
+          />
+         </ErrorBoundary>
+       </section>
+
+      {/* AI Screener Section */}
+      <section id="screener" className="max-w-[1600px] mx-auto px-4 pb-24 border-t border-[#1e2333] pt-24">
+         <ErrorBoundary>
+          <AIScreener setSymbol={setSymbol} portfolio={portfolio} />
+         </ErrorBoundary>
+      </section>
 
       {/* Strategy / Sandbox Section */}
       <section id="strategy" className="max-w-[1600px] mx-auto px-4 py-24 border-t border-[var(--color-panel-border)]">
@@ -347,40 +289,29 @@ export default function App() {
          </div>
       </section>
 
-      {/* Portfolio Tracker Section */}
-      <section id="portfolio" className="max-w-[1600px] mx-auto px-4 pb-24 border-t border-[var(--color-panel-border)] pt-24">
-         <h2 className="text-3xl font-bold uppercase mb-8 text-[var(--color-gold)] border-b border-[var(--color-gold)] pb-2 inline-block">Portfolio Holdings</h2>
-         <div className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] rounded-lg overflow-hidden">
-            <table className="w-full text-left font-mono text-xs">
-               <thead>
-                  <tr className="bg-[var(--color-panel-border)] text-[var(--color-silver)] text-[10px] uppercase tracking-widest border-b border-[var(--color-panel-border)]">
-                     <th className="p-4 font-bold">Symbol</th>
-                     <th className="p-4 font-bold">Quantity</th>
-                     <th className="p-4 font-bold">Avg Price</th>
-                     <th className="p-4 font-bold">Current Price</th>
-                     <th className="p-4 font-bold text-right">P&L</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {portfolio?.positions?.map((pos, i) => (
-                    <tr key={i} className="border-b border-[var(--color-panel-border)] last:border-0 hover:bg-[#03040a] transition-colors cursor-pointer" onClick={() => setSymbol(pos.symbol)}>
-                       <td className="p-4 text-white font-bold">{pos.symbol}</td>
-                       <td className="p-4 text-[var(--color-silver)]">{pos.quantity}</td>
-                       <td className="p-4 text-[var(--color-silver)]">₹{pos.avg_price.toLocaleString()}</td>
-                       <td className="p-4 text-white font-bold">₹{pos.current_price.toLocaleString()}</td>
-                       <td className={`p-4 text-right font-bold ${pos.pnl >= 0 ? 'text-[var(--color-bullish)]' : 'text-[var(--color-bearish)]'}`}>
-                         {pos.pnl >= 0 ? '+' : ''}{pos.pnl.toLocaleString()} ({pos.pnl_pct}%)
-                       </td>
-                    </tr>
-                  ))}
-                  {(!portfolio?.positions || portfolio.positions.length === 0) && (
-                     <tr>
-                        <td colSpan="5" className="p-8 text-center text-[var(--color-silver)] font-mono">No active holdings.</td>
-                     </tr>
-                  )}
-               </tbody>
-            </table>
+      {/* Portfolio Section */}
+      <section id="portfolio" className="max-w-[1600px] mx-auto px-4 pb-24 border-t border-[#1e2333] pt-24">
+         <div className="mb-8 flex items-center justify-between">
+           <h2 className="text-3xl font-[Space_Grotesk] font-bold uppercase text-white">Portfolio <span className="text-[#7dd3fc]">Holdings</span></h2>
          </div>
+         <ErrorBoundary>
+          <PortfolioView
+            portfolio={portfolio}
+            analytics={analytics}
+            totalNAV={totalNAV}
+            setSymbol={setSymbol}
+          />
+         </ErrorBoundary>
+      </section>
+
+      {/* Orders Section */}
+      <section id="orders" className="max-w-[1600px] mx-auto px-4 pb-24 border-t border-[#1e2333] pt-24">
+         <div className="mb-8 flex items-center justify-between">
+           <h2 className="text-3xl font-[Space_Grotesk] font-bold uppercase text-white">Order <span className="text-[#ff9800]">History</span></h2>
+         </div>
+         <ErrorBoundary>
+          <OrdersView liveOrders={portfolio?.history || []} />
+         </ErrorBoundary>
       </section>
 
       {/* Features Grid */}

@@ -8,7 +8,8 @@ from app.services import (
     data_fetcher, technical_indicators, news_sentiment,
     ml_models, signal_fusion, backtester, risk_analysis,
     portfolio_manager, market_engine, feature_pipeline,
-    external_apis, screener_engine, portfolio_analytics
+    external_apis, screener_engine, portfolio_analytics,
+    pattern_recognition, predictor
 )
 import pandas as pd
 from typing import Optional
@@ -34,51 +35,58 @@ async def get_dashboard_data(symbol: str):
     # 3. Tech Indicators
     indicators = technical_indicators.calculate_all(history)
 
-    # 4. News & Social Sentiment
+    # 4. Patterns & Predictions
+    patterns = pattern_recognition.detect_patterns(history)
+    forecast = predictor.forecast_price(history)
+    forecast_summary = predictor.get_forecast_summary(forecast)
+
+    # 5. News & Social Sentiment
     news = news_sentiment.analyze_news(symbol)
 
-    # 4.5 External APIs (FRED, FMP, OpenAI)
+    # 6. External APIs (FRED, FMP, OpenAI)
     fred_data = external_apis.get_fred_economic_data()
     fmp_data = external_apis.get_fmp_fundamentals(symbol)
     openai_analysis = external_apis.get_openai_sentiment_analysis(symbol, news, fmp_data)
 
-    # 5. ML Predictions
+    # 7. ML Predictions (Existing)
     predictions = ml_models.run_models(history, symbol, indicators)
+    # Inject our new forest prediction logic if needed or wrap
+    predictions["linear_forecast"] = forecast_summary
 
-    # 6. Risk Analysis
+    # 8. Risk Analysis
     risk = risk_analysis.calculate_risk_score(history, news, indicators)
 
-    # 7. AI Signal Fusion (Now includes external APIs)
-    fusion = signal_fusion.evaluate_signals(indicators, news, predictions, risk, fred_data, fmp_data, openai_analysis)
+    # 9. Signal Fusion
+    fusion_result = signal_fusion.evaluate_signals(
+        indicators, news, predictions, risk, fred_data, fmp_data, openai_analysis
+    )
 
-    # 8. Feature Engineering Pipeline (Save vector for training)
-    feature_vector = feature_pipeline.process_features(symbol, indicators, news, risk, predictions)
-
-    current_price = history['Close'].iloc[-1]
-    patterns = ml_models.detect_patterns(history)
+    # 10. Feature Engineering Pipeline (Save vector for training)
+    try:
+        feature_pipeline.process_features(symbol, indicators, news, risk, predictions)
+    except Exception as e:
+        print(f"Pipeline error: {e}")
 
     return {
-        "symbol": symbol,
-        "current_price": round(current_price, 2),
-        "price": round(current_price, 2), # Maintain both for safety
-        "change": stock_info['change'],
-        "change_pct": stock_info['change_pct'],
+        "symbol": symbol.upper(),
         "info": stock_info,
+        "chart_data": data_fetcher.format_for_chart(history),
         "indicators": indicators,
-        "news_sentiment": news,
-        "news": news, # Maintain both for safety
+        "patterns": patterns,
+        "forecast": forecast,
+        "news": news,
         "predictions": predictions,
         "risk": risk,
-        "fusion_signal": fusion,
-        "fusion": fusion, # Maintain both for safety
+        "fusion": fusion_result,
+        "current_price": stock_info["price"],
+        "price": stock_info["price"],
+        "change": stock_info["change"],
+        "change_pct": stock_info["change_pct"],
         "external_data": {
             "fred": fred_data,
             "fmp": fmp_data,
             "openai": openai_analysis
-        },
-        "pipeline_vector": feature_vector,
-        "history": data_fetcher.format_for_chart(history),
-        "patterns": patterns
+        }
     }
 
 @router.get("/pipeline/stats")
@@ -163,3 +171,58 @@ def get_trending_market():
 @router.get("/screener")
 def get_top_assets(min_price: float = 0, max_price: float = 10000, sector: Optional[str] = "All"):
     return screener_engine.screener_engine.get_top_assets(min_price, max_price, sector)
+
+# ─── Orders endpoints ────────────────────────────────────────────────────────
+@router.get("/orders")
+def get_orders(
+    ticker: Optional[str] = None,
+    status: Optional[str] = None,   # EXECUTED | PENDING | CANCELLED
+    side:   Optional[str] = None,   # BUY | SELL
+    date_from: Optional[str] = None,
+    date_to:   Optional[str] = None,
+    page:      int = 1,
+    page_size: int = 20,
+):
+    """Return paginated order history from portfolio.json with optional filters."""
+    portfolio = portfolio_manager.get_portfolio()
+    history   = portfolio.get("history", [])
+
+    # Enrich with status/id if not present
+    enriched = []
+    for i, h in enumerate(reversed(history)):          # newest first
+        entry = {
+            "id":      h.get("id",        f"ORD-{str(len(history)-i).zfill(4)}"),
+            "date":    h.get("timestamp", ""),
+            "ticker":  h.get("symbol",    ""),
+            "type":    h.get("type",      "BUY"),
+            "price":   h.get("price",     0),
+            "shares":  h.get("quantity",  0),
+            "value":   round(h.get("price", 0) * h.get("quantity", 0), 2),
+            "status":  h.get("status",    "EXECUTED"),
+        }
+        enriched.append(entry)
+
+    # Filter
+    if ticker:
+        t = ticker.upper()
+        enriched = [o for o in enriched if t in o["ticker"].upper()]
+    if status:
+        enriched = [o for o in enriched if o["status"] == status.upper()]
+    if side:
+        enriched = [o for o in enriched if o["type"] == side.upper()]
+    if date_from:
+        enriched = [o for o in enriched if o["date"] >= date_from]
+    if date_to:
+        enriched = [o for o in enriched if o["date"] <= date_to + " 23:59:59"]
+
+    total  = len(enriched)
+    start  = (page - 1) * page_size
+    paged  = enriched[start : start + page_size]
+
+    return {
+        "orders":     paged,
+        "total":      total,
+        "page":       page,
+        "page_size":  page_size,
+        "total_pages": max(1, -(-total // page_size)),  # ceil division
+    }

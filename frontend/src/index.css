@@ -1,22 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Syne:wght@400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Syne", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
   --font-mono: "DM Mono", monospace;
 
-  /* QuantX Institutional Palette */
-  --color-obsidian: #060810;
-  --color-gold: #c9a84c;
-  --color-gold-light: #f0d080;
-  --color-bullish: #00e5a0;
-  --color-bearish: #ff3d5a;
+  /* QuantX AI Terminal Palette */
+  --color-obsidian: #0d0f12;
+  --color-card: #141720;
+  --color-border: #1e2333;
+  --color-green: #00e676;
+  --color-red: #ff4444;
+  --color-orange: #ff9800;
   --color-silver: #8a9ab5;
 
   /* Panel Backgrounds */
-  --color-panel: rgba(255, 255, 255, 0.03);
-  --color-panel-border: rgba(255, 255, 255, 0.08);
+  --color-panel: #141720;
+  --color-panel-border: #1e2333;
 }
 
 @layer base {

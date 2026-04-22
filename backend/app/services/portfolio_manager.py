@@ -1,86 +1,111 @@
-import json
-import os
+from sqlalchemy.orm import Session
 from datetime import datetime
+from app.models import User, Portfolio, Order
+from app.database import SessionLocal
+import os
 
-PORTFOLIO_FILE = "portfolio.json"
+# For simplicity, we use a single user ID for local terminal mode
+DEFAULT_USER_ID = 1
+
+def ensure_user(db: Session):
+    user = db.query(User).filter(User.id == DEFAULT_USER_ID).first()
+    if not user:
+        user = User(id=DEFAULT_USER_ID, name="QuantX Trader", email="trader@quantx.ai")
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+    return user
 
 def get_portfolio():
-    if not os.path.exists(PORTFOLIO_FILE):
-        initial = {
-            "balance": 100000.0, # Starting with $100k
-            "positions": {}, # { "SYMBOL": { "avg_price": 150.0, "quantity": 10 } }
-            "history": []
+    db = SessionLocal()
+    try:
+        user = ensure_user(db)
+        positions = db.query(Portfolio).filter(Portfolio.user_id == user.id).all()
+        history = db.query(Order).filter(Order.user_id == user.id).order_by(Order.created_at.desc()).all()
+        
+        pos_dict = {
+            pos.ticker: {"avg_price": pos.avg_buy_price, "quantity": pos.shares}
+            for pos in positions
         }
-        save_portfolio(initial)
-        return initial
-    
-    with open(PORTFOLIO_FILE, "r") as f:
-        return json.load(f)
-
-def save_portfolio(data):
-    with open(PORTFOLIO_FILE, "w") as f:
-        json.dump(data, f, indent=4)
+        
+        hist_list = [
+            {
+                "id": f"ORD-{str(o.id).zfill(4)}",
+                "type": o.type,
+                "symbol": o.ticker,
+                "price": o.price,
+                "quantity": o.shares,
+                "total": o.price * o.shares,
+                "timestamp": o.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+                "status": o.status
+            }
+            for o in history
+        ]
+        
+        return {
+            "balance": user.balance,
+            "positions": pos_dict,
+            "history": hist_list
+        }
+    finally:
+        db.close()
 
 def execute_trade(symbol, side, price, quantity):
-    portfolio = get_portfolio()
-    symbol = symbol.upper()
-    total_cost = price * quantity
-    
-    if side == "BUY":
-        if portfolio["balance"] >= total_cost:
-            portfolio["balance"] -= total_cost
-            if symbol in portfolio["positions"]:
-                pos = portfolio["positions"][symbol]
-                new_qty = pos["quantity"] + quantity
-                new_avg = ((pos["avg_price"] * pos["quantity"]) + total_cost) / new_qty
-                portfolio["positions"][symbol] = {"avg_price": round(new_avg, 2), "quantity": new_qty}
-            else:
-                portfolio["positions"][symbol] = {"avg_price": price, "quantity": quantity}
-            
-            portfolio["history"].append({
-                "type": "BUY",
-                "symbol": symbol,
-                "price": price,
-                "quantity": quantity,
-                "total": total_cost,
-                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            })
-            save_portfolio(portfolio)
-            return {"status": "success", "message": f"Bought {quantity} of {symbol}"}
-        else:
-            return {"status": "error", "message": "Insufficient funds"}
-            
-    elif side == "SELL":
-        if symbol in portfolio["positions"] and portfolio["positions"][symbol]["quantity"] >= quantity:
-            portfolio["balance"] += total_cost
-            portfolio["positions"][symbol]["quantity"] -= quantity
-            
-            if portfolio["positions"][symbol]["quantity"] == 0:
-                del portfolio["positions"][symbol]
+    db = SessionLocal()
+    try:
+        user = ensure_user(db)
+        symbol = symbol.upper()
+        total_cost = price * quantity
+        
+        if side == "BUY":
+            if user.balance >= total_cost:
+                user.balance -= total_cost
                 
-            portfolio["history"].append({
-                "type": "SELL",
-                "symbol": symbol,
-                "price": price,
-                "quantity": quantity,
-                "total": total_cost,
-                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            })
-            save_portfolio(portfolio)
-            return {"status": "success", "message": f"Sold {quantity} of {symbol}"}
-        else:
-            return {"status": "error", "message": "Insufficient holdings"}
+                pos = db.query(Portfolio).filter(Portfolio.user_id == user.id, Portfolio.ticker == symbol).first()
+                if pos:
+                    new_qty = pos.shares + quantity
+                    new_avg = ((pos.avg_buy_price * pos.shares) + total_cost) / new_qty
+                    pos.shares = new_qty
+                    pos.avg_buy_price = round(new_avg, 2)
+                else:
+                    new_pos = Portfolio(user_id=user.id, ticker=symbol, shares=quantity, avg_buy_price=price)
+                    db.add(new_pos)
+                
+                order = Order(user_id=user.id, ticker=symbol, type="BUY", price=price, shares=quantity, status="EXECUTED")
+                db.add(order)
+                db.commit()
+                return {"status": "success", "message": f"Bought {quantity} of {symbol}"}
+            else:
+                return {"status": "error", "message": "Insufficient funds"}
+                
+        elif side == "SELL":
+            pos = db.query(Portfolio).filter(Portfolio.user_id == user.id, Portfolio.ticker == symbol).first()
+            if pos and pos.shares >= quantity:
+                user.balance += total_cost
+                pos.shares -= quantity
+                
+                if pos.shares == 0:
+                    db.delete(pos)
+                    
+                order = Order(user_id=user.id, ticker=symbol, type="SELL", price=price, shares=quantity, status="EXECUTED")
+                db.add(order)
+                db.commit()
+                return {"status": "success", "message": f"Sold {quantity} of {symbol}"}
+            else:
+                return {"status": "error", "message": "Insufficient holdings"}
+    finally:
+        db.close()
 
 def get_stats(current_prices: dict):
-    portfolio = get_portfolio()
-    total_equity = portfolio["balance"]
+    port_data = get_portfolio()
+    total_equity = port_data["balance"]
     pos_details = []
     
-    for symbol, pos in portfolio["positions"].items():
+    for symbol, pos in port_data["positions"].items():
         curr_price = current_prices.get(symbol, pos["avg_price"])
         value = curr_price * pos["quantity"]
         pnl = (curr_price - pos["avg_price"]) * pos["quantity"]
-        pnl_pct = ((curr_price / pos["avg_price"]) - 1) * 100
+        pnl_pct = ((curr_price / pos["avg_price"]) - 1) * 100 if pos["avg_price"] > 0 else 0
         
         total_equity += value
         pos_details.append({
@@ -94,9 +119,9 @@ def get_stats(current_prices: dict):
         })
         
     return {
-        "balance": round(portfolio["balance"], 2),
+        "balance": round(port_data["balance"], 2),
         "total_equity": round(total_equity, 2),
         "positions": pos_details,
         "total_pnl": round(total_equity - 100000.0, 2),
-        "history": portfolio.get("history", [])
+        "history": port_data["history"]
     }

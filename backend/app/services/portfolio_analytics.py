@@ -10,9 +10,9 @@ def calculate_analytics(rfr: float = 0.05):
     symbols = list(positions.keys())
     
     empty_res = {
-        "expected_return": "0.00%",
-        "portfolio_risk": "0.00%",
-        "sharpe_ratio": "0.00",
+        "expected_return": 0.0,
+        "portfolio_risk": 0.0,
+        "sharpe_ratio": 0.0,
         "efficiency": "N/A",
         "weights": {},
         "optimization": {
@@ -168,9 +168,9 @@ def calculate_analytics(rfr: float = 0.05):
     corr_matrix = returns.corr().round(2).to_dict()
 
     return {
-        "expected_return": f"{round(exp_return * 100, 2)}%",
-        "portfolio_risk": f"{round(port_risk * 100, 2)}%",
-        "sharpe_ratio": str(round(sharpe, 2)),
+        "expected_return": float(exp_return),
+        "portfolio_risk": float(port_risk),
+        "sharpe_ratio": float(sharpe),
         "efficiency": efficiency,
         "weights": weight_details,
         "optimization": optimization,

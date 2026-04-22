@@ -41,6 +41,31 @@ def sync_market_data():
     MARKET_CACHE["sector_data"] = data_fetcher.get_sector_performance()
     MARKET_CACHE["aggregated_news"] = raw_news
     
+    # Fetch live or simulated index values
+    indices = []
+    for name, sym in [("NIFTY 50", "^NSEI"), ("SENSEX", "^BSESN"), ("BANK NIFTY", "^NSEBANK"), ("NIFTY NEXT 50", "^NSMIDCP")]:
+        try:
+            info = data_fetcher.get_stock_info(sym)
+            val = info["price"]
+            change = info["change"]
+            change_pct = info["change_pct"]
+            
+            # If the fetch fails to get real values, mock them relative to typical index sizes
+            if val == 0:
+                base_vals = {"NIFTY 50": 22500, "SENSEX": 74200, "BANK NIFTY": 47900, "NIFTY NEXT 50": 62200}
+                val = base_vals[name] + random.uniform(-100, 100)
+                change = random.uniform(-100, 100)
+                change_pct = (change / val) * 100
+                
+            indices.append({
+                "name": name,
+                "value": f"{val:,.2f}",
+                "change": f"{change:+.2f}",
+                "changePercent": f"{change_pct:+.2f}%"
+            })
+        except Exception:
+            pass
+
     # Global Market Metrics with Multi-Source signals
     MARKET_CACHE["global_metrics"] = {
         "vix_index": round(random.uniform(12.0, 25.0), 2),
@@ -56,6 +81,7 @@ def sync_market_data():
             "news_scraper": f"ACTIVE - {len(raw_news)} CHANNELS"
         }
     }
+    MARKET_CACHE["indices"] = indices
     
     print(f"[{datetime.now().strftime('%H:%M:%S')}] Market Engine: Data Pipeline Sync Complete.")
 

@@ -11,6 +11,11 @@ from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import endpoints
 from app.services import market_engine, data_fetcher
+from app.database import engine
+from app import models
+
+# Create database tables
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="QuantX - AI Trading Platform")
 

@@ -112,24 +112,50 @@ def get_stock_info(symbol: str):
     }
 
 def get_sector_performance():
-    sectors = [
-        "Technology", "Financial Services", "Energy", "Healthcare", 
-        "Consumer Cyclical", "Basic Materials", "Industrials", "Communication Services"
-    ]
+    sector_map = {
+        "Technology": ["TCS.NS", "INFY.NS", "WIPRO.NS", "HCLTECH.NS"],
+        "Financial Services": ["HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS", "KOTAKBANK.NS"],
+        "Energy": ["RELIANCE.NS", "ONGC.NS", "BPCL.NS", "COALINDIA.NS"],
+        "Healthcare": ["SUNPHARMA.NS", "DRREDDY.NS", "CIPLA.NS", "APOLLOHOSP.NS"],
+        "Consumer Cyclical": ["TATAMOTORS.NS", "M&M.NS", "MARUTI.NS", "EICHERMOT.NS"],
+        "Basic Materials": ["TATASTEEL.NS", "JSWSTEEL.NS", "HINDALCO.NS", "ULTRACEMCO.NS"]
+    }
+    
     performance = []
-    for s in sectors:
+    for sector, tickers in sector_map.items():
+        total_change = 0
+        valid_stocks = 0
+        top_stock = tickers[0]
+        max_change = -999
+        
+        for t in tickers:
+            try:
+                tk = yf.Ticker(t)
+                hist = tk.history(period="2d")
+                if not hist.empty and len(hist) >= 2:
+                    change = ((hist['Close'].iloc[-1] / hist['Close'].iloc[-2]) - 1) * 100
+                    total_change += change
+                    valid_stocks += 1
+                    if change > max_change:
+                        max_change = change
+                        top_stock = t
+            except:
+                continue
+                
+        avg_change = round(total_change / valid_stocks, 2) if valid_stocks > 0 else 0
         performance.append({
-            "sector": s,
-            "change": round(random.uniform(-3.5, 4.0), 2),
-            "top_performer": "RELIANCE.NS" if s == "Energy" else "TCS.NS" if s == "Technology" else "HDFCBANK.NS"
+            "sector": sector,
+            "change": avg_change,
+            "top_performer": top_stock.split('.')[0]
         })
+        
     return performance
 
 def get_trending_symbols():
     return [
         "RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", 
-        "ICICIBANK.NS", "SBI.NS", "HINDUNILVR.NS", "BHARTIARTL.NS",
-        "ADANIENT.NS", "ITC.NS"
+        "ICICIBANK.NS", "SBIN.NS", "HINDUNILVR.NS", "BHARTIARTL.NS",
+        "ADANIENT.NS", "ITC.NS", "TATAMOTORS.NS", "BAJFINANCE.NS"
     ]
 
 def format_for_chart(df: pd.DataFrame):
