@@ -12,11 +12,13 @@ export default function AISignals({ symbol, setSymbol, data, livePrice, marketEn
   const price = livePrice ? livePrice.price : (data?.current_price || 0);
 
   const getRecColor = (r) => {
+    if (!r) return 'text-[#ff9800]';
     if (r.includes('BUY')) return 'text-[#00e676]';
     if (r.includes('SELL')) return 'text-[#ff4444]';
     return 'text-[#ff9800]';
   };
   const getRecBg = (r) => {
+    if (!r) return 'bg-[#ff9800]/20 border-[#ff9800]/50';
     if (r.includes('BUY')) return 'bg-[#00e676]/20 border-[#00e676]/50';
     if (r.includes('SELL')) return 'bg-[#ff4444]/20 border-[#ff4444]/50';
     return 'bg-[#ff9800]/20 border-[#ff9800]/50';
@@ -126,7 +128,7 @@ export default function AISignals({ symbol, setSymbol, data, livePrice, marketEn
                 <div className="bg-[#141720] border border-[#1e2333] p-5 rounded-xl col-span-2 md:col-span-1">
                    <div className="text-[10px] font-[Space_Grotesk] font-bold text-[#8a9ab5] uppercase tracking-widest mb-3 flex items-center gap-1.5"><Target size={12}/> Price Target</div>
                    <div className="text-2xl font-[Inter] font-bold text-[#00e676] mb-1">+4.2% UP</div>
-                   <div className="inline-block bg-[#00e676]/20 border border-[#00e676]/50 text-[#00e676] px-2 py-1 rounded text-xs font-bold">TARGET: ₹{price ? (price * 1.042).toFixed(2) : '---'}</div>
+                   <div className="inline-block bg-[#00e676]/20 border border-[#00e676]/50 text-[#00e676] px-2 py-1 rounded text-xs font-bold">TARGET: ₹{price ? (Number(price) * 1.042).toFixed(2) : '---'}</div>
                 </div>
 
                 {/* Risk Profile */}
@@ -168,9 +170,9 @@ export default function AISignals({ symbol, setSymbol, data, livePrice, marketEn
              {/* Sentiment Intelligence Panel */}
              <div className="bg-[#141720] border border-[#1e2333] rounded-xl p-6">
                 <div className="text-[10px] font-[Space_Grotesk] font-bold text-[#8a9ab5] uppercase tracking-widest mb-2 flex items-center gap-2">
-                   <Globe size={14} className="text-[#00e676]" /> Sentiment Intelligence
+                   <Globe size={14} className="text-[#00ff88]" /> Sentiment Intelligence
                 </div>
-                <h4 className="text-sm font-bold text-white mb-6 uppercase border-b border-[#1e2333] pb-3">&gt; {symbol?.split('.')[0] || symbol} analyzed for upcoming market catalysts.</h4>
+                <h4 className="text-sm font-bold text-white mb-6 uppercase border-b border-[#1e2333] pb-3">&gt; {symbol?.split('.')?.[0] || symbol || 'ASSET'} analyzed for upcoming market catalysts.</h4>
                 
                 <div className="space-y-5">
                    {/* Row 1 */}

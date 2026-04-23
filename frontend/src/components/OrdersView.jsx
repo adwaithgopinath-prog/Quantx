@@ -64,7 +64,12 @@ function TypeBadge({ type }) {
 export default function OrdersView({ liveOrders = [] }) {
   // Merge live + mock; live orders come first
   const allOrders = useMemo(() => {
-    const live = liveOrders.map((o, i) => ({ ...o, id: `LIVE-${i}`, date: new Date(o.date || Date.now()) }));
+    const live = liveOrders.map((o, i) => ({ 
+      ...o, 
+      id: `LIVE-${i}`, 
+      ticker: o.ticker || o.symbol || 'N/A',
+      date: new Date(o.date || Date.now()) 
+    }));
     return [...live, ...ALL_ORDERS];
   }, [liveOrders]);
 
@@ -79,7 +84,11 @@ export default function OrdersView({ liveOrders = [] }) {
 
   const filtered = useMemo(() => {
     return allOrders.filter(o => {
-      const matchSearch = !search || o.ticker.toLowerCase().includes(search.toLowerCase()) || o.id.toLowerCase().includes(search.toLowerCase());
+      const ticker = (o.ticker || '').toLowerCase();
+      const orderId = (o.id || '').toLowerCase();
+      const searchTerm = search.toLowerCase();
+      
+      const matchSearch = !search || ticker.includes(searchTerm) || orderId.includes(searchTerm);
       const matchStatus = statusFilt === 'ALL' || o.status === statusFilt;
       const matchType   = typeFilt   === 'ALL' || o.type   === typeFilt;
       const matchFrom   = !dateFrom  || o.date >= new Date(dateFrom);
@@ -231,7 +240,7 @@ export default function OrdersView({ liveOrders = [] }) {
             {/* Ticker */}
             <div>
               <div className="text-xs font-bold text-white font-[Inter]">{order.ticker?.split('.')[0] || order.ticker}</div>
-              <div className="text-[9px] text-[#8a9ab5]">{order.ticker.includes('.NS') ? 'NSE' : 'NASDAQ'}</div>
+              <div className="text-[10px] text-[#8a9ab5]">{order.ticker?.includes('.NS') ? 'NSE' : 'NASDAQ'}</div>
             </div>
 
             {/* Shares */}

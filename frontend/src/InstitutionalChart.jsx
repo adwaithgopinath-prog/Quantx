@@ -1,125 +1,217 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createChart, ColorType } from 'lightweight-charts';
 
-export default function InstitutionalChart({ data, livePrice }) {
-  const canvasRef = useRef(null);
-  const [visibleCandles, setVisibleCandles] = useState(0);
+export default function InstitutionalChart({ 
+  data, 
+  livePrice, 
+  chartType = 'CANDLE', 
+  showMA20 = true, 
+  showMA200 = false 
+}) {
+  const chartContainerRef = useRef(null);
+  const [chartApi, setChartApi] = useState(null);
+  const seriesRef = useRef(null);
+  const ma20Ref = useRef(null);
+  const ma200Ref = useRef(null);
+  const lastTimeRef = useRef(null);
 
-  const defaultData = Array.from({length: 250}).map((_, i) => ({
-    Open: 150 + Math.sin(i*0.1)*10,
-    High: 150 + Math.sin(i*0.1)*10 + Math.random()*5,
-    Low: 150 + Math.sin(i*0.1)*10 - Math.random()*5,
-    Close: 150 + Math.sin((i+0.5)*0.1)*10,
-    Volume: Math.random()*1000
-  }));
-
-  const chartData = (data && data.length > 0) ? data : defaultData;
-
+  // Initialize Chart
   useEffect(() => {
-    setVisibleCandles(0);
-    const interval = setInterval(() => {
-      setVisibleCandles(prev => {
-        if (prev >= chartData.length) {
-          clearInterval(interval);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 20); // sped up load time since there's more candles
-    return () => clearInterval(interval);
-  }, [data, chartData.length]);
+    if (!chartContainerRef.current) return;
 
-  const [tickOffset, setTickOffset] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (livePrice?.price) {
-        setTickOffset(livePrice.price - (chartData[chartData.length-1]?.Close || 0));
-      } else {
-         setTickOffset((Math.random() - 0.5) * 5);
+    const width = chartContainerRef.current.clientWidth || 800;
+    const height = chartContainerRef.current.clientHeight || 400;
+
+    const chart = createChart(chartContainerRef.current, {
+      layout: {
+        background: { type: ColorType.Solid, color: '#060810' },
+        textColor: '#8a9ab5',
+      },
+      grid: {
+        vertLines: { color: 'rgba(30, 35, 51, 0.1)' },
+        horzLines: { color: 'rgba(30, 35, 51, 0.1)' },
+      },
+      width: width,
+      height: height,
+      timeScale: {
+        borderColor: 'rgba(201, 168, 76, 0.1)',
+        timeVisible: true,
+      },
+      rightPriceScale: {
+        borderColor: 'rgba(201, 168, 76, 0.1)',
+        autoScale: true,
+      },
+      crosshair: {
+        mode: 0,
+        vertLine: { color: '#C9A84C', labelBackgroundColor: '#C9A84C' },
+        horzLine: { color: '#C9A84C', labelBackgroundColor: '#C9A84C' },
+      },
+    });
+
+    setChartApi(chart);
+
+    const handleResize = () => {
+      if (chartContainerRef.current) {
+        chart.applyOptions({ 
+          width: chartContainerRef.current.clientWidth,
+          height: chartContainerRef.current.clientHeight
+        });
       }
-    }, 1800);
-    return () => clearInterval(interval);
-  }, [livePrice, chartData]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const w = canvas.width;
-    const h = canvas.height;
-    ctx.clearRect(0, 0, w, h);
-
-    const candleWidth = w / Math.max(chartData.length, 1);
-    const currentData = chartData.slice(0, visibleCandles);
-    
-    if (currentData.length === 0) return;
-
-    let min = Math.min(...chartData.map(d => d.Low || d.Close - 5));
-    let max = Math.max(...chartData.map(d => d.High || d.Close + 5));
-
-    // Volume background bars
-    const maxVol = Math.max(...chartData.map(d => d.Volume || 1));
-    currentData.forEach((d, i) => {
-      const isUp = d.Close >= d.Open;
-      const color = isUp ? 'rgba(0, 229, 160, 0.15)' : 'rgba(255, 61, 90, 0.15)';
-      const cw = candleWidth * 0.8;
-      const x = i * candleWidth + candleWidth*0.1;
-      const volH = (d.Volume / maxVol) * 60; // Up to 60px height
-      ctx.fillStyle = color;
-      ctx.fillRect(x, h - volH, cw, volH);
-    });
-
-    const drawSMA = (period, color) => {
-       ctx.beginPath();
-       ctx.strokeStyle = color;
-       ctx.lineWidth = 1;
-       ctx.setLineDash([2, 4]);
-       currentData.forEach((d, i) => {
-          const closes = currentData.slice(Math.max(0, i - period + 1), i + 1).map(x => x.Close);
-          const sma = closes.reduce((a,b)=>a+b,0)/closes.length;
-          const x = i * candleWidth + candleWidth/2;
-          const y = h - ((sma - min) / (max - min) * (h - 20)) - 10;
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-       });
-       ctx.stroke();
-       ctx.setLineDash([]);
     };
+    window.addEventListener('resize', handleResize);
 
-    drawSMA(20, '#00e5a0'); // SMA 20 in bullish green
-    drawSMA(50, '#f0d080'); // SMA 50 in gold
-    drawSMA(200, '#8a9ab5'); // SMA 200 in silver
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      chart.remove();
+    };
+  }, []);
 
-    currentData.forEach((d, i) => {
-      const isLast = i === chartData.length - 1;
-      let close = d.Close;
-      if (isLast) close += tickOffset;
+  // Update Series when Data or Chart Type changes
+  useEffect(() => {
+    if (!chartApi || typeof chartApi.addCandlestickSeries !== 'function') return;
 
-      const isUp = close >= d.Open;
-      const color = isUp ? '#00e5a0' : '#ff3d5a';
+    // Clear existing series safely
+    try {
+      if (seriesRef.current) chartApi.removeSeries(seriesRef.current);
+      if (ma20Ref.current) chartApi.removeSeries(ma20Ref.current);
+      if (ma200Ref.current) chartApi.removeSeries(ma200Ref.current);
+    } catch (e) {
+      console.warn("Series removal failed:", e);
+    }
+    
+    seriesRef.current = null;
+    ma20Ref.current = null;
+    ma200Ref.current = null;
 
-      const x = i * candleWidth + candleWidth*0.1;
-      const cw = candleWidth * 0.8;
+    // Prepare data
+    const formattedData = (Array.isArray(data) ? data : []).map(d => {
+      let time = d.Date || d.time || d.date;
+      if (typeof time === 'string') time = time.split('T')[0];
       
-      const pxHigh = h - ((d.High - min) / (max - min) * (h - 20)) - 10;
-      const pxLow = h - ((d.Low - min) / (max - min) * (h - 20)) - 10;
-      const pxOpen = h - ((d.Open - min) / (max - min) * (h - 20)) - 10;
-      const pxClose = h - ((close - min) / (max - min) * (h - 20)) - 10;
-
-      ctx.beginPath();
-      ctx.strokeStyle = color;
-      ctx.moveTo(x + cw/2, pxHigh);
-      ctx.lineTo(x + cw/2, pxLow);
-      ctx.stroke();
-
-      ctx.fillStyle = color;
-      ctx.fillRect(x, Math.min(pxOpen, pxClose), cw, Math.max(Math.abs(pxOpen - pxClose), 1));
+      return {
+        time: time,
+        open: parseFloat(d.Open || d.open || 0),
+        high: parseFloat(d.High || d.high || 0),
+        low: parseFloat(d.Low || d.low || 0),
+        close: parseFloat(d.Close || d.close || 0),
+      };
+    }).filter(d => d.time && !isNaN(d.close) && d.close > 0).sort((a, b) => {
+      const ta = new Date(a.time).getTime();
+      const tb = new Date(b.time).getTime();
+      return ta - tb;
     });
 
-  }, [visibleCandles, chartData, tickOffset]);
+    // Remove duplicates by time
+    const uniqueData = [];
+    const seenTimes = new Set();
+    for (const d of formattedData) {
+      if (!seenTimes.has(d.time)) {
+        uniqueData.push(d);
+        seenTimes.add(d.time);
+      }
+    }
 
-  return (
-    <div className="w-full h-64 border border-[var(--color-panel-border)] bg-[#03040a] rounded overflow-hidden">
-      <canvas ref={canvasRef} width={800} height={256} className="w-full h-full" />
-    </div>
-  );
+    // Fallback mock data if empty
+    let finalData = uniqueData;
+    if (finalData.length === 0) {
+      finalData = Array.from({ length: 100 }).map((_, i) => ({
+        time: new Date(Date.now() - (100 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        open: 1300 + Math.random() * 50,
+        high: 1360 + Math.random() * 50,
+        low: 1280 + Math.random() * 50,
+        close: 1320 + Math.random() * 50,
+      }));
+    }
+
+    try {
+      if (chartType === 'CANDLE') {
+        seriesRef.current = chartApi.addCandlestickSeries({
+          upColor: '#00E5A0',
+          downColor: '#FF3D5A',
+          borderVisible: false,
+          wickUpColor: '#00E5A0',
+          wickDownColor: '#FF3D5A',
+        });
+        seriesRef.current.setData(finalData);
+      } else {
+        seriesRef.current = chartApi.addLineSeries({
+          color: '#C9A84C',
+          lineWidth: 2,
+        });
+        const lineData = finalData.map(d => ({ time: d.time, value: d.close }));
+        seriesRef.current.setData(lineData);
+      }
+
+      lastTimeRef.current = finalData[finalData.length - 1];
+
+      // Add Moving Averages
+      if (showMA20) {
+        ma20Ref.current = chartApi.addLineSeries({
+          color: '#00E5A0',
+          lineWidth: 1,
+          lineStyle: 2,
+          title: 'MA20',
+        });
+        const ma20Data = calculateMA(finalData, 20);
+        ma20Ref.current.setData(ma20Data);
+      }
+
+      if (showMA200) {
+        ma200Ref.current = chartApi.addLineSeries({
+          color: '#C9A84C',
+          lineWidth: 1,
+          lineStyle: 2,
+          title: 'MA200',
+        });
+        const ma200Data = calculateMA(finalData, 200);
+        ma200Ref.current.setData(ma200Data);
+      }
+
+      chartApi.timeScale().fitContent();
+    } catch (e) {
+      console.error("Chart data application failed:", e);
+    }
+  }, [chartApi, data, chartType, showMA20, showMA200]);
+
+  // Update last candle with live price
+  useEffect(() => {
+    if (seriesRef.current && livePrice && livePrice.price && lastTimeRef.current) {
+      try {
+        const price = parseFloat(livePrice.price);
+        if (isNaN(price)) return;
+        
+        if (chartType === 'CANDLE') {
+          seriesRef.current.update({
+            time: lastTimeRef.current.time,
+            open: lastTimeRef.current.open,
+            high: Math.max(lastTimeRef.current.high, price),
+            low: Math.min(lastTimeRef.current.low, price),
+            close: price,
+          });
+        } else {
+          seriesRef.current.update({
+            time: lastTimeRef.current.time,
+            value: price,
+          });
+        }
+      } catch (e) {
+        console.warn("Live update failed:", e);
+      }
+    }
+  }, [livePrice, chartType]);
+
+  return <div ref={chartContainerRef} className="w-full h-full min-h-[300px]" />;
+}
+
+function calculateMA(data, period) {
+  const result = [];
+  for (let i = 0; i < data.length; i++) {
+    if (i < period) continue;
+    let sum = 0;
+    for (let j = 0; j < period; j++) {
+      sum += data[i - j].close;
+    }
+    result.push({ time: data[i].time, value: sum / period });
+  }
+  return result;
 }

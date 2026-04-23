@@ -22,10 +22,10 @@ export default function ParticleBackground() {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.color = Math.random() > 0.5 ? 'rgba(201,168,76,' : 'rgba(138,154,181,';
-        this.size = Math.random() * 2 + 1;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.color = Math.random() > 0.5 ? 'rgba(0, 255, 136,' : 'rgba(0, 230, 118,';
+        this.size = Math.random() * 1.5 + 0.5;
       }
       update() {
         this.x += this.vx;
@@ -34,10 +34,17 @@ export default function ParticleBackground() {
         if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
       }
       draw() {
-        ctx.fillStyle = this.color + '0.3)';
+        ctx.fillStyle = this.color + '0.4)';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
+        
+        if (Math.random() > 0.99) {
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = this.color + '0.8)';
+        } else {
+          ctx.shadowBlur = 0;
+        }
       }
     }
 
@@ -48,16 +55,10 @@ export default function ParticleBackground() {
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      const goldGlow = ctx.createRadialGradient(canvas.width, 0, 0, canvas.width, 0, 800);
-      goldGlow.addColorStop(0, 'rgba(201,168,76,0.1)');
-      goldGlow.addColorStop(1, 'transparent');
-      ctx.fillStyle = goldGlow;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const blueGlow = ctx.createRadialGradient(0, canvas.height, 0, 0, canvas.height, 800);
-      blueGlow.addColorStop(0, 'rgba(0,100,255,0.05)');
-      blueGlow.addColorStop(1, 'transparent');
-      ctx.fillStyle = blueGlow;
+      const backgroundGradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width);
+      backgroundGradient.addColorStop(0, '#0a0e1a');
+      backgroundGradient.addColorStop(1, '#05070a');
+      ctx.fillStyle = backgroundGradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       for (let i = 0; i < particleCount; i++) {
@@ -65,9 +66,10 @@ export default function ParticleBackground() {
         particles[i].draw();
         for (let j = i + 1; j < particleCount; j++) {
            const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
-           if (dist < 100) {
+           if (dist < 120) {
               ctx.beginPath();
-              ctx.strokeStyle = `rgba(201,168,76,${(100 - dist) / 100 * 0.15})`;
+              ctx.strokeStyle = `rgba(0, 255, 136,${(120 - dist) / 120 * 0.1})`;
+              ctx.lineWidth = 0.5;
               ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
               ctx.stroke();

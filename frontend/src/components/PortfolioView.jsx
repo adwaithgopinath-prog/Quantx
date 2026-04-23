@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { TrendingUp, TrendingDown, ArrowUpRight, Wallet, BarChart2, Target, AlertTriangle, Info, ChevronRight } from 'lucide-react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
+import { useNavigate } from 'react-router-dom';
+import { useSymbol } from '../context/SymbolContext';
 
 const PIE_COLORS = ['#00e676', '#7dd3fc', '#ff9800', '#a78bfa', '#fb7185', '#34d399', '#f59e0b', '#60a5fa'];
 
@@ -29,7 +31,9 @@ function OptimizationTable({ title, subtitle, icon, allocs }) {
   );
 }
 
-export default function PortfolioView({ portfolio, analytics, totalNAV, setSymbol }) {
+export default function PortfolioView({ portfolio, analytics, totalNAV }) {
+  const { setActiveSymbol } = useSymbol();
+  const navigate = useNavigate();
   const [rfr, setRfr] = useState('0.05');
 
   const positions = portfolio?.positions || [];
@@ -272,7 +276,7 @@ export default function PortfolioView({ portfolio, analytics, totalNAV, setSymbo
             </thead>
             <tbody>
               {positions.map((pos, i) => (
-                <tr key={i} onClick={() => setSymbol(pos.symbol)}
+                <tr key={i} onClick={() => { setActiveSymbol(pos.symbol); navigate('/dashboard'); }}
                   className="border-b border-[#1e2333] last:border-0 hover:bg-[#1e2333]/50 cursor-pointer transition-colors">
                   <td className="p-4">
                     <div className="font-bold text-white">{pos.symbol?.split('.')[0] || pos.symbol}</div>

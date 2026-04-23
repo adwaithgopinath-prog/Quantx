@@ -10,7 +10,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: API_BASE,
-  timeout: 30000, // 30s — accounts for Render free-tier cold start
+  timeout: 60000, // 60s
 });
 
 export default api;

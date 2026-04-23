@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap');
 
 @import "tailwindcss";
 
@@ -7,14 +7,19 @@
   --font-heading: "Space Grotesk", sans-serif;
   --font-mono: "DM Mono", monospace;
 
-  /* QuantX AI Terminal Palette */
-  --color-obsidian: #0d0f12;
+  /* AI TERMINAL Palette */
+  --color-obsidian: #0a0e1a;
   --color-card: #141720;
   --color-border: #1e2333;
+  --color-cyan: #00ff88;
   --color-green: #00e676;
   --color-red: #ff4444;
   --color-orange: #ff9800;
   --color-silver: #8a9ab5;
+  --color-gold: #f0c040;
+  --color-gold-light: #f5d060;
+  --color-bullish: #00ff88;
+  --color-bearish: #ff4444;
 
   /* Panel Backgrounds */
   --color-panel: #141720;
@@ -22,6 +27,18 @@
 }
 
 @layer base {
+  :root {
+    --color-gold: #f0c040;
+    --color-gold-light: #f5d060;
+    --color-bullish: #00ff88;
+    --color-bearish: #ff4444;
+    --color-silver: #8a9ab5;
+    --color-panel: #141720;
+    --color-panel-border: #1e2333;
+    --color-obsidian: #0a0e1a;
+    --color-cyan: #00ff88;
+  }
+
   body {
     background-color: var(--color-obsidian);
     color: white;
@@ -32,12 +49,17 @@
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 .font-mono {
   font-family: 'DM Mono', monospace !important;
 }
 
+/* ── Ticker Animation ────────────────────────────────────────────────────── */
 @keyframes ticker {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -52,6 +74,7 @@
   animation-play-state: paused;
 }
 
+/* ── Shimmer Effect ──────────────────────────────────────────────────────── */
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
@@ -73,6 +96,7 @@
   pointer-events: none;
 }
 
+/* ── Glint Effect ────────────────────────────────────────────────────────── */
 @keyframes glint {
   0% { left: -100%; top: 0; }
   20% { left: 100%; top: 100%; }
@@ -96,17 +120,83 @@
   pointer-events: none;
 }
 
+/* ── Glassmorphism ───────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(20, 23, 32, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 35, 51, 0.8);
+}
+
+/* ── Glow Effects ────────────────────────────────────────────────────────── */
+.glow-green {
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.15);
+}
+.glow-gold {
+  box-shadow: 0 0 20px rgba(240, 192, 64, 0.15);
+}
+.glow-red {
+  box-shadow: 0 0 20px rgba(255, 68, 68, 0.15);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-obsidian);
+  background: #0a0e1a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2d3e;
+  background: #1e2333;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-silver);
+  background: #8a9ab5;
+}
+
+/* ── Module Section Transitions ─────────────────────────────────────────── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-enter {
+  animation: fadeSlideIn 0.5s ease-out forwards;
+}
+
+/* ── Pulse Animation ─────────────────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(0, 230, 118, 0.4); }
+  50% { box-shadow: 0 0 12px rgba(0, 230, 118, 0.8), 0 0 20px rgba(0, 230, 118, 0.3); }
+}
+
+.live-indicator {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ── Terminal Cursor ─────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #00e676;
+  margin-left: 2px;
+}
+
+/* ── Number Input Cleanup ────────────────────────────────────────────────── */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(240, 192, 64, 0.3);
+  color: white;
 }

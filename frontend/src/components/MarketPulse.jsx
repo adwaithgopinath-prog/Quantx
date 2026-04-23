@@ -17,7 +17,7 @@ export default function MarketPulse({ state }) {
            </h2>
            <div className="flex items-center gap-2 text-xs font-mono text-[#8a9ab5] bg-[#0d0f12] px-3 py-1 rounded-md border border-[#1e2333] uppercase">
              <RefreshCcw size={12} className="animate-spin text-[#00e676]" /> 
-             Sync: {new Date(last_sync).toLocaleTimeString()}
+             Sync: {last_sync ? new Date(last_sync).toLocaleTimeString() : 'Awaiting...'}
            </div>
         </div>
 
