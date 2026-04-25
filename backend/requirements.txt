@@ -40,7 +40,7 @@ safetensors==0.5.3
 # ── Web Scraping & News ───────────────────────────────────────────────
 beautifulsoup4==4.14.3
 soupsieve==2.8.3
-gdeltdoc==1.2.4
+gdeltdoc>=1.11.0
 
 # ── Reddit (WSB Sentiment) ────────────────────────────────────────────
 praw==7.9.0
@@ -62,3 +62,5 @@ certifi
 charset-normalizer
 idna
 urllib3
+rapidfuzz==3.14.5
+apscheduler==3.11.2

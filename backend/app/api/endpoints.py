@@ -9,8 +9,11 @@ from app.services import (
     ml_models, signal_fusion, backtester, risk_analysis,
     portfolio_manager, market_engine, feature_pipeline,
     external_apis, screener_engine, portfolio_analytics,
-    pattern_recognition, predictor, dark_pool, ml_risk_engine
+    pattern_recognition, predictor, dark_pool, ml_risk_engine,
+    stock_universe
 )
+from rapidfuzz import fuzz, process
+import yfinance as yf
 from app.api import markets
 from app.api import predictions
 import pandas as pd
@@ -21,6 +24,55 @@ from typing import Optional
 router = APIRouter()
 router.include_router(markets.router, prefix="/markets", tags=["Markets"])
 router.include_router(predictions.router, prefix="/predict", tags=["Predictions"])
+
+@router.get("/search")
+def search(q: str = "", limit: int = 20, type: str = "ALL", exchange: str = "ALL"):
+    if not q:
+        # Return trending/popular stocks when no query
+        popular = ["RELIANCE", "TCS", "INFY", "HDFCBANK", "WIPRO",
+                   "BAJFINANCE", "TITAN", "ADANIENT", "NIFTY50", "BTC"]
+        return [stock_universe.SEARCH_INDEX[s] for s in popular if s in stock_universe.SEARCH_INDEX]
+
+    q = q.strip()
+    q_up = q.upper()
+
+    # Filter universe by type and exchange first
+    universe = stock_universe.STOCK_UNIVERSE
+    if type != "ALL":
+        universe = [s for s in universe if s["type"] == type]
+    if exchange != "ALL":
+        universe = [s for s in universe if s["exchange"] == exchange]
+
+    # Tiered matching
+    exact_sym =   [s for s in universe if s["symbol"] == q_up]
+    starts_sym =  [s for s in universe if s["symbol"].startswith(q_up) and s not in exact_sym]
+    contains_sym =[s for s in universe if q_up in s["symbol"] and s not in exact_sym+starts_sym]
+    contains_name=[s for s in universe if q.lower() in s["name"].lower()
+                   and s not in exact_sym+starts_sym+contains_sym]
+
+    already = set(s["symbol"] for s in exact_sym+starts_sym+contains_sym+contains_name)
+    names = [s["name"] for s in universe]
+    fuzzy_raw = process.extract(q, names, scorer=fuzz.WRatio, limit=8, score_cutoff=55)
+    fuzzy = [universe[i] for _, _, i in fuzzy_raw if universe[i]["symbol"] not in already]
+
+    results = (exact_sym + starts_sym + contains_sym + contains_name + fuzzy)[:limit]
+
+    # Fetch live price for top 5 only
+    for s in results[:5]:
+        try:
+            t = yf.Ticker(s["yf_symbol"])
+            fi = t.fast_info
+            s["price"] = round(fi.last_price, 2)
+            s["change_pct"] = round((fi.last_price - fi.previous_close) / fi.previous_close * 100, 2)
+        except:
+            s["price"] = None
+            s["change_pct"] = None
+
+    return results
+
+@router.get("/markets/movers")
+async def get_movers_alias(sort: str = "volume"):
+    return await markets.get_movers(sort)
 
 class TradeRequest(BaseModel):
     symbol: str

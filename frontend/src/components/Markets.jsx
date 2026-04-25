@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useSymbol } from '../context/SymbolContext';
+import PriceRangeSidebar from './PriceRangeSidebar';
 
 const DM_MONO = "font-mono";
 const SYNE = "font-[Syne]";
@@ -34,28 +35,31 @@ export default function Markets() {
   const [moverSort, setMoverSort] = useState('volume');
   const [sectors, setSectors] = useState([]);
   const [earnings, setEarnings] = useState([]);
+  const [priceRanges, setPriceRanges] = useState({});
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigate();
 
-  const TABS = ['Overview', 'Stocks', 'Indices', 'Gainers', 'Losers', 'Most Active', 'Most Volatile', 'Earnings Calendar'];
+  const TABS = ['Overview', 'Stocks', 'Indices', 'Gainers', 'Losers', 'Most Active', 'Most Volatile', 'AI Screener', 'Earnings Calendar'];
 
   const fetchData = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
     else setLoading(true);
 
     try {
-      const [idxRes, movRes, secRes, ernRes] = await Promise.all([
+      const [idxRes, movRes, secRes, ernRes, prRes] = await Promise.all([
         api.get('/api/markets/indices'),
         api.get(`/api/markets/movers?sort=${moverSort}`),
         api.get('/api/markets/sectors'),
-        api.get('/api/markets/earnings')
+        api.get('/api/markets/earnings'),
+        api.get('/api/markets/price-ranges')
       ]);
 
       setIndices(idxRes.data);
       setMovers(movRes.data);
       setSectors(secRes.data);
       setEarnings(ernRes.data);
+      setPriceRanges(prRes.data);
     } catch (error) {
       console.error("Error fetching market data:", error);
     } finally {
@@ -120,7 +124,9 @@ export default function Markets() {
         </div>
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-6 py-12 space-y-24">
+      <div className="flex w-full min-h-[calc(100vh-112px)]">
+        {/* MAIN CONTENT AREA */}
+        <div className="flex-1 px-6 py-12 space-y-24 overflow-y-auto no-scrollbar">
         
         {/* SECTION 1: MAJOR INDICES */}
         <section id="overview" className="space-y-8">
@@ -201,7 +207,65 @@ export default function Markets() {
           </div>
         </section>
 
-        {/* SECTION 4: EARNINGS CALENDAR */}
+        {/* SECTION 4: AI SCREENER (PRICE RANGES) */}
+        <section id="ai-screener" className="space-y-12">
+          <div className="space-y-1">
+            <span className="text-[10px] font-bold text-[#C9A84C] uppercase tracking-[0.3em]">AI Intelligence</span>
+            <h2 className={`text-4xl font-bold uppercase ${SYNE}`}>Top 10 AI-Ranked Assets by Price Range</h2>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+            {['Penny', 'Mid', 'Large', 'Bluechip'].map(range => (
+              <div key={range} className="space-y-4">
+                <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-[#C9A84C]">{range} Range</h3>
+                  <span className="text-[9px] font-mono text-gray-500">
+                    {range === 'Penny' ? '₹1 - ₹50' : range === 'Mid' ? '₹50 - ₹500' : range === 'Large' ? '₹500 - ₹2500' : '₹2500+'}
+                  </span>
+                </div>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl overflow-hidden">
+                  <table className="w-full text-left">
+                    <thead className="bg-white/5 border-b border-white/5">
+                      <tr className="text-[9px] font-bold uppercase text-gray-500">
+                        <th className="px-4 py-3">Asset</th>
+                        <th className="px-4 py-3 text-right">Price</th>
+                        <th className="px-4 py-3 text-right">AI Score</th>
+                        <th className="px-4 py-3 text-right">Rec.</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      {loading ? [1,2,3].map(i => (
+                        <tr key={i}><td colSpan="4" className="p-2"><Skeleton className="h-8 w-full" /></td></tr>
+                      )) : (priceRanges[range] || []).map(asset => (
+                        <tr key={asset.symbol} className="hover:bg-white/[0.03] transition-all cursor-pointer group" onClick={() => { setActiveSymbol(asset.symbol); navigate('/dashboard'); }}>
+                          <td className="px-4 py-3">
+                            <div className="flex flex-col">
+                              <span className="text-xs font-bold text-white group-hover:text-[#C9A84C] transition-colors">{asset.symbol.replace('.NS', '')}</span>
+                              <span className="text-[8px] text-gray-600 uppercase">{asset.sector}</span>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-right font-mono text-xs">₹{asset.current_price.toLocaleString()}</td>
+                          <td className="px-4 py-3 text-right font-mono text-xs text-[#C9A84C]">{asset.ai_score}</td>
+                          <td className="px-4 py-3 text-right">
+                            <span className={`text-[8px] font-bold px-2 py-0.5 rounded-full ${
+                              asset.recommendation.includes('Buy') ? 'bg-[#00E5A0]/10 text-[#00E5A0]' : 
+                              asset.recommendation.includes('Sell') ? 'bg-[#FF3D5A]/10 text-[#FF3D5A]' : 
+                              'bg-gray-500/10 text-gray-400'
+                            }`}>
+                              {asset.recommendation}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 5: EARNINGS CALENDAR */}
         <section id="earnings-calendar" className="space-y-8">
           <div className="space-y-1">
             <span className="text-[10px] font-bold text-[#C9A84C] uppercase tracking-[0.3em]">Financial Pipeline</span>
@@ -240,7 +304,12 @@ export default function Markets() {
             </div>
           </div>
         </section>
+        </div>
 
+        {/* PRICE RANGE SIDEBAR */}
+        <aside className="w-[260px] min-w-[260px] border-l border-white/5 sticky top-[112px] h-[calc(100vh-112px)] bg-[#060810]/40 overflow-hidden">
+           <PriceRangeSidebar />
+        </aside>
       </div>
     </div>
   );

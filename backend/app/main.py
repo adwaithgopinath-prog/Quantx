@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import endpoints
-from app.services import market_engine, data_fetcher
+from app.services import market_engine, data_fetcher, stock_universe
 from app.database import engine
 from app import models
 
@@ -34,6 +34,26 @@ app.include_router(endpoints.router, prefix="/api")
 async def startup_event():
     # Start the Market Data Collection Engine (Pipeline)
     market_engine.start_engine()
+    # Load the Comprehensive Stock Universe
+    stock_universe.load_universe()
+    stock_universe.start_universe_scheduler()
+    
+    # Detailed breakdown logging
+    universe = stock_universe.STOCK_UNIVERSE
+    nse_count = len([s for s in universe if s.get("exchange") == "NSE" and s.get("type") == "STOCK"])
+    etf_count = len([s for s in universe if s.get("type") == "ETF"])
+    idx_count = len([s for s in universe if s.get("type") == "INDEX"])
+    global_count = len([s for s in universe if s.get("type") == "GLOBAL"])
+    crypto_count = len([s for s in universe if s.get("type") == "CRYPTO"])
+    
+    print(f"""
+    QuantX Universe Loaded:
+    |-- NSE Stocks  : {nse_count}
+    |-- ETFs        : {etf_count}
+    |-- Indices     : {idx_count}
+    |-- Global      : {global_count}
+    |-- Crypto      : {crypto_count}
+    """)
 
 @app.websocket("/ws/ticker/{symbol}")
 async def websocket_endpoint(websocket: WebSocket, symbol: str):

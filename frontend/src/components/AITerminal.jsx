@@ -11,6 +11,7 @@ export default function AITerminal({
   const [chartType, setChartType] = useState('CANDLE');
   const [timeframe, setTimeframe] = useState('1D');
   const [maToggles, setMaToggles] = useState({ MA20: true, MA200: false });
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Formatting helpers
   const price = Number(livePrice?.price || data?.current_price || 1365.21);
@@ -25,16 +26,18 @@ export default function AITerminal({
     { symbol: 'HDFCBANK', rsi: 32.1, status: 'BUY' },
     { symbol: 'INFY', rsi: 61.4, status: 'SELL' },
     { symbol: 'TATAMOTORS', rsi: 55.7, status: 'HOLD' },
+    { symbol: 'SBIN', rsi: 42.1, status: 'BUY' },
+    { symbol: 'BHARTIARTL', rsi: 58.9, status: 'HOLD' },
   ]);
 
-  // Update watchlist RSI/Price mock every second
+  // Update watchlist RSI mock
   useEffect(() => {
     const interval = setInterval(() => {
       setWatchlist(prev => prev.map(item => ({
         ...item,
         rsi: (Number(item.rsi) + (Math.random() - 0.5)).toFixed(1)
       })));
-    }, 1000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -46,25 +49,31 @@ export default function AITerminal({
 
   const toggleMA = (ma) => setMaToggles(prev => ({ ...prev, [ma]: !prev[ma] }));
 
+  const filteredWatchlist = watchlist.filter(item => 
+    item.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="flex w-full min-h-[900px] gap-4 font-sans text-white p-2">
       
-      {/* ── LEFT SIDEBAR: LIVE MONITOR (220px) ──────────────────────────────── */}
+      {/* ── LEFT SIDEBAR: LIVE MONITOR ────────────────────────────────────── */}
       <aside className="w-[220px] flex flex-col gap-4">
         <div className="bg-[#141720] border border-[#1e2333] rounded-xl p-3 flex flex-col h-full shadow-2xl">
           <div className="relative mb-4">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8a9ab5]" />
             <input 
               type="text" 
-              placeholder="RELIANCE.NS" 
+              placeholder="Search Watchlist..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#0a0e1a] border border-[#1e2333] rounded-lg py-2 pl-9 pr-3 text-xs focus:border-[#00ff88] outline-none transition-all"
             />
           </div>
 
           <div className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-widest mb-3 px-1">Live Monitor</div>
           
-          <div className="flex flex-col gap-2 overflow-y-auto custom-scrollbar pr-1">
-            {watchlist.map((stock) => (
+          <div className="flex flex-col gap-2 overflow-y-auto no-scrollbar pr-1">
+            {filteredWatchlist.map((stock) => (
               <motion.div 
                 key={stock.symbol}
                 whileHover={{ scale: 1.02, backgroundColor: '#1a1f2e' }}
@@ -87,23 +96,23 @@ export default function AITerminal({
         </div>
       </aside>
 
-      {/* ── CENTER PANEL: MAIN CHART VIEW ──────────────────────────────────── */}
+      {/* ── CENTER PANEL: MAIN CONTENT ────────────────────────────────────── */}
       <main className="flex-1 flex flex-col gap-4">
-        {/* Stock Header Card */}
+        {/* Header Card */}
         <div className="bg-[#141720] border border-[#1e2333] rounded-xl p-5 shadow-xl">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-1">
-              <h1 className="text-2xl font-bold font-heading uppercase tracking-tight">
-                {data?.info?.full_name || "Reliance Industries Limited"}
+              <h1 className="text-2xl font-bold font-[Syne] uppercase tracking-tight">
+                {data?.info?.full_name || symbol?.replace('.NS', '') || "Reliance Industries"}
               </h1>
               <div className="flex gap-2 items-center">
                 <span className="text-[10px] font-bold bg-[#1e2333] px-2 py-0.5 rounded text-[#8a9ab5]">NSE</span>
-                <span className="text-[10px] font-bold bg-[#1e2333] px-2 py-0.5 rounded text-[#8a9ab5]">ENERGY</span>
+                <span className="text-[10px] font-bold bg-[#1e2333] px-2 py-0.5 rounded text-[#8a9ab5]">{data?.info?.sector || 'ENERGY'}</span>
                 <span className="text-[10px] font-bold bg-[#1e2333] px-2 py-0.5 rounded text-[#00ff88]">SERIES EQ</span>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold font-mono flashing-price">
+              <div className="text-3xl font-bold font-mono">
                 ₹{price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
               </div>
               <div className={`text-sm font-bold flex items-center justify-end gap-1 ${isPos ? 'text-[#00ff88]' : 'text-[#ff4444]'}`}>
@@ -112,7 +121,7 @@ export default function AITerminal({
             </div>
           </div>
 
-          {/* Tab Navigation */}
+          {/* Navigation Tabs */}
           <div className="flex gap-6 mt-6 border-b border-[#1e2333]">
             {['TECHNICAL CHART', 'MARKET DEPTH', 'FUNDAMENTALS'].map(tab => (
               <button 
@@ -126,239 +135,171 @@ export default function AITerminal({
             ))}
           </div>
 
-          {/* Chart Controls */}
-          <div className="flex justify-between items-center py-4">
-            <div className="flex gap-2">
-              <div className="bg-[#0a0e1a] border border-[#1e2333] rounded-lg p-1 flex gap-1">
-                {['LINE', 'CANDLE'].map(t => (
-                  <button key={t} onClick={() => setChartType(t)} className={`px-3 py-1 text-[9px] font-bold rounded ${chartType === t ? 'bg-[#1e2333] text-white' : 'text-[#8a9ab5] hover:text-white'}`}>{t}</button>
-                ))}
-              </div>
-              <div className="bg-[#0a0e1a] border border-[#1e2333] rounded-lg p-1 flex gap-1">
-                {['1D', '1W', '1M'].map(t => (
-                  <button key={t} onClick={() => setTimeframe(t)} className={`px-3 py-1 text-[9px] font-bold rounded ${timeframe === t ? 'bg-[#1e2333] text-white' : 'text-[#8a9ab5] hover:text-white'}`}>{t}</button>
-                ))}
-              </div>
-            </div>
-            <div className="flex gap-3 items-center">
-              <div className="flex gap-2">
-                {['MA20', 'MA200'].map(ma => (
-                  <button 
-                    key={ma} 
-                    onClick={() => toggleMA(ma)}
-                    className={`px-3 py-1 text-[9px] font-bold rounded border transition-all ${maToggles[ma] ? 'border-[#00ff88] text-[#00ff88] bg-[#00ff88]/5' : 'border-[#1e2333] text-[#8a9ab5]'}`}
-                  >
-                    {ma}
-                  </button>
-                ))}
-              </div>
-              <div className="flex gap-2 ml-2 border-l border-[#1e2333] pl-3">
-                <button className="text-[#8a9ab5] hover:text-white"><RefreshCw size={14} /></button>
-                <button className="text-[#8a9ab5] hover:text-white"><Maximize2 size={14} /></button>
-              </div>
-            </div>
-          </div>
+          <AnimatePresence mode="wait">
+            {activeTab === 'TECHNICAL CHART' && (
+              <motion.div 
+                key="chart-view"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="space-y-4"
+              >
+                <div className="flex justify-between items-center py-4">
+                  <div className="flex gap-2">
+                    <div className="bg-[#0a0e1a] border border-[#1e2333] rounded-lg p-1 flex gap-1">
+                      {['LINE', 'CANDLE'].map(t => (
+                        <button key={t} onClick={() => setChartType(t)} className={`px-3 py-1 text-[9px] font-bold rounded ${chartType === t ? 'bg-[#1e2333] text-white' : 'text-[#8a9ab5] hover:text-white'}`}>{t}</button>
+                      ))}
+                    </div>
+                    <div className="bg-[#0a0e1a] border border-[#1e2333] rounded-lg p-1 flex gap-1">
+                      {['1D', '1W', '1M'].map(t => (
+                        <button key={t} onClick={() => setTimeframe(t)} className={`px-3 py-1 text-[9px] font-bold rounded ${timeframe === t ? 'bg-[#1e2333] text-white' : 'text-[#8a9ab5] hover:text-white'}`}>{t}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    {['MA20', 'MA200'].map(ma => (
+                      <button 
+                        key={ma} 
+                        onClick={() => toggleMA(ma)}
+                        className={`px-3 py-1 text-[9px] font-bold rounded border transition-all ${maToggles[ma] ? 'border-[#00ff88] text-[#00ff88] bg-[#00ff88]/5' : 'border-[#1e2333] text-[#8a9ab5]'}`}
+                      >
+                        {ma}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-          {/* Main Chart Area */}
-          <div className="h-[400px] w-full bg-[#0a0e1a] rounded-xl border border-[#1e2333] overflow-hidden relative">
-            <InstitutionalChart 
-              data={data?.history} 
-              livePrice={livePrice} 
-              chartType={chartType} 
-              timeframe={timeframe}
-              showMA20={maToggles.MA20}
-              showMA200={maToggles.MA200}
-            />
-          </div>
+                <div className="h-[400px] w-full bg-[#0a0e1a] rounded-xl border border-[#1e2333] overflow-hidden relative">
+                  <InstitutionalChart 
+                    data={data?.history} 
+                    livePrice={livePrice} 
+                    chartType={chartType} 
+                    showMA20={maToggles.MA20}
+                    showMA200={maToggles.MA200}
+                    symbol={symbol}
+                  />
+                </div>
+              </motion.div>
+            )}
+
+            {activeTab === 'MARKET DEPTH' && (
+              <motion.div key="depth-view" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="py-20 flex flex-col items-center justify-center gap-4 text-[#8a9ab5]">
+                 <div className="w-80 h-40 flex items-end gap-1.5 px-6">
+                    {[12,25,45,65,85,95,75,55,35,15].map((h, i) => (
+                      <div key={i} className={`flex-1 ${i < 5 ? 'bg-[#ff4444]/30' : 'bg-[#00ff88]/30'} rounded-t-md`} style={{ height: `${h}%` }} />
+                    ))}
+                 </div>
+                 <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Institutional L2 Order Flow</span>
+                 <span className="text-[9px] opacity-40 uppercase">Bid/Ask Gap: 0.05 | Imbalance: 4% Bullish Bias</span>
+              </motion.div>
+            )}
+
+            {activeTab === 'FUNDAMENTALS' && (
+              <motion.div key="funds-view" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="py-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+                 {[
+                   { label: 'P/E RATIO', val: data?.info?.pe_ratio || '22.4' },
+                   { label: 'DIV YIELD', val: (data?.info?.dividend_yield * 100).toFixed(2) + '%' || '1.12%' },
+                   { label: 'MKT CAP', val: ((data?.info?.market_cap || 1500000000) / 10000000).toFixed(2) + ' Cr' },
+                   { label: 'BETA', val: '1.08' }
+                 ].map(f => (
+                   <div key={f.label} className="p-5 bg-[#0d0f12] border border-[#1e2333] rounded-xl">
+                     <div className="text-[9px] font-bold text-[#8a9ab5] uppercase mb-1 tracking-widest">{f.label}</div>
+                     <div className="text-xl font-bold font-mono">{f.val}</div>
+                   </div>
+                 ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* Technical Indicators Grid */}
+        {/* Indicators Grid */}
         <div className="grid grid-cols-3 gap-4">
-          {/* Card 1: RSI */}
-          <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg flex flex-col justify-between h-[120px]">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-wider">RSI (14)</span>
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#ff9800]/10 text-[#ff9800]">NEUTRAL</span>
-            </div>
-            <div className="text-2xl font-bold font-mono">53.27</div>
-            <div className="w-full h-1 bg-[#1e2333] rounded-full overflow-hidden">
-              <motion.div initial={{ width: 0 }} animate={{ width: '53.27%' }} className="h-full bg-[#ff9800]" />
-            </div>
-          </div>
-
-          {/* Card 2: MACD */}
-          <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg flex flex-col justify-between h-[120px]">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-wider">MACD (12,26,9)</span>
-            </div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-xl font-bold font-mono text-[#ff4444]">-11.06</span>
-              <span className="text-[10px] text-[#8a9ab5]">sig: 0.86</span>
-            </div>
-            <div className="h-4 flex items-end gap-[2px]">
-              {[3,5,8,12,15,12,8,5,3].map((h, i) => (
-                <div key={i} className="flex-1 bg-[#00ff88]/60 rounded-t-[1px]" style={{ height: `${h}px` }} />
-              ))}
-            </div>
-          </div>
-
-          {/* Card 3: MA 50 vs 200 */}
-          <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg flex flex-col justify-between h-[120px]">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-wider">MA 50 vs 200</span>
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#ff9800]/10 text-[#ff9800]">CONSOLIDATING</span>
-            </div>
-            <div className="space-y-1">
-              <div className="flex justify-between text-xs font-mono">
-                <span className="text-[#8a9ab5]">MA50</span>
-                <span>1391</span>
-              </div>
-              <div className="flex justify-between text-xs font-mono">
-                <span className="text-[#8a9ab5]">MA200</span>
-                <span>1439</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 4: Bollinger Bands */}
-          <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg flex flex-col justify-between h-[120px]">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-wider">Bollinger Bands</span>
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#00ff88]/10 text-[#00ff88]">NORMAL</span>
-            </div>
-            <div className="flex justify-between text-[11px] font-mono">
-              <div className="flex flex-col">
-                <span className="text-[#8a9ab5] text-[9px]">UPPER</span>
-                <span>1433.47</span>
-              </div>
-              <div className="flex flex-col text-right">
-                <span className="text-[#8a9ab5] text-[9px]">LOWER</span>
-                <span>1296.95</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 5: EMA (20) */}
-          <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg flex flex-col justify-between h-[120px]">
-            <div className="flex justify-between items-start">
-              <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-wider">EMA (20)</span>
-            </div>
-            <div className="text-2xl font-bold font-mono">1357</div>
-            <div className="text-[8px] font-bold text-[#8a9ab5] uppercase tracking-widest">Weight prioritizes recent price</div>
-          </div>
-
-          {/* Card 6: Pattern AI */}
-          <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg flex flex-col justify-between h-[120px] relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-[#00ff88]/5 rounded-full blur-3xl" />
-            <div className="flex justify-between items-start relative z-10">
-              <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-wider">Pattern AI</span>
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#00ff88]/10 text-[#00ff88]">BULLISH</span>
-            </div>
-            <div className="text-sm font-bold text-white uppercase tracking-tight relative z-10">Bullish Engulfing</div>
-            <div className="text-[9px] text-[#00ff88] flex items-center gap-1 relative z-10">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
-              Pattern detected with 84% confidence
-            </div>
-          </div>
+           <IndicatorCard title="RSI (14)" value="53.27" status="NEUTRAL" statusColor="text-[#ff9800]" progress={53.27} progressColor="bg-[#ff9800]" />
+           <IndicatorCard title="MACD (12,26,9)" value="-11.06" status="BEARISH CROSS" statusColor="text-[#ff4444]" sparkline={[3,5,8,12,15,12,8,5,3]} />
+           <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg relative overflow-hidden flex flex-col justify-between h-[130px]">
+             <div className="absolute top-0 right-0 w-24 h-24 bg-[#00ff88]/5 rounded-full blur-3xl" />
+             <div className="flex justify-between items-start relative z-10">
+               <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-wider">Pattern AI</span>
+               <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#00ff88]/10 text-[#00ff88]">BULLISH</span>
+             </div>
+             <div className="text-sm font-bold text-white uppercase tracking-tight relative z-10">Bullish Engulfing</div>
+             <div className="text-[9px] text-[#00ff88] flex items-center gap-1 relative z-10">
+               <div className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" /> 84% Conf.
+             </div>
+           </div>
         </div>
       </main>
 
-      {/* ── RIGHT SIDEBAR: TRADING PANEL (280px) ───────────────────────────── */}
+      {/* ── RIGHT SIDEBAR: ACTION PANEL ───────────────────────────────────── */}
       <aside className="w-[280px] flex flex-col gap-4">
-        {/* Portfolio Card */}
         <div className="bg-[#141720] border border-[#1e2333] rounded-xl p-5 shadow-xl">
           <div className="flex justify-between items-center mb-4">
-            <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-widest">Portfolio Balance</span>
-            <button className="text-[9px] text-[#00ff88] font-bold uppercase hover:underline">Details →</button>
+            <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-widest">Portfolio NAV</span>
+            <div className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse" />
           </div>
-          <div className="text-2xl font-bold font-mono mb-2">₹100,000.54</div>
-          <div className="flex items-center gap-2 text-[11px]">
-            <span className="text-[#8a9ab5]">Shares Held: <span className="text-white font-bold">1</span></span>
-            <span className="px-1.5 py-0.5 rounded bg-[#ff4444]/10 text-[#ff4444] font-bold text-[9px]">-0.8%</span>
-          </div>
+          <div className="text-2xl font-bold font-mono mb-2">₹{totalNAV.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
+          <div className="text-[10px] text-[#8a9ab5] uppercase font-bold tracking-widest">Available Cash: <span className="text-white">₹{portfolio?.balance?.toLocaleString() || '0'}</span></div>
         </div>
 
-        {/* Trading Controls */}
         <div className="bg-[#141720] border border-[#1e2333] rounded-xl p-5 shadow-xl space-y-5">
           <div className="flex gap-2">
-            <button 
-              onClick={() => setTradeSide('BUY')}
-              className={`flex-1 py-3 text-xs font-bold rounded-lg transition-all ${tradeSide === 'BUY' ? 'bg-[#00ff88] text-[#0a0e1a]' : 'bg-[#1a1f2e] text-[#8a9ab5] hover:text-white'}`}
-            >
-              BUY
-            </button>
-            <button 
-              onClick={() => setTradeSide('SELL')}
-              className={`flex-1 py-3 text-xs font-bold rounded-lg transition-all ${tradeSide === 'SELL' ? 'bg-[#ff4444] text-white' : 'bg-[#1a1f2e] text-[#8a9ab5] hover:text-white'}`}
-            >
-              SELL
-            </button>
+            <button onClick={() => setTradeSide('BUY')} className={`flex-1 py-3 text-xs font-bold rounded-lg transition-all ${tradeSide === 'BUY' ? 'bg-[#00ff88] text-[#0a0e1a]' : 'bg-[#1a1f2e] text-[#8a9ab5] hover:text-white'}`}>BUY</button>
+            <button onClick={() => setTradeSide('SELL')} className={`flex-1 py-3 text-xs font-bold rounded-lg transition-all ${tradeSide === 'SELL' ? 'bg-[#ff4444] text-white' : 'bg-[#1a1f2e] text-[#8a9ab5] hover:text-white'}`}>SELL</button>
           </div>
-
-          <div className="space-y-3">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] font-bold text-[#8a9ab5] uppercase ml-1">Price (₹)</label>
-              <input 
-                type="text" 
-                readOnly 
-                value={price.toFixed(2)}
-                className="w-full bg-[#0a0e1a] border border-[#1e2333] rounded-lg p-3 text-sm font-mono font-bold text-white cursor-not-allowed"
-              />
+          <div className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-bold text-[#8a9ab5] uppercase tracking-widest ml-1">Execution Price</label>
+              <div className="bg-[#0a0e1a] border border-[#1e2333] rounded-lg p-3 text-sm font-mono font-bold text-white">₹{price.toFixed(2)}</div>
             </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] font-bold text-[#8a9ab5] uppercase ml-1">QTY</label>
-              <input 
-                type="number" 
-                value={tradeAmount}
-                onChange={(e) => setTradeAmount(e.target.value)}
-                className="w-full bg-[#0a0e1a] border border-[#1e2333] rounded-lg p-3 text-sm font-mono font-bold text-white focus:border-[#00ff88] outline-none"
-              />
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-bold text-[#8a9ab5] uppercase tracking-widest ml-1">Quantity</label>
+              <input type="number" value={tradeAmount} onChange={(e) => setTradeAmount(e.target.value)} className="w-full bg-[#0a0e1a] border border-[#1e2333] rounded-lg p-3 text-sm font-mono font-bold text-white focus:border-[#00ff88] outline-none" />
             </div>
           </div>
-
-          <div className="space-y-1 py-2 border-t border-[#1e2333]">
-            <div className="flex justify-between text-xs">
-              <span className="text-[#8a9ab5]">Total Amount</span>
-              <span className="font-mono font-bold">₹{(price * tradeAmount).toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-[#8a9ab5]">Available Limit</span>
-              <span className="font-mono text-[#8a9ab5]">₹98,635.33</span>
-            </div>
-          </div>
-
-          <button 
-            onClick={() => handleTrade(tradeSide)}
-            className="w-full py-4 bg-[#00ff88] text-[#0a0e1a] font-bold rounded-lg text-sm uppercase tracking-widest shadow-lg shadow-[#00ff88]/20 hover:brightness-110 active:scale-95 transition-all"
-          >
-            BUY RELIANCE
+          <button onClick={() => handleTrade(tradeSide)} className={`w-full py-4 font-bold rounded-lg text-sm uppercase tracking-[0.2em] shadow-lg transition-all ${tradeSide === 'BUY' ? 'bg-[#00ff88] text-[#0a0e1a] shadow-[#00ff88]/20' : 'bg-[#ff4444] text-white shadow-[#ff4444]/20'} hover:scale-[1.02] active:scale-95`}>
+            Execute {tradeSide}
           </button>
         </div>
 
-        {/* Top Assets Card */}
         <div className="bg-[#141720] border border-[#1e2333] rounded-xl p-5 shadow-xl">
-          <h3 className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-widest mb-4">Top Assets</h3>
-          <div className="space-y-4">
-            {[
-              { s: 'RELIANCE', v: '2987.50', c: '+1.2%', p: true },
-              { s: 'HDFCBANK', v: '1432.10', c: '+0.8%', p: true },
-              { s: 'TCS', v: '4120.00', c: '-0.5%', p: false },
-              { s: 'NVDA', v: '880.60', c: '+4.2%', p: true }
-            ].map((asset) => (
-              <div key={asset.s} className="flex justify-between items-center group cursor-pointer">
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold group-hover:text-[#00ff88] transition-colors">{asset.s}</span>
-                </div>
-                <div className="text-right flex flex-col">
-                  <span className="text-xs font-mono font-bold">₹{asset.v}</span>
-                  <span className={`text-[9px] font-bold ${asset.p ? 'text-[#00ff88]' : 'text-[#ff4444]'}`}>{asset.c}</span>
-                </div>
+           <h3 className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-widest mb-4">Network Tapes</h3>
+           <div className="space-y-3">
+              <div className="p-3 bg-[#0d0f12] rounded-lg border border-[#1e2333] flex justify-between items-center">
+                 <span className="text-[10px] font-bold text-gray-400 uppercase">NSE_TICK_STREAM</span>
+                 <span className="text-[10px] font-bold text-[#00ff88]">LIVE</span>
               </div>
-            ))}
-          </div>
+              <div className="p-3 bg-[#0d0f12] rounded-lg border border-[#1e2333] flex justify-between items-center">
+                 <span className="text-[10px] font-bold text-gray-400 uppercase">VOL_INDEX_ADJ</span>
+                 <span className="text-[10px] font-bold text-white font-mono">1.2x</span>
+              </div>
+           </div>
         </div>
       </aside>
+    </div>
+  );
+}
 
+function IndicatorCard({ title, value, status, statusColor, progress, progressColor, sparkline }) {
+  return (
+    <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg flex flex-col justify-between h-[130px]">
+      <div className="flex justify-between items-start">
+        <span className="text-[10px] font-bold text-[#8a9ab5] uppercase tracking-wider">{title}</span>
+        {status && <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded bg-white/5 ${statusColor}`}>{status}</span>}
+      </div>
+      <div className="text-2xl font-bold font-mono">{value}</div>
+      {progress && (
+        <div className="w-full h-1 bg-[#1e2333] rounded-full overflow-hidden">
+          <motion.div initial={{ width: 0 }} animate={{ width: `${progress}%` }} className={`h-full ${progressColor}`} />
+        </div>
+      )}
+      {sparkline && (
+        <div className="h-4 flex items-end gap-[2px]">
+          {sparkline.map((h, i) => (
+            <div key={i} className="flex-1 bg-[#ff4444]/60 rounded-t-[1px]" style={{ height: `${h}px` }} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

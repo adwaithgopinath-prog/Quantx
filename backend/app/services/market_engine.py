@@ -6,10 +6,22 @@ from . import data_fetcher, news_sentiment
 
 # Background storage for the "Collection Engine"
 MARKET_CACHE = {
-    "last_sync": None,
-    "global_metrics": {},
+    "last_sync": datetime.now().isoformat(),
+    "global_metrics": {
+        "vix_index": 14.5,
+        "fgi_index": 55,
+        "advancers": 1200,
+        "decliners": 800,
+        "source_health": {
+            "yahoo_finance": "INITIALIZING",
+            "alpha_vantage": "INITIALIZING",
+            "polygon_io": "INITIALIZING",
+            "news_scraper": "INITIALIZING"
+        }
+    },
     "sector_data": [],
-    "aggregated_news": []
+    "aggregated_news": [],
+    "indices": []
 }
 
 def sync_market_data():
@@ -92,9 +104,12 @@ def start_engine():
     scheduler.add_job(sync_market_data, 'interval', minutes=2)
     scheduler.start()
     
-    # Run initial sync in a non-blocking way
+    # Run initial sync in a non-blocking way after a short delay
+    # to let the server start up fully
     import threading
-    threading.Thread(target=sync_market_data, daemon=True).start()
+    t = threading.Timer(5.0, sync_market_data)
+    t.daemon = True
+    t.start()
 
 def get_market_state():
     return MARKET_CACHE

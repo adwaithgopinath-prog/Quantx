@@ -232,7 +232,7 @@ export default function App() {
                     <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/5 font-mono text-sm text-[#C9A84C]">{activeSymbol}</div>
                  </div>
                  <div className="h-[calc(100vh-250px)] bg-[#141720] rounded-2xl border border-white/5 overflow-hidden">
-                    <InstitutionalChart data={data?.historical || []} livePrice={livePrice} />
+                    <InstitutionalChart data={data?.history || []} livePrice={livePrice} symbol={activeSymbol} />
                  </div>
               </div>
             } />

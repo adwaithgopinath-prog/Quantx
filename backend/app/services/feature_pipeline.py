@@ -57,14 +57,21 @@ def process_features(symbol: str, indicators: dict, news: dict, risk: dict, pred
 
 def get_pipeline_stats():
     """Returns metadata about the collected features for the UI"""
-    if not os.path.exists(DATASET_PATH):
-        return {"total_rows": 0, "last_update": None, "feature_count": 14}
-    
-    df = pd.read_csv(DATASET_PATH)
-    return {
-        "total_rows": len(df),
-        "last_update": df['timestamp'].iloc[-1] if not df.empty else None,
-        "feature_count": len(df.columns),
-        "avg_sentiment": round(df['sentiment_score'].mean(), 2) if not df.empty else 0,
-        "avg_vol_spike": round(df['vol_spike'].mean(), 2) if not df.empty else 0
-    }
+    try:
+        if not os.path.exists(DATASET_PATH):
+            return {"total_rows": 0, "last_update": None, "feature_count": 14, "avg_sentiment": 0}
+        
+        df = pd.read_csv(DATASET_PATH)
+        if df.empty:
+            return {"total_rows": 0, "last_update": None, "feature_count": 14, "avg_sentiment": 0}
+            
+        return {
+            "total_rows": len(df),
+            "last_update": df['timestamp'].iloc[-1] if 'timestamp' in df.columns and not df.empty else None,
+            "feature_count": len(df.columns),
+            "avg_sentiment": round(df['sentiment_score'].mean(), 2) if 'sentiment_score' in df.columns and not df.empty else 0,
+            "avg_vol_spike": round(df['vol_spike'].mean(), 2) if 'vol_spike' in df.columns and not df.empty else 0
+        }
+    except Exception as e:
+        print(f"Error reading pipeline stats: {e}")
+        return {"total_rows": 0, "last_update": None, "feature_count": 14, "avg_sentiment": 0}

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MarketWatch from './MarketWatch';
+import StockSearch from './StockSearch';
 
 const Sidebar = ({ 
   activeTab, 
@@ -91,6 +92,9 @@ const Sidebar = ({
             <X size={20} />
           </button>
         </div>
+        
+        {/* Stock Search */}
+        <StockSearch isCollapsed={isCollapsed} setActiveTab={setActiveTab} />
 
         {/* Navigation */}
         <div className="px-4 py-4 space-y-1.5">

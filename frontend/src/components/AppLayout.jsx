@@ -7,6 +7,7 @@ import {
   PlayCircle, MessageSquare, Briefcase, FileText, 
   Shield, Bell, User, Globe, ChevronRight, Activity
 } from 'lucide-react';
+import GlobalSearch from './GlobalSearch';
 
 const SYNE = "font-[Syne]";
 const DM_MONO = "font-mono";
@@ -66,7 +67,7 @@ export default function AppLayout({ portfolio, marketEngine, totalNAV, livePrice
           <span className="text-lg font-bold tracking-[0.2em] uppercase font-heading">AI <span className="text-[#00ff88]">TERMINAL</span></span>
         </Link>
         
-        {/* ... (rest of topbar remains same) ... */}
+        <GlobalSearch variant="topbar" />
         <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center gap-3 bg-white/5 px-4 py-1.5 rounded-lg border border-white/5">
              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">NIFTY 50</span>
@@ -83,7 +84,8 @@ export default function AppLayout({ portfolio, marketEngine, totalNAV, livePrice
 
       {/* ── SIDEBAR ─────────────────────────────────────────────────────────── */}
       <aside className="fixed left-0 top-[56px] bottom-0 w-[220px] bg-[#0D1018] border-r border-white/5 z-50 flex flex-col">
-        <div className="flex-1 py-6 px-4 space-y-6 overflow-y-auto no-scrollbar">
+        <div className="flex-1 py-6 space-y-6 overflow-y-auto no-scrollbar">
+          <GlobalSearch variant="sidebar" />
           {NAV_GROUPS.map((group) => (
             <div key={group.title} className="space-y-2">
               <h3 className="px-4 text-[9px] font-bold text-gray-600 uppercase tracking-[0.3em]">{group.title}</h3>
@@ -156,6 +158,8 @@ export default function AppLayout({ portfolio, marketEngine, totalNAV, livePrice
         </AnimatePresence>
       </main>
 
+      {/* GLOBAL MODAL PORTAL */}
+      <GlobalSearch />
     </div>
   );
 }
