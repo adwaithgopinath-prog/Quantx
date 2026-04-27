@@ -378,7 +378,13 @@ function IndexCard({ data }) {
 // ── Mover Row ─────────────────────────────────────────────────────────────
 function MoverRow({ rank, data, setActiveSymbol, navigate }) {
   return (
-    <tr className="hover:bg-white/[0.02] transition-colors group">
+    <tr 
+      className="hover:bg-white/[0.02] transition-colors group cursor-pointer"
+      onClick={() => {
+        setActiveSymbol(data.symbol);
+        navigate('/dashboard');
+      }}
+    >
       <td className="px-6 py-4 text-[10px] font-mono text-gray-600">#{rank.toString().padStart(2, '0')}</td>
       <td className="px-6 py-4">
         <div className="flex flex-col">
@@ -408,15 +414,9 @@ function MoverRow({ rank, data, setActiveSymbol, navigate }) {
         </div>
       </td>
       <td className="px-6 py-4 text-right">
-        <button 
-          onClick={() => {
-            setActiveSymbol(data.symbol);
-            navigate('/dashboard');
-          }}
-          className="p-2 rounded bg-white/5 text-[#C9A84C] opacity-0 group-hover:opacity-100 transition-all hover:bg-[#C9A84C] hover:text-[#060810]"
-        >
+        <div className="p-2 rounded bg-white/5 text-[#C9A84C] opacity-0 group-hover:opacity-100 transition-all hover:bg-[#C9A84C] hover:text-[#060810]">
           <Play size={12} fill="currentColor" />
-        </button>
+        </div>
       </td>
     </tr>
   );

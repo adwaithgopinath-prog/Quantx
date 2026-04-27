@@ -117,7 +117,7 @@ def get_sector_performance():
         "Financial Services": ["HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS", "KOTAKBANK.NS"],
         "Energy": ["RELIANCE.NS", "ONGC.NS", "BPCL.NS", "COALINDIA.NS"],
         "Healthcare": ["SUNPHARMA.NS", "DRREDDY.NS", "CIPLA.NS", "APOLLOHOSP.NS"],
-        "Consumer Cyclical": ["M&M.NS", "MARUTI.NS", "EICHERMOT.NS"],
+        "Consumer Cyclical": ["MM.NS", "MARUTI.NS", "EICHERMOT.NS"],
         "Basic Materials": ["TATASTEEL.NS", "JSWSTEEL.NS", "HINDALCO.NS", "ULTRACEMCO.NS"]
     }
     
@@ -155,7 +155,7 @@ def get_trending_symbols():
     return [
         "RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", 
         "ICICIBANK.NS", "SBIN.NS", "HINDUNILVR.NS", "BHARTIARTL.NS",
-        "ADANIENT.NS", "ITC.NS", "M&M.NS", "BAJFINANCE.NS"
+        "ADANIENT.NS", "ITC.NS", "MM.NS", "BAJFINANCE.NS"
     ]
 
 def format_for_chart(df: pd.DataFrame):

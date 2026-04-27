@@ -16,6 +16,7 @@ from rapidfuzz import fuzz, process
 import yfinance as yf
 from app.api import markets
 from app.api import predictions
+from app.api import auth
 import pandas as pd
 import numpy as np
 import random
@@ -23,6 +24,10 @@ import math
 from typing import Optional, Any
 
 router = APIRouter()
+
+router.include_router(auth.router, prefix="/auth", tags=["Auth"])
+router.include_router(markets.router, prefix="/markets", tags=["Markets"])
+router.include_router(predictions.router, prefix="/predict", tags=["Predictions"])
 
 def clean_json_data(obj: Any) -> Any:
     """
@@ -52,8 +57,6 @@ def clean_json_data(obj: Any) -> Any:
         return float(obj)
         
     return obj
-router.include_router(markets.router, prefix="/markets", tags=["Markets"])
-router.include_router(predictions.router, prefix="/predict", tags=["Predictions"])
 
 @router.get("/search")
 def search(q: str = "", limit: int = 20, type: str = "ALL", exchange: str = "ALL"):
@@ -100,9 +103,6 @@ def search(q: str = "", limit: int = 20, type: str = "ALL", exchange: str = "ALL
 
     return clean_json_data(results)
 
-@router.get("/markets/movers")
-async def get_movers_alias(sort: str = "volume"):
-    return await markets.get_movers(sort)
 
 class TradeRequest(BaseModel):
     symbol: str
@@ -243,7 +243,7 @@ async def get_algo_signals(symbol: str, timeframe: str = "1h"):
 @router.get("/algo/scan")
 async def scan_signals(timeframe: str = "1h"):
     """Run a full market scan across watchlist symbols."""
-    watchlist = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "M&M.NS", "WIPRO.NS"]
+    watchlist = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "MM.NS", "WIPRO.NS"]
     results = []
     for sym in watchlist:
         try:

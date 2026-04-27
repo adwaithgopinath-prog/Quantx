@@ -11,11 +11,12 @@ export const useSymbol = () => {
 };
 
 export const SymbolProvider = ({ children }) => {
-  const [activeSymbol, setActiveSymbol] = useState('RELIANCE.NS');
+  const [activeSymbol, setActiveSymbol] = useState(() => localStorage.getItem('quantx_active_symbol') || 'RELIANCE.NS');
 
   // Remove forcing of .NS since symbols may be global (e.g. AAPL) or crypto (e.g. BTC)
   const setSymbolWithSuffix = (sym) => {
     if (typeof sym !== 'string') return;
+    localStorage.setItem('quantx_active_symbol', sym);
     setActiveSymbol(sym);
   };
 

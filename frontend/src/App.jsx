@@ -117,6 +117,7 @@ export default function App() {
   const [data, setData] = useState(null);
   const [marketEngine, setMarketEngine] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isWaking, setIsWaking] = useState(true);
   const [livePrice, setLivePrice] = useState(null);
   const [portfolio, setPortfolio] = useState(null);
   const [analytics, setAnalytics] = useState(null);
@@ -124,6 +125,21 @@ export default function App() {
   const [tradeSide, setTradeSide] = useState('BUY');
   
   const navigate = useNavigate();
+
+  // ── Connection check for Render cold start ─────────────────────────────────
+  useEffect(() => {
+    const checkBackend = async () => {
+      try {
+        await api.get('/');
+        setIsWaking(false);
+      } catch (err) {
+        console.log("Backend sleeping, waiting...");
+        // Keep checking every 2 seconds
+        setTimeout(checkBackend, 2000);
+      }
+    };
+    checkBackend();
+  }, []);
 
   // ── Data fetching ──────────────────────────────────────────────────────────
   const fetchMarketEngine = useCallback(async () => {
@@ -137,6 +153,7 @@ export default function App() {
   }, []);
 
   const fetchDashboardData = useCallback(async (sym) => {
+    if (isWaking) return;
     setLoading(true);
     try {
       const res = await api.get(`/api/dashboard/${sym}`);
@@ -146,7 +163,7 @@ export default function App() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isWaking]);
 
   const fetchPortfolio = useCallback(async () => {
     try {
@@ -208,6 +225,34 @@ export default function App() {
   return (
     <>
       <ParticleBackground />
+      
+      <AnimatePresence>
+        {isWaking && (
+          <motion.div 
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] bg-[#060810] flex flex-col items-center justify-center gap-6"
+          >
+            <div className="relative">
+              <div className="w-24 h-24 border-2 border-[#C9A84C]/20 rounded-full animate-[spin_3s_linear_infinite]" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-12 h-12 border-t-2 border-[#C9A84C] rounded-full animate-spin" />
+              </div>
+            </div>
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl font-bold uppercase tracking-[0.2em] font-[ Syne]">Quant<span className="text-[#C9A84C]">X</span></h2>
+              <div className="flex items-center gap-2 text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+                <div className="w-1 h-1 rounded-full bg-[#C9A84C] animate-pulse" />
+                Waking up institutional server...
+              </div>
+            </div>
+            <div className="max-w-xs text-center text-[9px] text-gray-600 font-mono uppercase leading-relaxed px-6">
+              Backend is currently on Render's free tier. This may take up to 60 seconds after 15 minutes of inactivity.
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div style={{ position: 'relative', zIndex: 1 }}>
         <Routes>
           <Route element={<AppLayout portfolio={portfolio} marketEngine={marketEngine} totalNAV={totalNAV} livePrice={livePrice} symbol={activeSymbol} />}>

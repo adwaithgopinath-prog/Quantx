@@ -58,7 +58,7 @@ def set_cached_data(key, data):
 # Tickers provided by user - Expanded to include more major stocks
 NSE_30_TICKERS = [
     "RELIANCE.NS", "TCS.NS", "INFY.NS", "HDFCBANK.NS", "ICICIBANK.NS",
-    "WIPRO.NS", "BAJFINANCE.NS", "SBIN.NS", "M&M.NS", "MARUTI.NS",
+    "WIPRO.NS", "BAJFINANCE.NS", "SBIN.NS", "MM.NS", "MARUTI.NS",
     "AXISBANK.NS", "KOTAKBANK.NS", "LT.NS", "ASIANPAINT.NS", "TITAN.NS",
     "NESTLEIND.NS", "HINDUNILVR.NS", "SUNPHARMA.NS", "DRREDDY.NS", "CIPLA.NS",
     "DIVISLAB.NS", "TECHM.NS", "POWERGRID.NS", "NTPC.NS", "ONGC.NS",
@@ -71,7 +71,7 @@ SECTOR_MAP = {
     "IT": ["TCS.NS", "INFY.NS", "WIPRO.NS", "TECHM.NS"],
     "Banking": ["HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS", "AXISBANK.NS", "KOTAKBANK.NS", "BAJFINANCE.NS"],
     "Pharma": ["SUNPHARMA.NS", "DRREDDY.NS", "CIPLA.NS", "DIVISLAB.NS"],
-    "Auto": ["M&M.NS", "MARUTI.NS"],
+    "Auto": ["MM.NS", "MARUTI.NS"],
     "Energy": ["RELIANCE.NS", "POWERGRID.NS", "NTPC.NS", "ONGC.NS", "COALINDIA.NS"],
     "FMCG": ["NESTLEIND.NS", "HINDUNILVR.NS", "ASIANPAINT.NS", "TITAN.NS"],
     "Metals": ["JSWSTEEL.NS", "TATASTEEL.NS", "ADANIENT.NS"],
@@ -110,7 +110,7 @@ async def get_indices():
         def download_indices():
             return yf.download(indices, period="10d", interval="1d", group_by='ticker', progress=False)
             
-        data = await asyncio.wait_for(asyncio.to_thread(download_indices), timeout=5.0)
+        data = await asyncio.wait_for(asyncio.to_thread(download_indices), timeout=25.0)
         
         for symbol in indices:
             try:
@@ -169,7 +169,7 @@ async def get_movers(sort: str = "volume"):
         def download_movers():
             return yf.download(NSE_30_TICKERS, period="5d", interval="1d", group_by='ticker', progress=False)
             
-        data = await asyncio.wait_for(asyncio.to_thread(download_movers), timeout=8.0)
+        data = await asyncio.wait_for(asyncio.to_thread(download_movers), timeout=25.0)
         
         for sym in NSE_30_TICKERS:
             try:
@@ -210,7 +210,7 @@ async def get_movers(sort: str = "volume"):
 
     # Fallback to mock data if yfinance is completely failing/blocking
     if not data_list:
-        for sym in NSE_30_TICKERS[:15]:
+        for sym in NSE_30_TICKERS:
             data_list.append({
                 "symbol": sym,
                 "name": sym.split('.')[0],
@@ -279,7 +279,7 @@ async def get_earnings():
     # We'll try to fetch it but fallback to realistic mock data to ensure the UI looks good
     # as per the "at least 10" requirement.
     
-    for sym in NSE_30_TICKERS[:10]:
+    for sym in NSE_30_TICKERS:
         try:
             t = yf.Ticker(sym)
             cal = t.calendar

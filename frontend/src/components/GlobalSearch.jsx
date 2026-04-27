@@ -117,7 +117,7 @@ export default function GlobalSearch({ variant }) {
   }, [query, activeType]);
 
   const handleSelect = (item) => {
-    const symbol = item.symbol;
+    const symbol = item.yf_symbol || item.symbol;
     setActiveSymbol(symbol);
     
     // Save to recent
