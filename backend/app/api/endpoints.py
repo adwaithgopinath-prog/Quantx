@@ -2,8 +2,13 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends, Request
 from pydantic import BaseModel
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+
+from app.api.auth import get_current_user
+from app import models
 from app.services import (
     data_fetcher, technical_indicators, news_sentiment,
     ml_models, signal_fusion, backtester, risk_analysis,
@@ -16,7 +21,6 @@ from rapidfuzz import fuzz, process
 import yfinance as yf
 from app.api import markets
 from app.api import predictions
-from app.api import auth
 import pandas as pd
 import numpy as np
 import random
@@ -24,8 +28,9 @@ import math
 from typing import Optional, Any
 
 router = APIRouter()
+limiter = Limiter(key_func=get_remote_address)
 
-router.include_router(auth.router, prefix="/auth", tags=["Auth"])
+# Sub-routers
 router.include_router(markets.router, prefix="/markets", tags=["Markets"])
 router.include_router(predictions.router, prefix="/predict", tags=["Predictions"])
 
@@ -59,7 +64,8 @@ def clean_json_data(obj: Any) -> Any:
     return obj
 
 @router.get("/search")
-def search(q: str = "", limit: int = 20, type: str = "ALL", exchange: str = "ALL"):
+@limiter.limit("30/minute")
+def search(request: Request, q: str = "", limit: int = 20, type: str = "ALL", exchange: str = "ALL", current_user: models.User = Depends(get_current_user)):
     if not q:
         # Return trending/popular stocks when no query
         popular = ["RELIANCE", "TCS", "INFY", "HDFCBANK", "WIPRO",
@@ -118,7 +124,8 @@ class BacktestRequest(BaseModel):
 
 # ─── Dashboard ───────────────────────────────────────────────────────────────
 @router.get("/dashboard/{symbol}")
-async def get_dashboard_data(symbol: str):
+@limiter.limit("10/minute")
+async def get_dashboard_data(request: Request, symbol: str, current_user: models.User = Depends(get_current_user)):
     history = data_fetcher.get_stock_history(symbol, period="2y")
     stock_info = data_fetcher.get_stock_info(symbol)
 
@@ -179,7 +186,7 @@ def get_market_engine_state():
 
 # ─── Portfolio ────────────────────────────────────────────────────────────────
 @router.get("/portfolio")
-def get_portfolio():
+def get_portfolio(current_user: models.User = Depends(get_current_user)):
     port = portfolio_manager.get_portfolio()
     current_prices = {}
     for sym in port.get("positions", {}).keys():
@@ -189,12 +196,13 @@ def get_portfolio():
     return portfolio_manager.get_stats(current_prices)
 
 @router.get("/portfolio/analytics")
-def get_portfolio_analytics(rfr: float = 0.05):
+def get_portfolio_analytics(rfr: float = 0.05, current_user: models.User = Depends(get_current_user)):
     return portfolio_analytics.calculate_analytics(rfr)
 
 # ─── Trade Execution ──────────────────────────────────────────────────────────
 @router.post("/trade")
-def execute_trade(trade: TradeRequest):
+@limiter.limit("5/minute")
+def execute_trade(request: Request, trade: TradeRequest, current_user: models.User = Depends(get_current_user)):
     result = portfolio_manager.execute_trade(
         trade.symbol, trade.side, trade.price, trade.quantity
     )
@@ -204,7 +212,7 @@ def execute_trade(trade: TradeRequest):
 
 # ─── MODULE 1: Algorithmic Engine ─────────────────────────────────────────────
 @router.get("/algo/signals/{symbol}")
-async def get_algo_signals(symbol: str, timeframe: str = "1h"):
+def get_algo_signals(symbol: str, timeframe: str = "1h", current_user: models.User = Depends(get_current_user)):
     """
     Returns multi-timeframe RSI, MACD, MA crossover signals with confidence scores.
     """
@@ -241,7 +249,7 @@ async def get_algo_signals(symbol: str, timeframe: str = "1h"):
     }
 
 @router.get("/algo/scan")
-async def scan_signals(timeframe: str = "1h"):
+def scan_signals(timeframe: str = "1h", current_user: models.User = Depends(get_current_user)):
     """Run a full market scan across watchlist symbols."""
     watchlist = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "MM.NS", "WIPRO.NS"]
     results = []
@@ -266,7 +274,7 @@ async def scan_signals(timeframe: str = "1h"):
 
 # ─── MODULE 2: Deep Learning Risk ────────────────────────────────────────────
 @router.get("/risk/deep/{symbol}")
-async def get_deep_risk(symbol: str):
+def get_deep_risk(symbol: str, current_user: models.User = Depends(get_current_user)):
     """Returns ML-based risk scoring with Transformer model output."""
     history = data_fetcher.get_stock_history(symbol, period="1y")
     if history.empty:
@@ -279,7 +287,7 @@ async def get_deep_risk(symbol: str):
     }
 
 @router.get("/risk/heatmap/{symbol}")
-async def get_risk_heatmap(symbol: str):
+def get_risk_heatmap(symbol: str, current_user: models.User = Depends(get_current_user)):
     """24h risk intensity heatmap data."""
     history = data_fetcher.get_stock_history(symbol, period="3mo")
     if history.empty:
@@ -315,7 +323,7 @@ def get_feed_stats():
 
 # ─── MODULE 4: Dark Pool ──────────────────────────────────────────────────────
 @router.get("/darkpool/analysis/{symbol}")
-async def get_dark_pool_analysis(symbol: str):
+def get_dark_pool_analysis(symbol: str, current_user: models.User = Depends(get_current_user)):
     """Returns institutional order flow analysis."""
     history = data_fetcher.get_stock_history(symbol, period="6mo")
     if history.empty:
@@ -324,7 +332,7 @@ async def get_dark_pool_analysis(symbol: str):
     return {"symbol": symbol.upper(), **result}
 
 @router.get("/darkpool/blocks/{symbol}")
-async def get_block_trades(symbol: str):
+def get_block_trades(symbol: str, current_user: models.User = Depends(get_current_user)):
     """Returns detected block trade alerts."""
     history = data_fetcher.get_stock_history(symbol, period="1mo")
     if history.empty:
@@ -346,7 +354,7 @@ async def get_block_trades(symbol: str):
 
 # ─── MODULE 5: Strategy Sandbox ───────────────────────────────────────────────
 @router.get("/backtest/{symbol}")
-def run_backtest(symbol: str, strategy: str = "rsi", capital: float = 100000):
+def run_backtest(symbol: str, strategy: str = "rsi", capital: float = 100000, current_user: models.User = Depends(get_current_user)):
     history = data_fetcher.get_stock_history(symbol, period="2y")
     result = backtester.run_simple_backtest(history, strategy)
 
@@ -361,7 +369,7 @@ def run_backtest(symbol: str, strategy: str = "rsi", capital: float = 100000):
     return {"symbol": symbol.upper(), **result}
 
 @router.post("/backtest/run")
-async def run_strategy_backtest(req: BacktestRequest):
+def run_strategy_backtest(req: BacktestRequest, current_user: models.User = Depends(get_current_user)):
     """Run a named strategy backtest."""
     history = data_fetcher.get_stock_history(req.symbol, period=req.period)
     if history.empty:
@@ -372,7 +380,7 @@ async def run_strategy_backtest(req: BacktestRequest):
     return {"symbol": req.symbol.upper(), **result}
 
 @router.get("/backtest/montecarlo/{symbol}")
-async def run_monte_carlo(symbol: str, runs: int = 60):
+def run_monte_carlo(symbol: str, runs: int = 60, current_user: models.User = Depends(get_current_user)):
     """Run Monte Carlo simulation for strategy robustness."""
     history = data_fetcher.get_stock_history(symbol, period="2y")
     if history.empty:
@@ -430,7 +438,8 @@ def rotate_api_key(service: str = "default"):
 
 # ─── AI Chat ─────────────────────────────────────────────────────────────────
 @router.get("/chat")
-def get_chat_response(query: str, symbol: str):
+@limiter.limit("5/minute")
+def get_chat_response(request: Request, query: str, symbol: str, current_user: models.User = Depends(get_current_user)):
     history = data_fetcher.get_stock_history(symbol)
     news = news_sentiment.analyze_news(symbol)
     indicators = technical_indicators.calculate_all(history)
@@ -479,6 +488,7 @@ def get_orders(
     date_to: Optional[str] = None,
     page: int = 1,
     page_size: int = 20,
+    current_user: models.User = Depends(get_current_user)
 ):
     """Return paginated order history from portfolio.json with optional filters."""
     portfolio = portfolio_manager.get_portfolio()

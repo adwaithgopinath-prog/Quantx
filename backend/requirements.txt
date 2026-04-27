@@ -64,3 +64,10 @@ idna
 urllib3
 rapidfuzz==3.14.5
 apscheduler==3.11.2
+
+# ── Security & Authentication ─────────────────────────────────────────
+sqlalchemy==2.0.38
+python-jose[cryptography]==3.4.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.20
+slowapi==0.1.9

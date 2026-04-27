@@ -2,23 +2,50 @@ import yfinance as yf
 import pandas as pd
 import random
 import requests
+import logging
+from datetime import datetime, timedelta
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("error.log"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("DataFetcher")
+
+# Simple in-memory cache for historical data
+HISTORY_CACHE = {}
+CACHE_EXPIRY = timedelta(minutes=15)
 
 def get_stock_history(symbol: str, period: str = "3mo", source: str = "yahoo"):
     """
-    Unified fetcher for historical stock prices.
-    Improved for NSE/BSE with auto-fallback.
+    Unified fetcher for historical stock prices with caching and error resilience.
     """
+    cache_key = f"{symbol}_{period}_{source}"
+    now = datetime.now()
+    
+    if cache_key in HISTORY_CACHE:
+        data, timestamp = HISTORY_CACHE[cache_key]
+        if now - timestamp < CACHE_EXPIRY:
+            return data
+
     df = pd.DataFrame()
     if source == "yahoo":
         try:
             ticker = yf.Ticker(symbol)
             df = ticker.history(period=period)
             
-            # Fallback for short periods if empty (useful for NSE/BSE off-hours)
             if df.empty and period == "1d":
                 df = ticker.history(period="5d")
+                
+            if not df.empty:
+                HISTORY_CACHE[cache_key] = (df, now)
+                
         except Exception as e:
-            print(f"Yahoo Fetch Error for {symbol}: {e}")
+            logger.error(f"Yahoo Fetch Error for {symbol}: {e}")
             df = pd.DataFrame()
 
     elif source == "alpha_vantage":
@@ -27,10 +54,10 @@ def get_stock_history(symbol: str, period: str = "3mo", source: str = "yahoo"):
         return get_polygon_data(symbol)
     
     if df.empty:
+        logger.warning(f"Returning mock data for {symbol} due to empty fetch")
         # Generate MORE REALISTIC mock data if symbol is missing/invalid
-        # This prevents the 'flat 150' issue
         dates = pd.date_range(end=pd.Timestamp.now(), periods=90)
-        base = random.uniform(500, 2500) # Typical NSE price range
+        base = random.uniform(500, 2500)
         prices = []
         curr = base
         for _ in range(90):
@@ -57,8 +84,6 @@ def get_alpha_vantage_data(symbol: str, api_key: str = "YOUR_API_KEY"):
     return df
 
 def get_polygon_data(symbol: str, api_key: str = "YOUR_API_KEY"):
-    """Integration for Polygon.io Real-time Tick & Aggregate Data"""
-    # Simulating the structured response for now
     return {
         "ticker": symbol,
         "todaysChange": random.uniform(-2, 2),
@@ -70,18 +95,19 @@ def get_stock_info(symbol: str):
     """
     Robust info fetcher. Uses history if info block is stale/empty.
     """
-    ticker = yf.Ticker(symbol)
     try:
+        ticker = yf.Ticker(symbol)
         info = ticker.info
-    except:
+    except Exception as e:
+        logger.error(f"Error fetching info for {symbol}: {e}")
         info = {}
     
-    # Robust price/change detection
     try:
-        hist = ticker.history(period="5d")
+        hist = get_stock_history(symbol, period="5d")
     except Exception as e:
-        print(f"History Fetch Error for {symbol} info: {e}")
+        logger.error(f"History Fetch Error for {symbol} info: {e}")
         hist = pd.DataFrame()
+        
     current_price = 0
     change = 0
     change_pct = 0
@@ -130,8 +156,7 @@ def get_sector_performance():
         
         for t in tickers:
             try:
-                tk = yf.Ticker(t)
-                hist = tk.history(period="2d")
+                hist = get_stock_history(t, period="2d")
                 if not hist.empty and len(hist) >= 2:
                     change = ((hist['Close'].iloc[-1] / hist['Close'].iloc[-2]) - 1) * 100
                     total_change += change
@@ -139,7 +164,8 @@ def get_sector_performance():
                     if change > max_change:
                         max_change = change
                         top_stock = t
-            except:
+            except Exception as e:
+                logger.debug(f"Error in sector calc for {t}: {e}")
                 continue
                 
         avg_change = round(total_change / valid_stocks, 2) if valid_stocks > 0 else 0
@@ -161,25 +187,28 @@ def get_trending_symbols():
 def format_for_chart(df: pd.DataFrame):
     if df.empty: return []
     
-    # Calculate Moving Averages on the full dataset
-    df['SMA20'] = df['Close'].rolling(window=20).mean()
-    df['SMA50'] = df['Close'].rolling(window=50).mean()
-    df['SMA200'] = df['Close'].rolling(window=200).mean()
-    
-    # Slice to last ~252 trading days (~1 year) for the chart to remain performant and readable
-    df_chart = df.tail(252)
-    
-    chart_data = []
-    for date, row in df_chart.iterrows():
-        chart_data.append({
-            "time": date.strftime("%Y-%m-%d"),
-            "open": round(row['Open'], 2),
-            "high": round(row['High'], 2),
-            "low": round(row['Low'], 2),
-            "close": round(row['Close'], 2),
-            "volume": int(row['Volume']),
-            "sma20": round(row['SMA20'], 2) if pd.notnull(row['SMA20']) else None,
-            "sma50": round(row['SMA50'], 2) if pd.notnull(row['SMA50']) else None,
-            "sma200": round(row['SMA200'], 2) if pd.notnull(row['SMA200']) else None
-        })
-    return chart_data
+    try:
+        # Calculate Moving Averages
+        df['SMA20'] = df['Close'].rolling(window=20).mean()
+        df['SMA50'] = df['Close'].rolling(window=50).mean()
+        df['SMA200'] = df['Close'].rolling(window=200).mean()
+        
+        df_chart = df.tail(252)
+        
+        chart_data = []
+        for date, row in df_chart.iterrows():
+            chart_data.append({
+                "time": date.strftime("%Y-%m-%d") if hasattr(date, 'strftime') else str(date),
+                "open": round(row['Open'], 2),
+                "high": round(row['High'], 2),
+                "low": round(row['Low'], 2),
+                "close": round(row['Close'], 2),
+                "volume": int(row['Volume']),
+                "sma20": round(row['SMA20'], 2) if pd.notnull(row['SMA20']) else None,
+                "sma50": round(row['SMA50'], 2) if pd.notnull(row['SMA50']) else None,
+                "sma200": round(row['SMA200'], 2) if pd.notnull(row['SMA200']) else None
+            })
+        return chart_data
+    except Exception as e:
+        logger.error(f"Error formatting chart data: {e}")
+        return []

@@ -7,9 +7,14 @@ import random
 # both local (uvicorn) and Vercel/Render serverless invocations work correctly.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, Request
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import endpoints
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+
+from app.api import endpoints, auth
 from app.services import market_engine, data_fetcher, stock_universe
 from app.database import engine
 from app import models
@@ -17,7 +22,12 @@ from app import models
 # Create database tables
 models.Base.metadata.create_all(bind=engine)
 
+# Rate Limiter setup
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI(title="QuantX - AI Trading Platform")
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 # CORS setup - allow all origins so Vercel frontend can connect
 app.add_middleware(
@@ -28,7 +38,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(endpoints.router, prefix="/api")
+app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
+app.include_router(endpoints.router, prefix="/api", tags=["Endpoints"])
 
 @app.on_event("startup")
 async def startup_event():
@@ -62,16 +73,25 @@ async def websocket_endpoint(websocket: WebSocket, symbol: str):
         info = data_fetcher.get_stock_info(symbol)
         base_price = info.get("price", 150.0)
         while True:
+            try:
+                # Check for client messages (like pong)
+                data = await asyncio.wait_for(websocket.receive_text(), timeout=0.1)
+                if data == "ping":
+                    await websocket.send_text("pong")
+            except asyncio.TimeoutError:
+                pass
+            
             jitter = random.uniform(-base_price * 0.0005, base_price * 0.0005)
             base_price += jitter
             await websocket.send_json({
                 "symbol": symbol.upper(),
                 "price": round(base_price, 2),
-                "change": round(jitter, 4)
+                "change": round(jitter, 4),
+                "timestamp": datetime.now().isoformat()
             })
             await asyncio.sleep(0.5)
     except Exception as e:
-        print(f"WS Disconnected: {e}")
+        logger.error(f"WS Disconnected for {symbol}: {e}")
 
 @app.websocket("/ws/trades/{symbol}")
 async def trade_websocket(websocket: WebSocket, symbol: str):
