@@ -3,14 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useSymbol } from '../context/SymbolContext';
 import { ChevronRight, ChevronDown, RefreshCw, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import api from '../api';
 
 const RANGES = [
-  { key: 'under100',   label: 'Under ₹100',       color: '#8A9AB5' },
-  { key: '100to500',   label: '₹100 – ₹500',      color: '#4E9FFF' },
-  { key: '500to1000',  label: '₹500 – ₹1,000',    color: '#C9A84C' },
-  { key: '1000to2500', label: '₹1,000 – ₹2,500',  color: '#00E5A0' },
-  { key: '2500to5000', label: '₹2,500 – ₹5,000',  color: '#F0D080' },
-  { key: 'above5000',  label: 'Above ₹5,000',      color: '#FF3D5A' },
+  { key: 'Penny',    label: 'Penny',       color: '#8A9AB5' },
+  { key: 'Mid',      label: 'Mid',         color: '#4E9FFF' },
+  { key: 'Large',    label: 'Large',       color: '#C9A84C' },
+  { key: 'Bluechip', label: 'Bluechip',    color: '#00E5A0' },
 ];
 
 const DM_MONO = "font-mono";
@@ -74,7 +73,7 @@ export default function PriceRangeSidebar() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [expanded, setExpanded] = useState({ under100: true });
+  const [expanded, setExpanded] = useState({ Penny: true });
   const [lastUpdated, setLastUpdated] = useState(null);
   const { setActiveSymbol } = useSymbol();
   const navigate = useNavigate();
@@ -84,9 +83,8 @@ export default function PriceRangeSidebar() {
     else setLoading(true);
 
     try {
-      const res = await fetch('/api/markets/all-price-ranges');
-      const json = await res.json();
-      setData(json);
+      const res = await api.get('/api/markets/all-price-ranges');
+      setData(res.data);
       setLastUpdated(new Date());
     } catch (e) {
       console.error('Price range fetch failed:', e);

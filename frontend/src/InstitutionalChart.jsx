@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { createChart, ColorType, CrosshairMode } from 'lightweight-charts';
+import { createChart, ColorType, CrosshairMode, CandlestickSeries, LineSeries } from 'lightweight-charts';
 import { Maximize2, Minimize2, Activity, Info, Zap } from 'lucide-react';
 
 /**
@@ -134,7 +134,7 @@ export default function InstitutionalChart({
 
     try {
       if (chartType === 'CANDLE') {
-        seriesRef.current = chart.addCandlestickSeries({
+        seriesRef.current = chart.addSeries(CandlestickSeries, {
           upColor: '#00E5A0',
           downColor: '#FF3D5A',
           borderVisible: false,
@@ -143,7 +143,7 @@ export default function InstitutionalChart({
         });
         seriesRef.current.setData(finalData);
       } else {
-        seriesRef.current = chart.addLineSeries({
+        seriesRef.current = chart.addSeries(LineSeries, {
           color: '#C9A84C',
           lineWidth: 2,
         });
@@ -153,12 +153,12 @@ export default function InstitutionalChart({
       lastTimeRef.current = finalData[finalData.length - 1];
 
       if (showMA20 && finalData.length > 20) {
-        ma20Ref.current = chart.addLineSeries({ color: '#00E5A0', lineWidth: 1, lineStyle: 2, title: 'MA20' });
+        ma20Ref.current = chart.addSeries(LineSeries, { color: '#00E5A0', lineWidth: 1, lineStyle: 2, title: 'MA20' });
         ma20Ref.current.setData(calculateMA(finalData, 20));
       }
       
       if (showMA200 && finalData.length > 200) {
-        ma200Ref.current = chart.addLineSeries({ color: '#C9A84C', lineWidth: 1, lineStyle: 2, title: 'MA200' });
+        ma200Ref.current = chart.addSeries(LineSeries, { color: '#C9A84C', lineWidth: 1, lineStyle: 2, title: 'MA200' });
         ma200Ref.current.setData(calculateMA(finalData, 200));
       }
 

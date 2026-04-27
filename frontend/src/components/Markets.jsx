@@ -40,7 +40,7 @@ export default function Markets() {
   const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigate();
 
-  const TABS = ['Overview', 'Stocks', 'Indices', 'Gainers', 'Losers', 'Most Active', 'Most Volatile', 'AI Screener', 'Earnings Calendar'];
+  const TABS = ['Overview', 'Stocks', 'Gainers', 'Losers', 'Most Active', 'Most Volatile', 'AI Screener', 'Earnings Calendar'];
 
   const fetchData = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
@@ -74,6 +74,20 @@ export default function Markets() {
     return () => clearInterval(interval);
   }, [fetchData]);
 
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+    
+    // Mapping tabs to sorts
+    if (tab === 'Gainers') { setMoverSort('gainers'); scrollToSection('stocks'); }
+    else if (tab === 'Losers') { setMoverSort('losers'); scrollToSection('stocks'); }
+    else if (tab === 'Most Active') { setMoverSort('volume'); scrollToSection('stocks'); }
+    else if (tab === 'Most Volatile') { setMoverSort('volatile'); scrollToSection('stocks'); }
+    else if (tab === 'Stocks') { scrollToSection('stocks'); }
+    else {
+      scrollToSection(tab.toLowerCase().replace(' ', '-'));
+    }
+  };
+
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -99,10 +113,7 @@ export default function Markets() {
             {TABS.map(tab => (
               <button
                 key={tab}
-                onClick={() => {
-                  setActiveTab(tab);
-                  scrollToSection(tab.toLowerCase().replace(' ', '-'));
-                }}
+                onClick={() => handleTabClick(tab)}
                 className={`text-[11px] font-bold uppercase tracking-wider whitespace-nowrap transition-all relative py-4 ${
                   activeTab === tab ? 'text-[#C9A84C]' : 'text-gray-500 hover:text-white'
                 }`}
@@ -158,7 +169,7 @@ export default function Markets() {
                     moverSort === s ? 'bg-[#C9A84C] text-[#060810]' : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  {s}
+                  {s === 'volume' ? 'Most Active' : s}
                 </button>
               ))}
             </div>
@@ -185,11 +196,6 @@ export default function Markets() {
                 ))}
               </tbody>
             </table>
-            <div className="p-4 border-t border-white/5 flex justify-center">
-              <button className="text-[10px] font-bold uppercase text-gray-500 hover:text-white transition-all flex items-center gap-2">
-                Show More <ChevronRight size={14} />
-              </button>
-            </div>
           </div>
         </section>
 
@@ -200,8 +206,8 @@ export default function Markets() {
             <h2 className={`text-4xl font-bold uppercase ${SYNE}`}>Sectoral Heatmap</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {loading ? [1,2,3,4,5,6,7,8,9,10].map(i => <Skeleton key={i} className="h-32" />) : 
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {loading ? [1,2,3,4,5,6,7,8].map(i => <Skeleton key={i} className="h-32" />) : 
               sectors.map(sector => <SectorTile key={sector.name} data={sector} />)
             }
           </div>
@@ -220,7 +226,7 @@ export default function Markets() {
                 <div className="flex items-center justify-between border-b border-white/10 pb-2">
                   <h3 className="text-sm font-bold uppercase tracking-widest text-[#C9A84C]">{range} Range</h3>
                   <span className="text-[9px] font-mono text-gray-500">
-                    {range === 'Penny' ? '₹1 - ₹50' : range === 'Mid' ? '₹50 - ₹500' : range === 'Large' ? '₹500 - ₹2500' : '₹2500+'}
+                    {range === 'Penny' ? 'Under ₹100' : range === 'Mid' ? '₹100 - ₹500' : range === 'Large' ? '₹500 - ₹2500' : '₹2500+'}
                   </span>
                 </div>
                 <div className="bg-white/[0.02] border border-white/5 rounded-xl overflow-hidden">
@@ -244,15 +250,15 @@ export default function Markets() {
                               <span className="text-[8px] text-gray-600 uppercase">{asset.sector}</span>
                             </div>
                           </td>
-                          <td className="px-4 py-3 text-right font-mono text-xs">₹{asset.current_price.toLocaleString()}</td>
-                          <td className="px-4 py-3 text-right font-mono text-xs text-[#C9A84C]">{asset.ai_score}</td>
+                          <td className="px-4 py-3 text-right font-mono text-xs">₹{(asset.current_price ?? 0).toLocaleString()}</td>
+                          <td className="px-4 py-3 text-right font-mono text-xs text-[#C9A84C]">{asset.ai_score ?? 0}</td>
                           <td className="px-4 py-3 text-right">
                             <span className={`text-[8px] font-bold px-2 py-0.5 rounded-full ${
-                              asset.recommendation.includes('Buy') ? 'bg-[#00E5A0]/10 text-[#00E5A0]' : 
-                              asset.recommendation.includes('Sell') ? 'bg-[#FF3D5A]/10 text-[#FF3D5A]' : 
+                              (asset.recommendation ?? '').includes('Buy') ? 'bg-[#00E5A0]/10 text-[#00E5A0]' : 
+                              (asset.recommendation ?? '').includes('Sell') ? 'bg-[#FF3D5A]/10 text-[#FF3D5A]' : 
                               'bg-gray-500/10 text-gray-400'
                             }`}>
-                              {asset.recommendation}
+                              {asset.recommendation ?? 'Hold'}
                             </span>
                           </td>
                         </tr>
@@ -357,10 +363,10 @@ function IndexCard({ data }) {
       </div>
       
       <div className="space-y-1">
-        <div className={`text-3xl font-bold ${DM_MONO}`}>{data.price.toLocaleString()}</div>
+        <div className={`text-3xl font-bold ${DM_MONO}`}>{(data.price ?? 0).toLocaleString()}</div>
         <div className={`text-xs font-bold flex items-center gap-1 ${data.change >= 0 ? 'text-[#00E5A0]' : 'text-[#FF3D5A]'}`}>
           {data.change >= 0 ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
-          {Math.abs(data.change).toFixed(2)} ({data.change_pct.toFixed(2)}%)
+          {Math.abs(data.change ?? 0).toFixed(2)} ({(data.change_pct ?? 0).toFixed(2)}%)
         </div>
       </div>
 
@@ -380,9 +386,9 @@ function MoverRow({ rank, data, setActiveSymbol, navigate }) {
           <span className="text-[9px] text-gray-500 uppercase">{data.name}</span>
         </div>
       </td>
-      <td className={`px-6 py-4 text-right font-bold ${DM_MONO}`}>{data.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+      <td className={`px-6 py-4 text-right font-bold ${DM_MONO}`}>{(data.price ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
       <td className={`px-6 py-4 text-right font-bold ${DM_MONO} ${data.change >= 0 ? 'text-[#00E5A0]' : 'text-[#FF3D5A]'}`}>
-        {data.change_pct.toFixed(2)}%
+        {(data.change_pct ?? 0).toFixed(2)}%
       </td>
       <td className={`px-6 py-4 text-right text-[11px] font-mono text-gray-400`}>{formatVol(data.volume)}</td>
       <td className="px-6 py-4 text-center">
@@ -433,7 +439,7 @@ function SectorTile({ data }) {
       </div>
       <div className="relative z-10 space-y-1">
         <div className="text-[10px] font-bold uppercase opacity-80">{data.name}</div>
-        <div className={`text-2xl font-bold ${DM_MONO}`}>{data.change >= 0 ? '+' : ''}{data.change.toFixed(2)}%</div>
+        <div className={`text-2xl font-bold ${DM_MONO}`}>{data.change >= 0 ? '+' : ''}{(data.change ?? 0).toFixed(2)}%</div>
       </div>
 
       <AnimatePresence>
@@ -448,7 +454,7 @@ function SectorTile({ data }) {
               <div key={s.symbol} className="flex justify-between text-[10px] font-bold">
                 <span className="text-[#C9A84C]">{s.symbol.replace('.NS', '')}</span>
                 <span className={s.change >= 0 ? 'text-[#00E5A0]' : 'text-[#FF3D5A]'}>
-                  {s.change >= 0 ? '+' : ''}{s.change.toFixed(2)}%
+                  {s.change >= 0 ? '+' : ''}{(s.change ?? 0).toFixed(2)}%
                 </span>
               </div>
             ))}
@@ -510,7 +516,7 @@ function TrendingPill({ data, setActiveSymbol, navigate }) {
         <div className="text-[9px] text-gray-500 uppercase">{data.name}</div>
       </div>
       <div className={`text-xs font-bold ${DM_MONO} ${data.change >= 0 ? 'text-[#00E5A0]' : 'text-[#FF3D5A]'}`}>
-        {data.change >= 0 ? '+' : ''}{data.change_pct.toFixed(1)}%
+        {data.change >= 0 ? '+' : ''}{(data.change_pct ?? 0).toFixed(1)}%
       </div>
     </button>
   );

@@ -19,9 +19,39 @@ from app.api import predictions
 import pandas as pd
 import numpy as np
 import random
-from typing import Optional
+import math
+from typing import Optional, Any
 
 router = APIRouter()
+
+def clean_json_data(obj: Any) -> Any:
+    """
+    Recursively replaces NaN and Inf values with None to ensure JSON compliance.
+    """
+    import numpy as np
+    import pandas as pd
+
+    # Handle pandas objects
+    if isinstance(obj, pd.DataFrame):
+        return clean_json_data(obj.to_dict(orient='records'))
+    if isinstance(obj, pd.Series):
+        return clean_json_data(obj.tolist())
+
+    # Handle dicts
+    if isinstance(obj, dict):
+        return {str(k): clean_json_data(v) for k, v in obj.items()}
+    
+    # Handle lists/tuples/numpy arrays
+    if isinstance(obj, (list, tuple, np.ndarray)):
+        return [clean_json_data(x) for x in obj]
+    
+    # Handle floats (including numpy types)
+    if isinstance(obj, (float, int, np.number)):
+        if pd.isna(obj) or np.isinf(obj):
+            return None
+        return float(obj)
+        
+    return obj
 router.include_router(markets.router, prefix="/markets", tags=["Markets"])
 router.include_router(predictions.router, prefix="/predict", tags=["Predictions"])
 
@@ -68,7 +98,7 @@ def search(q: str = "", limit: int = 20, type: str = "ALL", exchange: str = "ALL
             s["price"] = None
             s["change_pct"] = None
 
-    return results
+    return clean_json_data(results)
 
 @router.get("/markets/movers")
 async def get_movers_alias(sort: str = "volume"):
@@ -115,7 +145,7 @@ async def get_dashboard_data(symbol: str):
     except Exception as e:
         print(f"Pipeline error: {e}")
 
-    return {
+    return clean_json_data({
         "symbol": symbol.upper(),
         "info": stock_info,
         "chart_data": data_fetcher.format_for_chart(history),
@@ -136,7 +166,7 @@ async def get_dashboard_data(symbol: str):
             "fmp": fmp_data,
             "openai": openai_analysis
         }
-    }
+    })
 
 # ─── Pipeline & Market Engine ─────────────────────────────────────────────────
 @router.get("/pipeline/stats")
@@ -213,7 +243,7 @@ async def get_algo_signals(symbol: str, timeframe: str = "1h"):
 @router.get("/algo/scan")
 async def scan_signals(timeframe: str = "1h"):
     """Run a full market scan across watchlist symbols."""
-    watchlist = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "TATAMOTORS.NS", "WIPRO.NS"]
+    watchlist = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "M&M.NS", "WIPRO.NS"]
     results = []
     for sym in watchlist:
         try:
@@ -262,7 +292,7 @@ async def get_risk_heatmap(symbol: str):
 def get_instruments():
     """Returns list of supported 50+ instruments."""
     nse = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "ICICIBANK.NS",
-           "HINDUNILVR.NS", "BAJFINANCE.NS", "WIPRO.NS", "TATAMOTORS.NS", "MARUTI.NS",
+           "HINDUNILVR.NS", "BAJFINANCE.NS", "WIPRO.NS", "MARUTI.NS",
            "SUNPHARMA.NS", "ONGC.NS", "LT.NS", "AXISBANK.NS", "NESTLEIND.NS"]
     global_syms = ["AAPL", "NVDA", "MSFT", "GOOGL", "AMZN", "META", "TSLA", "JPM", "V"]
     crypto = ["BTC-USD", "ETH-USD", "SOL-USD"]

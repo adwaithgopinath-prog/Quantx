@@ -13,11 +13,10 @@ export const useSymbol = () => {
 export const SymbolProvider = ({ children }) => {
   const [activeSymbol, setActiveSymbol] = useState('RELIANCE.NS');
 
-  // Handle case where symbol might be passed without .NS
+  // Remove forcing of .NS since symbols may be global (e.g. AAPL) or crypto (e.g. BTC)
   const setSymbolWithSuffix = (sym) => {
     if (typeof sym !== 'string') return;
-    const formatted = sym.endsWith('.NS') ? sym : `${sym.toUpperCase()}.NS`;
-    setActiveSymbol(formatted);
+    setActiveSymbol(sym);
   };
 
   return (

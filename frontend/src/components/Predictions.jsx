@@ -147,7 +147,7 @@ export default function Predictions({ portfolio }) {
           <div className="bg-red-500/10 border border-red-500/20 p-12 rounded-3xl text-center space-y-4">
             <ShieldAlert size={48} className="mx-auto text-red-500" />
             <h2 className="text-xl font-bold uppercase">{error}</h2>
-            <button onClick={() => setActiveSymbol('RELIANCE')} className="text-[#C9A84C] text-sm uppercase font-bold underline">Return to Default</button>
+            <button onClick={() => setActiveSymbol('RELIANCE.NS')} className="text-[#C9A84C] text-sm uppercase font-bold underline">Return to Default</button>
           </div>
         ) : (
           <motion.div 
