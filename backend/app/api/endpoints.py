@@ -25,14 +25,15 @@ import pandas as pd
 import numpy as np
 import random
 import math
+import json
 from typing import Optional, Any
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(get_current_user)])
 limiter = Limiter(key_func=get_remote_address)
 
-# Sub-routers
-router.include_router(markets.router, prefix="/markets", tags=["Markets"])
-router.include_router(predictions.router, prefix="/predict", tags=["Predictions"])
+# Sub-routers (Protected by default)
+router.include_router(markets.router, prefix="/markets", tags=["Markets"], dependencies=[Depends(get_current_user)])
+router.include_router(predictions.router, prefix="/predict", tags=["Predictions"], dependencies=[Depends(get_current_user)])
 
 def clean_json_data(obj: Any) -> Any:
     """
@@ -99,15 +100,75 @@ def search(request: Request, q: str = "", limit: int = 20, type: str = "ALL", ex
     # Fetch live price for top 5 only
     for s in results[:5]:
         try:
-            t = yf.Ticker(s["yf_symbol"])
-            fi = t.fast_info
-            s["price"] = round(fi.last_price, 2)
-            s["change_pct"] = round((fi.last_price - fi.previous_close) / fi.previous_close * 100, 2)
+            info = data_fetcher.get_stock_info(s["yf_symbol"])
+            s["price"] = info["price"]
+            s["change_pct"] = info["change_pct"]
+            s["market_open"] = info["market_open"]
+            s["stale"] = info["stale"]
         except:
             s["price"] = None
             s["change_pct"] = None
+            s["market_open"] = data_fetcher.is_market_open()
+            s["stale"] = True
 
     return clean_json_data(results)
+
+@router.get("/stocks/list")
+def get_stocks_list(
+    query: Optional[str] = None,
+    exchange: Optional[str] = None,
+    sector: Optional[str] = None,
+    page: int = 1,
+    limit: int = 50,
+    current_user: models.User = Depends(get_current_user)
+):
+    data_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "all_stocks.json")
+    if not os.path.exists(data_path):
+        return {"stocks": [], "total": 0, "page": page, "limit": limit}
+    
+    with open(data_path, "r", encoding="utf-8") as f:
+        stocks = json.load(f)
+    
+    if query:
+        q = query.lower()
+        stocks = [s for s in stocks if q in s['symbol'].lower() or q in s['display'].lower()]
+    
+    if exchange and exchange != "ALL":
+        stocks = [s for s in stocks if s['exchange'] == exchange]
+        
+    if sector and sector != "All":
+        stocks = [s for s in stocks if s['sector'] == sector]
+        
+    total = len(stocks)
+    start = (page - 1) * limit
+    end = start + limit
+    
+    return {
+        "stocks": stocks[start:end],
+        "total": total,
+        "page": page,
+        "limit": limit
+    }
+
+@router.get("/stocks/list/global")
+def get_global_stocks(current_user: models.User = Depends(get_current_user)):
+    url = "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv"
+    try:
+        df = pd.read_csv(url)
+        stocks = []
+        for _, row in df.iterrows():
+            # yfinance symbol for US stocks is just the ticker
+            stocks.append({
+                "symbol": str(row['Symbol']).strip(),
+                "display": str(row['Security']).strip(),
+                "sector": str(row['GICS Sector']).strip(),
+                "exchange": "GLOBAL",
+                "isin": "" # Not provided in this CSV
+            })
+        return stocks
+    except Exception as e:
+        print(f"Error fetching global stocks: {e}")
+        return []
 
 
 class TradeRequest(BaseModel):
@@ -187,24 +248,23 @@ def get_market_engine_state():
 # ─── Portfolio ────────────────────────────────────────────────────────────────
 @router.get("/portfolio")
 def get_portfolio(current_user: models.User = Depends(get_current_user)):
-    port = portfolio_manager.get_portfolio()
+    port = portfolio_manager.get_portfolio(current_user.id)
     current_prices = {}
     for sym in port.get("positions", {}).keys():
-        hist = data_fetcher.get_stock_history(sym, period="5d")
-        if not hist.empty:
-            current_prices[sym] = hist["Close"].iloc[-1]
-    return portfolio_manager.get_stats(current_prices)
+        info = data_fetcher.get_stock_info(sym)
+        current_prices[sym] = info["price"]
+    return portfolio_manager.get_stats(current_user.id, current_prices)
 
 @router.get("/portfolio/analytics")
 def get_portfolio_analytics(rfr: float = 0.05, current_user: models.User = Depends(get_current_user)):
-    return portfolio_analytics.calculate_analytics(rfr)
+    return portfolio_analytics.calculate_analytics(current_user.id, rfr)
 
 # ─── Trade Execution ──────────────────────────────────────────────────────────
 @router.post("/trade")
 @limiter.limit("5/minute")
 def execute_trade(request: Request, trade: TradeRequest, current_user: models.User = Depends(get_current_user)):
     result = portfolio_manager.execute_trade(
-        trade.symbol, trade.side, trade.price, trade.quantity
+        current_user.id, trade.symbol, trade.side, trade.price, trade.quantity
     )
     if result["status"] == "error":
         raise HTTPException(status_code=400, detail=result["message"])
@@ -461,16 +521,13 @@ def get_trending_market():
     symbols = data_fetcher.get_trending_symbols()
     trending_data = []
     for s in symbols:
-        hist = data_fetcher.get_stock_history(s, period="1d")
-        if not hist.empty:
-            price = hist["Close"].iloc[-1]
-            prev_price = hist["Open"].iloc[-1]
-            change_pct = ((price - prev_price) / prev_price) * 100
-            trending_data.append({
-                "symbol": s,
-                "price": round(price, 2),
-                "change": round(change_pct, 2)
-            })
+        info = data_fetcher.get_stock_info(s)
+        trending_data.append({
+            "symbol": s,
+            "price": info["price"],
+            "change": info["change_pct"],
+            "market_open": info["market_open"]
+        })
     return trending_data
 
 # ─── Screener ────────────────────────────────────────────────────────────────
@@ -490,8 +547,8 @@ def get_orders(
     page_size: int = 20,
     current_user: models.User = Depends(get_current_user)
 ):
-    """Return paginated order history from portfolio.json with optional filters."""
-    portfolio = portfolio_manager.get_portfolio()
+    """Return paginated order history from portfolio with optional filters."""
+    portfolio = portfolio_manager.get_portfolio(current_user.id)
     history = portfolio.get("history", [])
 
     enriched = []

@@ -10,6 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useSymbol } from '../context/SymbolContext';
 import PriceRangeSidebar from './PriceRangeSidebar';
+import toast from 'react-hot-toast';
 
 const DM_MONO = "font-mono";
 const SYNE = "font-[Syne]";
@@ -38,6 +39,8 @@ export default function Markets() {
   const [priceRanges, setPriceRanges] = useState({});
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [pinging, setPinging] = useState(false);
+  const backendWakedUp = useRef(false);
   const navigate = useNavigate();
 
   const TABS = ['Overview', 'Stocks', 'Gainers', 'Losers', 'Most Active', 'Most Volatile', 'AI Screener', 'Earnings Calendar'];
@@ -47,6 +50,21 @@ export default function Markets() {
     else setLoading(true);
 
     try {
+      // Backend Wake-up Ping (only on first load or if previously failed)
+      if (!backendWakedUp.current && !isRefresh) {
+        setPinging(true);
+        try {
+          await api.get('/api/ping');
+          backendWakedUp.current = true;
+        } catch (err) {
+          if (!err.response) {
+            console.warn("Backend still waking up...");
+          }
+        } finally {
+          setPinging(false);
+        }
+      }
+
       const [idxRes, movRes, secRes, ernRes, prRes] = await Promise.all([
         api.get('/api/markets/indices'),
         api.get(`/api/markets/movers?sort=${moverSort}`),
@@ -62,6 +80,11 @@ export default function Markets() {
       setPriceRanges(prRes.data);
     } catch (error) {
       console.error("Error fetching market data:", error);
+      if (!error.response) {
+        toast.error("Connecting to markets... (Backend might be waking up)");
+      } else {
+        toast.error("Failed to load market data");
+      }
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -147,7 +170,12 @@ export default function Markets() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {loading ? [1,2,3,4].map(i => <Skeleton key={i} className="h-40" />) : 
+            {pinging ? (
+              <div className="col-span-full h-40 flex flex-col items-center justify-center bg-white/5 rounded-xl border border-white/5 animate-pulse">
+                <RefreshCw className="animate-spin text-[#C9A84C] mb-2" size={24} />
+                <span className="text-sm font-bold uppercase tracking-widest text-gray-400">Connecting to Backend...</span>
+              </div>
+            ) : loading ? [1,2,3,4].map(i => <Skeleton key={i} className="h-40" />) : 
               indices.map(idx => <IndexCard key={idx.symbol} data={idx} />)
             }
           </div>

@@ -213,6 +213,8 @@ export default function App() {
   useEffect(() => {
     let ws;
     let reconnectTimeout;
+    let lastMessageTime = Date.now();
+    let watchdogInterval;
 
     const connect = () => {
       if (!activeSymbol || !user) return;
@@ -220,22 +222,41 @@ export default function App() {
       ws = new WebSocket(`${WS_BASE}/ws/ticker/${activeSymbol}`);
       
       ws.onmessage = (event) => {
+        lastMessageTime = Date.now();
         if (event.data === 'pong') return;
-        setLivePrice(JSON.parse(event.data));
+        
+        try {
+          const msg = JSON.parse(event.data);
+          if (msg.type === 'HEARTBEAT') return;
+          setLivePrice(msg);
+        } catch (e) {
+          // Fallback if message is not JSON
+        }
       };
 
       ws.onclose = () => {
         reconnectTimeout = setTimeout(connect, 3000);
       };
 
-      // Heartbeat
+      // Heartbeat sender (Client to Server)
       const heartbeatInterval = setInterval(() => {
         if (ws?.readyState === WebSocket.OPEN) {
           ws.send('ping');
         }
       }, 5000);
 
-      return () => clearInterval(heartbeatInterval);
+      // Inactivity Watchdog (Server to Client)
+      watchdogInterval = setInterval(() => {
+        if (Date.now() - lastMessageTime > 45000) {
+          console.warn('WebSocket inactive for 45s, reconnecting...');
+          ws?.close();
+        }
+      }, 10000);
+
+      return () => {
+        clearInterval(heartbeatInterval);
+        clearInterval(watchdogInterval);
+      };
     };
 
     const cleanup = connect();
@@ -243,7 +264,7 @@ export default function App() {
     return () => {
       ws?.close();
       clearTimeout(reconnectTimeout);
-      cleanup?.();
+      if (cleanup) cleanup();
     };
   }, [activeSymbol, user]);
 
@@ -276,36 +297,36 @@ export default function App() {
     }, 0) + (Number(portfolio.balance) || 0);
   }, [portfolio, activeSymbol, livePrice]);
 
-  if (authLoading) return null;
+  if (authLoading) {
+    console.log("Auth is loading...");
+    return null;
+  }
+
+  console.log("App Rendering. User:", user ? user.email : "Not logged in");
+
+  if (isWaking) {
+    return (
+      <div className="fixed inset-0 z-[9999] bg-[#060810] flex flex-col items-center justify-center gap-6">
+        <div className="relative">
+          <div className="w-24 h-24 border-2 border-[#C9A84C]/20 rounded-full animate-[spin_3s_linear_infinite]" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-12 h-12 border-t-2 border-[#C9A84C] rounded-full animate-spin" />
+          </div>
+        </div>
+        <div className="text-center space-y-2">
+          <h2 className="text-2xl font-bold uppercase tracking-[0.2em] font-[Syne]">Quant<span className="text-[#C9A84C]">X</span></h2>
+          <div className="flex items-center gap-2 text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+            <div className="w-1 h-1 rounded-full bg-[#C9A84C] animate-pulse" />
+            Waking up institutional server...
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       <ParticleBackground />
-      
-      <AnimatePresence>
-        {isWaking && (
-          <motion.div 
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-[#060810] flex flex-col items-center justify-center gap-6"
-          >
-            <div className="relative">
-              <div className="w-24 h-24 border-2 border-[#C9A84C]/20 rounded-full animate-[spin_3s_linear_infinite]" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-12 h-12 border-t-2 border-[#C9A84C] rounded-full animate-spin" />
-              </div>
-            </div>
-            <div className="text-center space-y-2">
-              <h2 className="text-2xl font-bold uppercase tracking-[0.2em] font-[Syne]">Quant<span className="text-[#C9A84C]">X</span></h2>
-              <div className="flex items-center gap-2 text-[10px] font-mono text-gray-500 uppercase tracking-widest">
-                <div className="w-1 h-1 rounded-full bg-[#C9A84C] animate-pulse" />
-                Waking up institutional server...
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <div style={{ position: 'relative', zIndex: 1 }}>
         <Suspense fallback={<LoadingFallback />}>
           <Routes>

@@ -3,8 +3,8 @@ import numpy as np
 import scipy.optimize as sco
 from app.services import data_fetcher, portfolio_manager
 
-def calculate_analytics(rfr: float = 0.05):
-    portfolio = portfolio_manager.get_portfolio()
+def calculate_analytics(user_id: int, rfr: float = 0.05):
+    portfolio = portfolio_manager.get_portfolio(user_id)
     positions = portfolio.get("positions", {})
     
     symbols = list(positions.keys())

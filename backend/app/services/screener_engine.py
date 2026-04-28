@@ -88,13 +88,21 @@ class MockScreenerEngine:
         return assets
 
     def get_top_assets(self, min_price: float, max_price: float, sector: str = None, limit: int = 10):
+        from app.services.data_fetcher import is_market_open
+        market_open = is_market_open()
+        
         filtered = [a for a in self.assets if min_price <= a["current_price"] <= max_price]
         if sector and sector != "All":
             filtered = [a for a in filtered if a["sector"] == sector]
             
         # Sort by the composite score
         sorted_assets = sorted(filtered, key=lambda x: x["composite_score"], reverse=True)
-        return sorted_assets[:limit]
+        
+        results = sorted_assets[:limit]
+        for a in results:
+            a["market_open"] = market_open
+            
+        return results
 
 # Global instance
 screener_engine = MockScreenerEngine()

@@ -2,7 +2,18 @@
 // Set VITE_API_URL in your Vercel environment variables to your Render backend URL
 // e.g. https://your-quantx-backend.onrender.com
 
-export const API_BASE = (import.meta.env.VITE_API_URL || "http://127.0.0.1:8001").replace(/\/$/, "");
+const getApiBase = () => {
+  const url = import.meta.env.VITE_API_URL;
+  if (!url) {
+    if (import.meta.env.PROD) {
+      console.warn("⚠️ VITE_API_URL is not defined in production environment variables! Falling back to localhost.");
+    }
+    return "http://localhost:8000";
+  }
+  return url.replace(/\/$/, "");
+};
+
+export const API_BASE = getApiBase();
 export const WS_BASE = API_BASE.replace("https", "wss").replace("http", "ws");
 
 // Configured axios instance with timeout so the app never hangs on a slow/sleeping backend

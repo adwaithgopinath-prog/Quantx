@@ -253,17 +253,6 @@
     "market_cap_category": "SMALL"
   },
   {
-    "symbol": "ABAN",
-    "name": "Aban Offshore Limited",
-    "exchange": "NSE",
-    "yf_symbol": "ABAN.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "ABANSENT",
     "name": "Abans Enterprises Limited",
     "exchange": "NSE",
@@ -884,17 +873,6 @@
     "name": "Agro Phos India Limited",
     "exchange": "NSE",
     "yf_symbol": "AGROPHOS.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "AGSTRA",
-    "name": "AGS Transact Technologies Limited",
-    "exchange": "NSE",
-    "yf_symbol": "AGSTRA.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -3388,17 +3366,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "BGLOBAL",
-    "name": "Bharatiya Global Infomedia Limited",
-    "exchange": "NSE",
-    "yf_symbol": "BGLOBAL.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "BGRENERGY",
     "name": "BGR Energy Systems Limited",
     "exchange": "NSE",
@@ -3590,17 +3557,6 @@
     "name": "Bhartiya International Limited",
     "exchange": "NSE",
     "yf_symbol": "BIL.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "BILVYAPAR",
-    "name": "BIL VYAPAR LIMITED",
-    "exchange": "NSE",
-    "yf_symbol": "BILVYAPAR.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -4862,17 +4818,6 @@
     "market_cap_category": "LARGE_MID"
   },
   {
-    "symbol": "CLCIND",
-    "name": "CLC Industries Limited",
-    "exchange": "NSE",
-    "yf_symbol": "CLCIND.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "CLEAN",
     "name": "Clean Science and Technology Limited",
     "exchange": "NSE",
@@ -4910,17 +4855,6 @@
     "name": "Chaman Lal Setia Exports Limited",
     "exchange": "NSE",
     "yf_symbol": "CLSEL.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "CMICABLES",
-    "name": "CMI Limited",
-    "exchange": "NSE",
-    "yf_symbol": "CMICABLES.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -6006,17 +5940,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "DHARAN",
-    "name": "DHARAN INFRA-EPC LIMITED",
-    "exchange": "NSE",
-    "yf_symbol": "DHARAN.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "DHARMAJ",
     "name": "Dharmaj Crop Guard Limited",
     "exchange": "NSE",
@@ -6142,17 +6065,6 @@
     "name": "Digjam Limited",
     "exchange": "NSE",
     "yf_symbol": "DIGJAMLMTD.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "DIL",
-    "name": "Debock Industries Limited",
-    "exchange": "NSE",
-    "yf_symbol": "DIL.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -6611,17 +6523,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "EDUCOMP",
-    "name": "Educomp Solutions Limited",
-    "exchange": "NSE",
-    "yf_symbol": "EDUCOMP.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "EFCIL",
     "name": "EFC (I) Limited",
     "exchange": "NSE",
@@ -6883,17 +6784,6 @@
     "series": "EQ",
     "type": "STOCK",
     "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "EMBDL",
-    "name": "Embassy Developments Limited",
-    "exchange": "NSE",
-    "yf_symbol": "EMBDL.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": "Realty",
     "market_cap_category": "MICRO"
   },
   {
@@ -7396,17 +7286,6 @@
     "name": "Fineotex Chemical Limited",
     "exchange": "NSE",
     "yf_symbol": "FCL.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "FCONSUMER",
-    "name": "Future Consumer Limited",
-    "exchange": "NSE",
-    "yf_symbol": "FCONSUMER.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -8107,17 +7986,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "GENSOL",
-    "name": "Gensol Engineering Limited",
-    "exchange": "NSE",
-    "yf_symbol": "GENSOL.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "GENUSPAPER",
     "name": "Genus Paper & Boards Limited",
     "exchange": "NSE",
@@ -8166,17 +8034,6 @@
     "name": "GFL Limited",
     "exchange": "NSE",
     "yf_symbol": "GFLLIMITED.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "GFSTEELS",
-    "name": "Grand Foundry Limited",
-    "exchange": "NSE",
-    "yf_symbol": "GFSTEELS.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -15158,17 +15015,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "MORARJEE",
-    "name": "Morarjee Textiles Limited",
-    "exchange": "NSE",
-    "yf_symbol": "MORARJEE.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "MOREPENLAB",
     "name": "Morepen Laboratories Limited",
     "exchange": "NSE",
@@ -15947,17 +15793,6 @@
     "series": "EQ",
     "type": "STOCK",
     "sector": "Media Entertainment & Publication",
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "NEUEON",
-    "name": "Neueon Corporation Limited",
-    "exchange": "NSE",
-    "yf_symbol": "NEUEON.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
     "market_cap_category": "MICRO"
   },
   {
@@ -18480,17 +18315,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "QUINTEGRA",
-    "name": "Quintegra Solutions Limited",
-    "exchange": "NSE",
-    "yf_symbol": "QUINTEGRA.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "RACE",
     "name": "Race Eco Chain Limited",
     "exchange": "NSE",
@@ -18682,17 +18506,6 @@
     "name": "Raj Television Network Limited",
     "exchange": "NSE",
     "yf_symbol": "RAJTV.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "RAJVIR",
-    "name": "Rajvir Industries Limited",
-    "exchange": "NSE",
-    "yf_symbol": "RAJVIR.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -19063,17 +18876,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "RELINFRA",
-    "name": "Reliance Infrastructure Limited",
-    "exchange": "NSE",
-    "yf_symbol": "RELINFRA.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "RELTD",
     "name": "Ravindra Energy Limited",
     "exchange": "NSE",
@@ -19177,17 +18979,6 @@
     "name": "Rhetan TMT Limited",
     "exchange": "NSE",
     "yf_symbol": "RHETAN.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "RHFL",
-    "name": "Reliance Home Finance Limited",
-    "exchange": "NSE",
-    "yf_symbol": "RHFL.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -19789,17 +19580,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "SABEVENTS",
-    "name": "Sab Events & Governance Now Media Limited",
-    "exchange": "NSE",
-    "yf_symbol": "SABEVENTS.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "SADBHAV",
     "name": "Sadbhav Engineering Limited",
     "exchange": "NSE",
@@ -20200,17 +19980,6 @@
     "name": "Sanstar Limited",
     "exchange": "NSE",
     "yf_symbol": "SANSTAR.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "SANWARIA",
-    "name": "Sanwaria Consumer Limited",
-    "exchange": "NSE",
-    "yf_symbol": "SANWARIA.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -21560,17 +21329,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "SKIL",
-    "name": "SKIL Infrastructure Limited",
-    "exchange": "NSE",
-    "yf_symbol": "SKIL.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "SKIPPER",
     "name": "Skipper Limited",
     "exchange": "NSE",
@@ -22048,17 +21806,6 @@
     "name": "SRM Contractors Limited",
     "exchange": "NSE",
     "yf_symbol": "SRM.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
-    "symbol": "SRPL",
-    "name": "Shree Ram Proteins Limited",
-    "exchange": "NSE",
-    "yf_symbol": "SRPL.NS",
     "isin": "",
     "series": "EQ",
     "type": "STOCK",
@@ -24574,17 +24321,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "UNIVAFOODS",
-    "name": "Univa Foods Limited",
-    "exchange": "NSE",
-    "yf_symbol": "UNIVAFOODS.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "UNIVASTU",
     "name": "Univastu India Limited",
     "exchange": "NSE",
@@ -26356,7 +26092,7 @@
   },
   {
     "symbol": "500031",
-    "name": "Bajaj Electricals Ltd",
+    "name": "Bajaj Electricals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500031.BO",
     "isin": "",
@@ -26376,7 +26112,7 @@
   },
   {
     "symbol": "500033",
-    "name": "Force Motors Ltd",
+    "name": "Force Motors Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500033.BO",
     "isin": "",
@@ -26406,7 +26142,7 @@
   },
   {
     "symbol": "500039",
-    "name": "Banco Products (India) Ltd",
+    "name": "Banco Products (India) Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500039.BO",
     "isin": "",
@@ -26486,7 +26222,7 @@
   },
   {
     "symbol": "500052",
-    "name": "Bhansali Engineering Polymers Ltd",
+    "name": "Bhansali Engineering Polymers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500052.BO",
     "isin": "",
@@ -26499,16 +26235,6 @@
     "name": "Bihar Sponge Iron Ltd",
     "exchange": "BSE",
     "yf_symbol": "500058.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "500059",
-    "name": "Bil Vyapar Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "500059.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -26566,7 +26292,7 @@
   },
   {
     "symbol": "500078",
-    "name": "Oriental Aromatics Ltd",
+    "name": "Oriental Aromatics Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500078.BO",
     "isin": "",
@@ -26806,7 +26532,7 @@
   },
   {
     "symbol": "500120",
-    "name": "Diamines & Chemicals Ltd",
+    "name": "Diamines & Chemicals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500120.BO",
     "isin": "",
@@ -26816,7 +26542,7 @@
   },
   {
     "symbol": "500123",
-    "name": "Elantas Beck India Ltd",
+    "name": "Elantas Beck India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500123.BO",
     "isin": "",
@@ -26926,7 +26652,7 @@
   },
   {
     "symbol": "500147",
-    "name": "John Cockerill India Ltd",
+    "name": "John Cockerill India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500147.BO",
     "isin": "",
@@ -27079,16 +26805,6 @@
     "name": "Gujarat Lease Financing Ltd",
     "exchange": "BSE",
     "yf_symbol": "500174.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "500178",
-    "name": "Harig Crankshafts Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "500178.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -27296,7 +27012,7 @@
   },
   {
     "symbol": "500213",
-    "name": "International Travel House Ltd",
+    "name": "International Travel House Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500213.BO",
     "isin": "",
@@ -27306,7 +27022,7 @@
   },
   {
     "symbol": "500214",
-    "name": "Ion Exchange India Ltd",
+    "name": "Ion Exchange India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500214.BO",
     "isin": "",
@@ -27395,16 +27111,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "500236",
-    "name": "Kanel Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "500236.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "500238",
     "name": "Whirlpool of India Ltd",
     "exchange": "BSE",
@@ -27436,7 +27142,7 @@
   },
   {
     "symbol": "500241",
-    "name": "Kirloskar Brothers Ltd",
+    "name": "Kirloskar Brothers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500241.BO",
     "isin": "",
@@ -27479,16 +27185,6 @@
     "name": "Kotak Mahindra Bank Ltd",
     "exchange": "BSE",
     "yf_symbol": "500247.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "500248",
-    "name": "Krishna Filament Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "500248.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -27586,7 +27282,7 @@
   },
   {
     "symbol": "500264",
-    "name": "Mafatlal Industries Ltd",
+    "name": "Mafatlal Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500264.BO",
     "isin": "",
@@ -27616,7 +27312,7 @@
   },
   {
     "symbol": "500267",
-    "name": "Majestic Auto Ltd",
+    "name": "Majestic Auto Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500267.BO",
     "isin": "",
@@ -28006,7 +27702,7 @@
   },
   {
     "symbol": "500346",
-    "name": "Punjab Communications Ltd",
+    "name": "Punjab Communications Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500346.BO",
     "isin": "",
@@ -28065,16 +27761,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "500358",
-    "name": "Rama Petrochemicals Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "500358.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "500360",
     "name": "Rapicut Carbides Ltd",
     "exchange": "BSE",
@@ -28126,7 +27812,7 @@
   },
   {
     "symbol": "500371",
-    "name": "Samtel India Ltd",
+    "name": "Samtel India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500371.BO",
     "isin": "",
@@ -28179,26 +27865,6 @@
     "name": "Silverline Technologies Ltd",
     "exchange": "BSE",
     "yf_symbol": "500389.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "500390",
-    "name": "Reliance Infrastructure Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "500390.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "500399",
-    "name": "Steelco Gujarat Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "500399.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -28316,7 +27982,7 @@
   },
   {
     "symbol": "500414",
-    "name": "Timex Group India Ltd",
+    "name": "Timex Group India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500414.BO",
     "isin": "",
@@ -28356,7 +28022,7 @@
   },
   {
     "symbol": "500422",
-    "name": "Transchem Ltd",
+    "name": "Transchem Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "500422.BO",
     "isin": "",
@@ -29015,16 +28681,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "501144",
-    "name": "Peoples Investments Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "501144.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "501148",
     "name": "Dalal Street Investments Ltd",
     "exchange": "BSE",
@@ -29106,7 +28762,7 @@
   },
   {
     "symbol": "501311",
-    "name": "Jayabharat Credit Ltd",
+    "name": "Jayabharat Credit Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "501311.BO",
     "isin": "",
@@ -29296,7 +28952,7 @@
   },
   {
     "symbol": "501848",
-    "name": "Garware Offshore Services Ltd",
+    "name": "Garware Offshore Services Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "501848.BO",
     "isin": "",
@@ -29326,7 +28982,7 @@
   },
   {
     "symbol": "502090",
-    "name": "Sagar Cements Ltd",
+    "name": "Sagar Cements Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502090.BO",
     "isin": "",
@@ -29336,7 +28992,7 @@
   },
   {
     "symbol": "502137",
-    "name": "Deccan Cements Ltd",
+    "name": "Deccan Cements Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502137.BO",
     "isin": "",
@@ -29356,7 +29012,7 @@
   },
   {
     "symbol": "502168",
-    "name": "NCL Industries Ltd",
+    "name": "NCL Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502168.BO",
     "isin": "",
@@ -29376,7 +29032,7 @@
   },
   {
     "symbol": "502180",
-    "name": "Shree Digvijay Cement Company Ltd",
+    "name": "Shree Digvijay Cement Company Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502180.BO",
     "isin": "",
@@ -29405,18 +29061,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "502271",
-    "name": "Raasi Refractories Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "502271.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "502281",
-    "name": "Triveni Glass Ltd",
+    "name": "Triveni Glass Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502281.BO",
     "isin": "",
@@ -29446,7 +29092,7 @@
   },
   {
     "symbol": "502355",
-    "name": "Balkrishna Industries Ltd",
+    "name": "Balkrishna Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502355.BO",
     "isin": "",
@@ -29536,7 +29182,7 @@
   },
   {
     "symbol": "502865",
-    "name": "Forbes & Company Ltd",
+    "name": "Forbes & Company Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502865.BO",
     "isin": "",
@@ -29566,7 +29212,7 @@
   },
   {
     "symbol": "502901",
-    "name": "Jamshri Realty Ltd",
+    "name": "Jamshri Realty Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502901.BO",
     "isin": "",
@@ -29596,7 +29242,7 @@
   },
   {
     "symbol": "502958",
-    "name": "Lakshmi Mills Company Ltd",
+    "name": "Lakshmi Mills Company Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "502958.BO",
     "isin": "",
@@ -29666,7 +29312,7 @@
   },
   {
     "symbol": "503162",
-    "name": "Reliance Chemotex Industries Ltd",
+    "name": "Reliance Chemotex Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "503162.BO",
     "isin": "",
@@ -29785,16 +29431,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "503659",
-    "name": "SW Investments Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "503659.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "503663",
     "name": "Tilak Ventures Ltd",
     "exchange": "BSE",
@@ -29866,7 +29502,7 @@
   },
   {
     "symbol": "503722",
-    "name": "Banswara Syntex Ltd",
+    "name": "Banswara Syntex Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "503722.BO",
     "isin": "",
@@ -29896,7 +29532,7 @@
   },
   {
     "symbol": "503804",
-    "name": "Shri Dinesh Mills Ltd",
+    "name": "Shri Dinesh Mills Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "503804.BO",
     "isin": "",
@@ -29916,7 +29552,7 @@
   },
   {
     "symbol": "503811",
-    "name": "Siyaram Silk Mills Ltd",
+    "name": "Siyaram Silk Mills Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "503811.BO",
     "isin": "",
@@ -29936,7 +29572,7 @@
   },
   {
     "symbol": "503837",
-    "name": "Shree Rajasthan Syntex Ltd",
+    "name": "Shree Rajasthan Syntex Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "503837.BO",
     "isin": "",
@@ -29966,7 +29602,7 @@
   },
   {
     "symbol": "503960",
-    "name": "Bharat Bijlee Ltd",
+    "name": "Bharat Bijlee Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "503960.BO",
     "isin": "",
@@ -30026,7 +29662,7 @@
   },
   {
     "symbol": "504076",
-    "name": "Jyoti Ltd",
+    "name": "Jyoti Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "504076.BO",
     "isin": "",
@@ -30066,7 +29702,7 @@
   },
   {
     "symbol": "504093",
-    "name": "Panasonic Energy India Company Ltd",
+    "name": "Panasonic Energy India Company Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "504093.BO",
     "isin": "",
@@ -30086,7 +29722,7 @@
   },
   {
     "symbol": "504132",
-    "name": "Permanent Magnets Ltd",
+    "name": "Permanent Magnets Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "504132.BO",
     "isin": "",
@@ -30126,7 +29762,7 @@
   },
   {
     "symbol": "504220",
-    "name": "W. S. Industries (India) Ltd",
+    "name": "W. S. Industries (India) Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "504220.BO",
     "isin": "",
@@ -30189,16 +29825,6 @@
     "name": "Ravindra Energy Ltd",
     "exchange": "BSE",
     "yf_symbol": "504341.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "504346",
-    "name": "RRP Semiconductor Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "504346.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -30295,26 +29921,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "504397",
-    "name": "Ganesh Holdings Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "504397.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "504398",
-    "name": "SJ Corporation Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "504398.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "504605",
     "name": "Uni Abex Alloy Products Ltd",
     "exchange": "BSE",
@@ -30326,7 +29932,7 @@
   },
   {
     "symbol": "504614",
-    "name": "Sarda Energy & Minerals Ltd",
+    "name": "Sarda Energy & Minerals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "504614.BO",
     "isin": "",
@@ -30349,26 +29955,6 @@
     "name": "Bombay Wire Ropes Ltd",
     "exchange": "BSE",
     "yf_symbol": "504648.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "504671",
-    "name": "Chase Bright Steel Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "504671.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "504697",
-    "name": "Galada Power & Telecommunication Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "504697.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -30436,7 +30022,7 @@
   },
   {
     "symbol": "504879",
-    "name": "Orient Ceratech Ltd",
+    "name": "Orient Ceratech Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "504879.BO",
     "isin": "",
@@ -30456,7 +30042,7 @@
   },
   {
     "symbol": "504903",
-    "name": "Rathi Steel & Power Ltd",
+    "name": "Rathi Steel & Power Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "504903.BO",
     "isin": "",
@@ -30466,7 +30052,7 @@
   },
   {
     "symbol": "504908",
-    "name": "Duncan Engineering Ltd",
+    "name": "Duncan Engineering Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "504908.BO",
     "isin": "",
@@ -30556,7 +30142,7 @@
   },
   {
     "symbol": "505036",
-    "name": "Automobile Corporation of Goa Ltd",
+    "name": "Automobile Corporation of Goa Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505036.BO",
     "isin": "",
@@ -30575,16 +30161,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "505100",
-    "name": "India Radiators Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "505100.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "505160",
     "name": "Talbros Automotive Components Ltd",
     "exchange": "BSE",
@@ -30596,7 +30172,7 @@
   },
   {
     "symbol": "505163",
-    "name": "ZF Steering Gear India Ltd",
+    "name": "ZF Steering Gear India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505163.BO",
     "isin": "",
@@ -30666,7 +30242,7 @@
   },
   {
     "symbol": "505242",
-    "name": "Dynamatic Technologies Ltd",
+    "name": "Dynamatic Technologies Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505242.BO",
     "isin": "",
@@ -30735,18 +30311,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "505320",
-    "name": "Lynx Machinery & Commercials Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "505320.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "505324",
-    "name": "Manugraph India Ltd",
+    "name": "Manugraph India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505324.BO",
     "isin": "",
@@ -30796,7 +30362,7 @@
   },
   {
     "symbol": "505368",
-    "name": "Semac Construction Ltd",
+    "name": "Semac Construction Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505368.BO",
     "isin": "",
@@ -30956,7 +30522,7 @@
   },
   {
     "symbol": "505681",
-    "name": "Bimetal Bearings Ltd",
+    "name": "Bimetal Bearings Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505681.BO",
     "isin": "",
@@ -31015,18 +30581,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "505703",
-    "name": "Satani Bearings Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "505703.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "505710",
-    "name": "Grauer & Weil India Ltd",
+    "name": "Grauer & Weil India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505710.BO",
     "isin": "",
@@ -31046,7 +30602,7 @@
   },
   {
     "symbol": "505714",
-    "name": "Gabriel India Ltd",
+    "name": "Gabriel India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505714.BO",
     "isin": "",
@@ -31135,16 +30691,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "505797",
-    "name": "Mipco Seamless Rings Gujarat Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "505797.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "505800",
     "name": "Rane Holdings Ltd",
     "exchange": "BSE",
@@ -31196,7 +30742,7 @@
   },
   {
     "symbol": "505854",
-    "name": "TRF Ltd",
+    "name": "TRF Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505854.BO",
     "isin": "",
@@ -31216,7 +30762,7 @@
   },
   {
     "symbol": "505890",
-    "name": "Kennametal India Ltd",
+    "name": "Kennametal India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "505890.BO",
     "isin": "",
@@ -31296,7 +30842,7 @@
   },
   {
     "symbol": "506076",
-    "name": "Grindwell Norton Ltd",
+    "name": "Grindwell Norton Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506076.BO",
     "isin": "",
@@ -31446,7 +30992,7 @@
   },
   {
     "symbol": "506186",
-    "name": "Galaxy Supermarket Ltd",
+    "name": "Galaxy Supermarket Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506186.BO",
     "isin": "",
@@ -31536,7 +31082,7 @@
   },
   {
     "symbol": "506261",
-    "name": "Modison Ltd",
+    "name": "Modison Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506261.BO",
     "isin": "",
@@ -31549,16 +31095,6 @@
     "name": "Bayer CropScience Ltd",
     "exchange": "BSE",
     "yf_symbol": "506285.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "506313",
-    "name": "Sashwat Technocrats Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "506313.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -31606,7 +31142,7 @@
   },
   {
     "symbol": "506401",
-    "name": "Deepak Nitrite Ltd",
+    "name": "Deepak Nitrite Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506401.BO",
     "isin": "",
@@ -31636,7 +31172,7 @@
   },
   {
     "symbol": "506480",
-    "name": "GOCL Corporation Ltd",
+    "name": "GOCL Corporation Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506480.BO",
     "isin": "",
@@ -31686,7 +31222,7 @@
   },
   {
     "symbol": "506532",
-    "name": "Nitta Gelatin India Ltd",
+    "name": "Nitta Gelatin India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506532.BO",
     "isin": "",
@@ -31706,7 +31242,7 @@
   },
   {
     "symbol": "506579",
-    "name": "AG Ventures Ltd",
+    "name": "AG Ventures Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506579.BO",
     "isin": "",
@@ -31756,7 +31292,7 @@
   },
   {
     "symbol": "506618",
-    "name": "Punjab Chemicals & Crop Protection Ltd",
+    "name": "Punjab Chemicals & Crop Protection Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506618.BO",
     "isin": "",
@@ -31806,7 +31342,7 @@
   },
   {
     "symbol": "506685",
-    "name": "Ultramarine & Pigments Ltd",
+    "name": "Ultramarine & Pigments Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506685.BO",
     "isin": "",
@@ -31816,7 +31352,7 @@
   },
   {
     "symbol": "506687",
-    "name": "Transpek Industry Ltd",
+    "name": "Transpek Industry Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506687.BO",
     "isin": "",
@@ -31836,7 +31372,7 @@
   },
   {
     "symbol": "506734",
-    "name": "Mysore Petro Chemicals Ltd",
+    "name": "Mysore Petro Chemicals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506734.BO",
     "isin": "",
@@ -31846,7 +31382,7 @@
   },
   {
     "symbol": "506767",
-    "name": "Alkyl Amines Chemicals Ltd",
+    "name": "Alkyl Amines Chemicals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506767.BO",
     "isin": "",
@@ -31886,7 +31422,7 @@
   },
   {
     "symbol": "506854",
-    "name": "TANFAC Industries Ltd",
+    "name": "TANFAC Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506854.BO",
     "isin": "",
@@ -31915,16 +31451,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "506867",
-    "name": "Master Chemicals Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "506867.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "506879",
     "name": "Gujarat Themis Biosyn Ltd",
     "exchange": "BSE",
@@ -31946,7 +31472,7 @@
   },
   {
     "symbol": "506919",
-    "name": "Makers Laboratories Ltd",
+    "name": "Makers Laboratories Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "506919.BO",
     "isin": "",
@@ -32036,7 +31562,7 @@
   },
   {
     "symbol": "507180",
-    "name": "Kesar Enterprises Ltd",
+    "name": "Kesar Enterprises Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "507180.BO",
     "isin": "",
@@ -32046,7 +31572,7 @@
   },
   {
     "symbol": "507205",
-    "name": "Tilaknagar Industries Ltd",
+    "name": "Tilaknagar Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "507205.BO",
     "isin": "",
@@ -32306,7 +31832,7 @@
   },
   {
     "symbol": "507747",
-    "name": "TTK Healthcare Ltd",
+    "name": "TTK Healthcare Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "507747.BO",
     "isin": "",
@@ -32416,7 +31942,7 @@
   },
   {
     "symbol": "507828",
-    "name": "Ansal Housing Ltd",
+    "name": "Ansal Housing Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "507828.BO",
     "isin": "",
@@ -32446,7 +31972,7 @@
   },
   {
     "symbol": "507852",
-    "name": "Addi Industries Ltd",
+    "name": "Addi Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "507852.BO",
     "isin": "",
@@ -32486,7 +32012,7 @@
   },
   {
     "symbol": "507880",
-    "name": "VIP Industries Ltd",
+    "name": "VIP Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "507880.BO",
     "isin": "",
@@ -32676,7 +32202,7 @@
   },
   {
     "symbol": "508486",
-    "name": "Hawkins Cookers Ltd",
+    "name": "Hawkins Cookers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "508486.BO",
     "isin": "",
@@ -32686,7 +32212,7 @@
   },
   {
     "symbol": "508494",
-    "name": "Warren Tea Ltd",
+    "name": "Warren Tea Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "508494.BO",
     "isin": "",
@@ -32745,18 +32271,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "508860",
-    "name": "Diamant Infrastructure Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "508860.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "508867",
-    "name": "New Markets Advisory Ltd",
+    "name": "New Markets Avenue Ltd",
     "exchange": "BSE",
     "yf_symbol": "508867.BO",
     "isin": "",
@@ -32825,16 +32341,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "508929",
-    "name": "Avishkar Infra Realty Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "508929.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "508933",
     "name": "AYM Syntex Ltd",
     "exchange": "BSE",
@@ -32846,7 +32352,7 @@
   },
   {
     "symbol": "508941",
-    "name": "Panasonic Carbon India Company Ltd",
+    "name": "Panasonic Carbon India Company Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "508941.BO",
     "isin": "",
@@ -33085,26 +32591,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "509084",
-    "name": "Photon Capital Advisors Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "509084.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "509099",
-    "name": "Oswal Leasing Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "509099.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "509152",
     "name": "GRP Ltd",
     "exchange": "BSE",
@@ -33116,7 +32602,7 @@
   },
   {
     "symbol": "509162",
-    "name": "Indag Rubber Ltd",
+    "name": "Indag Rubber Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "509162.BO",
     "isin": "",
@@ -33136,7 +32622,7 @@
   },
   {
     "symbol": "509220",
-    "name": "PTL Enterprises Ltd",
+    "name": "PTL Enterprises Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "509220.BO",
     "isin": "",
@@ -33146,7 +32632,7 @@
   },
   {
     "symbol": "509243",
-    "name": "TVS Srichakra Ltd",
+    "name": "TVS Srichakra Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "509243.BO",
     "isin": "",
@@ -33216,7 +32702,7 @@
   },
   {
     "symbol": "509486",
-    "name": "Caprihans India Ltd",
+    "name": "Caprihans India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "509486.BO",
     "isin": "",
@@ -33286,7 +32772,7 @@
   },
   {
     "symbol": "509567",
-    "name": "Goa Carbon Ltd",
+    "name": "Goa Carbon Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "509567.BO",
     "isin": "",
@@ -33456,7 +32942,7 @@
   },
   {
     "symbol": "509874",
-    "name": "Shalimar Paints Ltd",
+    "name": "Shalimar Paints Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "509874.BO",
     "isin": "",
@@ -33666,7 +33152,7 @@
   },
   {
     "symbol": "511076",
-    "name": "Aeroflex Enterprises Ltd",
+    "name": "Aeroflex Enterprises Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "511076.BO",
     "isin": "",
@@ -33716,7 +33202,7 @@
   },
   {
     "symbol": "511116",
-    "name": "Quadrant Televentures Ltd",
+    "name": "Quadrant Televentures Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "511116.BO",
     "isin": "",
@@ -33739,16 +33225,6 @@
     "name": "Kamanwala Housing Construction Ltd",
     "exchange": "BSE",
     "yf_symbol": "511131.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "511144",
-    "name": "Axis Solutions Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "511144.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -33986,7 +33462,7 @@
   },
   {
     "symbol": "511431",
-    "name": "Vakrangee Ltd",
+    "name": "Vakrangee Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "511431.BO",
     "isin": "",
@@ -34335,16 +33811,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "511634",
-    "name": "Axentra Corp Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "511634.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "511636",
     "name": "DJS Stock & Shares Ltd",
     "exchange": "BSE",
@@ -34385,16 +33851,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "511660",
-    "name": "Premium Capital Market & Investments Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "511660.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "511664",
     "name": "BGIL Films & Technologies Ltd",
     "exchange": "BSE",
@@ -34419,16 +33875,6 @@
     "name": "GIC Housing Finance Ltd",
     "exchange": "BSE",
     "yf_symbol": "511676.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "511688",
-    "name": "Mathew Easow Research Securities Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "511688.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -34539,26 +33985,6 @@
     "name": "KZ Leasing & Finance Ltd",
     "exchange": "BSE",
     "yf_symbol": "511728.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "511730",
-    "name": "Avasara Finance Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "511730.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "511734",
-    "name": "Pasupati Fincap Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "511734.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -34709,16 +34135,6 @@
     "name": "Winro Commercial India Ltd",
     "exchange": "BSE",
     "yf_symbol": "512022.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "512024",
-    "name": "ND Metal Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "512024.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -35015,16 +34431,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "512169",
-    "name": "Capricorn Systems Global Solutions Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "512169.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "512175",
     "name": "Vama Industries Ltd",
     "exchange": "BSE",
@@ -35099,16 +34505,6 @@
     "name": "Veritas (India) Ltd",
     "exchange": "BSE",
     "yf_symbol": "512229.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "512233",
-    "name": "Jaybharat Textiles and Real Estate Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "512233.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -35199,16 +34595,6 @@
     "name": "Autoriders International Ltd",
     "exchange": "BSE",
     "yf_symbol": "512277.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "512279",
-    "name": "N2N Technologies Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "512279.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -35545,16 +34931,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "512481",
-    "name": "Polytex India Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "512481.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "512485",
     "name": "Dhanlaxmi Cotex Ltd",
     "exchange": "BSE",
@@ -35626,7 +35002,7 @@
   },
   {
     "symbol": "512519",
-    "name": "Donear Industries Ltd",
+    "name": "Donear Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "512519.BO",
     "isin": "",
@@ -35636,7 +35012,7 @@
   },
   {
     "symbol": "512527",
-    "name": "Super Sales India Ltd",
+    "name": "Super Sales India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "512527.BO",
     "isin": "",
@@ -35686,7 +35062,7 @@
   },
   {
     "symbol": "512565",
-    "name": "Neelkanth Ltd",
+    "name": "Neelkanth Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "512565.BO",
     "isin": "",
@@ -35696,7 +35072,7 @@
   },
   {
     "symbol": "512573",
-    "name": "Avanti Feeds Ltd",
+    "name": "Avanti Feeds Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "512573.BO",
     "isin": "",
@@ -35776,7 +35152,7 @@
   },
   {
     "symbol": "512604",
-    "name": "Haria Exports Ltd",
+    "name": "Haria Exports Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "512604.BO",
     "isin": "",
@@ -35836,7 +35212,7 @@
   },
   {
     "symbol": "513005",
-    "name": "Chrome Silicon Ltd",
+    "name": "Chrome Silicon Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513005.BO",
     "isin": "",
@@ -35916,7 +35292,7 @@
   },
   {
     "symbol": "513108",
-    "name": "Gandhi Special Tubes Ltd",
+    "name": "Gandhi Special Tubes Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513108.BO",
     "isin": "",
@@ -35946,7 +35322,7 @@
   },
   {
     "symbol": "513121",
-    "name": "Oricon Enterprises Ltd",
+    "name": "Oricon Enterprises Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513121.BO",
     "isin": "",
@@ -35976,7 +35352,7 @@
   },
   {
     "symbol": "513228",
-    "name": "Pennar Industries Ltd",
+    "name": "Pennar Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513228.BO",
     "isin": "",
@@ -36006,7 +35382,7 @@
   },
   {
     "symbol": "513262",
-    "name": "Steel Strips Wheels Ltd",
+    "name": "Steel Strips Wheels Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513262.BO",
     "isin": "",
@@ -36016,7 +35392,7 @@
   },
   {
     "symbol": "513269",
-    "name": "Man Industries (India) Ltd",
+    "name": "Man Industries (India) Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513269.BO",
     "isin": "",
@@ -36036,7 +35412,7 @@
   },
   {
     "symbol": "513303",
-    "name": "Modern Steels Ltd",
+    "name": "Modern Steels Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513303.BO",
     "isin": "",
@@ -36056,7 +35432,7 @@
   },
   {
     "symbol": "513309",
-    "name": "Golkonda Aluminium Extrusions Ltd",
+    "name": "Golkonda Aluminium Extrusions Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513309.BO",
     "isin": "",
@@ -36075,16 +35451,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "513343",
-    "name": "Grand Foundry Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "513343.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "513349",
     "name": "Ajmera Realty & Infra India Ltd",
     "exchange": "BSE",
@@ -36096,7 +35462,7 @@
   },
   {
     "symbol": "513353",
-    "name": "Cochin Minerals & Rutiles Ltd",
+    "name": "Cochin Minerals & Rutiles Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513353.BO",
     "isin": "",
@@ -36146,29 +35512,9 @@
   },
   {
     "symbol": "513397",
-    "name": "Vallabh Steels Ltd",
+    "name": "Vallabh Steels Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513397.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "513401",
-    "name": "Ashiana Ispat Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "513401.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "513403",
-    "name": "P.M. Telelinnks Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "513403.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -36236,7 +35582,7 @@
   },
   {
     "symbol": "513460",
-    "name": "Mahalaxmi Seamless Ltd",
+    "name": "Mahalaxmi Seamless Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513460.BO",
     "isin": "",
@@ -36346,7 +35692,7 @@
   },
   {
     "symbol": "513519",
-    "name": "Pitti Engineering Ltd",
+    "name": "Pitti Engineering Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513519.BO",
     "isin": "",
@@ -36445,16 +35791,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "513579",
-    "name": "Foundry Fuel Products Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "513579.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "513599",
     "name": "Hindustan Copper Ltd",
     "exchange": "BSE",
@@ -36466,7 +35802,7 @@
   },
   {
     "symbol": "513629",
-    "name": "Tulsyan NEC Ltd",
+    "name": "Tulsyan NEC Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513629.BO",
     "isin": "",
@@ -36526,7 +35862,7 @@
   },
   {
     "symbol": "513709",
-    "name": "Shilp Gravures Ltd",
+    "name": "Shilp Gravures Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513709.BO",
     "isin": "",
@@ -36556,7 +35892,7 @@
   },
   {
     "symbol": "513729",
-    "name": "Aro Granite Industries Ltd",
+    "name": "Aro Granite Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "513729.BO",
     "isin": "",
@@ -36586,7 +35922,7 @@
   },
   {
     "symbol": "514030",
-    "name": "Deepak Spinners Ltd",
+    "name": "Deepak Spinners Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514030.BO",
     "isin": "",
@@ -36596,7 +35932,7 @@
   },
   {
     "symbol": "514036",
-    "name": "Loyal Textile Mills Ltd",
+    "name": "Loyal Textile Mills Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514036.BO",
     "isin": "",
@@ -36636,7 +35972,7 @@
   },
   {
     "symbol": "514087",
-    "name": "PBM Polytex Ltd",
+    "name": "PBM Polytex Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514087.BO",
     "isin": "",
@@ -36655,18 +35991,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "514128",
-    "name": "Konark Synthetic Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "514128.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "514138",
-    "name": "Suryalata Spinning Mills Ltd",
+    "name": "Suryalata Spinning Mills Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514138.BO",
     "isin": "",
@@ -36675,18 +36001,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "514140",
-    "name": "Suryavanshi Spinning Mills Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "514140.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "514142",
-    "name": "T T Ltd",
+    "name": "T T Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514142.BO",
     "isin": "",
@@ -36776,19 +36092,9 @@
   },
   {
     "symbol": "514211",
-    "name": "Sumeet Industries Ltd",
+    "name": "Sumeet Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514211.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "514221",
-    "name": "K-Lifestyle & Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "514221.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -36866,7 +36172,7 @@
   },
   {
     "symbol": "514264",
-    "name": "Seasons Textiles Ltd",
+    "name": "Seasons Textiles Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514264.BO",
     "isin": "",
@@ -36876,7 +36182,7 @@
   },
   {
     "symbol": "514266",
-    "name": "Zenith Fibres Ltd",
+    "name": "Zenith Fibres Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514266.BO",
     "isin": "",
@@ -36926,7 +36232,7 @@
   },
   {
     "symbol": "514300",
-    "name": "Pioneer Embroideries Ltd",
+    "name": "Pioneer Embroideries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514300.BO",
     "isin": "",
@@ -36976,7 +36282,7 @@
   },
   {
     "symbol": "514322",
-    "name": "Kamadgiri Fashion Ltd",
+    "name": "Kamadgiri Fashion Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514322.BO",
     "isin": "",
@@ -37116,7 +36422,7 @@
   },
   {
     "symbol": "514412",
-    "name": "Sarup Industries Ltd",
+    "name": "Sarup Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514412.BO",
     "isin": "",
@@ -37205,18 +36511,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "514460",
-    "name": "Oswal Yarns Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "514460.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "514470",
-    "name": "Winsome Textile Industries Ltd",
+    "name": "Winsome Textile Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "514470.BO",
     "isin": "",
@@ -37276,7 +36572,7 @@
   },
   {
     "symbol": "515055",
-    "name": "Anant Raj Ltd",
+    "name": "Anant Raj Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "515055.BO",
     "isin": "",
@@ -37315,18 +36611,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "515127",
-    "name": "Ramasigns Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "515127.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "515147",
-    "name": "Haldyn Glass Ltd",
+    "name": "Haldyn Glass Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "515147.BO",
     "isin": "",
@@ -37346,7 +36632,7 @@
   },
   {
     "symbol": "516016",
-    "name": "Shreyans Industries Ltd",
+    "name": "Shreyans Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "516016.BO",
     "isin": "",
@@ -37356,7 +36642,7 @@
   },
   {
     "symbol": "516020",
-    "name": "Agio Paper & Industries Ltd",
+    "name": "Agio Paper & Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "516020.BO",
     "isin": "",
@@ -37376,7 +36662,7 @@
   },
   {
     "symbol": "516030",
-    "name": "Pakka Ltd",
+    "name": "Pakka Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "516030.BO",
     "isin": "",
@@ -37556,7 +36842,7 @@
   },
   {
     "symbol": "517059",
-    "name": "Salzer Electronics Ltd",
+    "name": "Salzer Electronics Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517059.BO",
     "isin": "",
@@ -37586,7 +36872,7 @@
   },
   {
     "symbol": "517096",
-    "name": "Aplab Ltd",
+    "name": "Aplab Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517096.BO",
     "isin": "",
@@ -37686,19 +36972,9 @@
   },
   {
     "symbol": "517214",
-    "name": "Digispice Technologies Ltd",
+    "name": "Digispice Technologies Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517214.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "517230",
-    "name": "PAE Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "517230.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -37756,7 +37032,7 @@
   },
   {
     "symbol": "517271",
-    "name": "HBL Engineering Ltd",
+    "name": "HBL Engineering Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517271.BO",
     "isin": "",
@@ -37809,16 +37085,6 @@
     "name": "Magnus Steel and Infra Ltd",
     "exchange": "BSE",
     "yf_symbol": "517320.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "517330",
-    "name": "CMI Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "517330.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -37896,7 +37162,7 @@
   },
   {
     "symbol": "517372",
-    "name": "Gujarat Intrux Ltd",
+    "name": "Gujarat Intrux Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517372.BO",
     "isin": "",
@@ -37995,18 +37261,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "517423",
-    "name": "Integra Switchgear Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "517423.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "517429",
-    "name": "Athena Global Technologies Ltd",
+    "name": "Athena Global Technologies Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517429.BO",
     "isin": "",
@@ -38026,7 +37282,7 @@
   },
   {
     "symbol": "517437",
-    "name": "Dutron Polymers Ltd",
+    "name": "Dutron Polymers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517437.BO",
     "isin": "",
@@ -38046,7 +37302,7 @@
   },
   {
     "symbol": "517449",
-    "name": "Magna Electro Castings Ltd",
+    "name": "Magna Electro Castings Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517449.BO",
     "isin": "",
@@ -38066,7 +37322,7 @@
   },
   {
     "symbol": "517477",
-    "name": "Elnet Technologies Ltd",
+    "name": "Elnet Technologies Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517477.BO",
     "isin": "",
@@ -38116,7 +37372,7 @@
   },
   {
     "symbol": "517514",
-    "name": "D & H India Ltd",
+    "name": "D & H India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "517514.BO",
     "isin": "",
@@ -38205,16 +37461,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "517564",
-    "name": "Clenon Enterprises Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "517564.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "517569",
     "name": "KEI Industries Ltd",
     "exchange": "BSE",
@@ -38256,7 +37502,7 @@
   },
   {
     "symbol": "518091",
-    "name": "Anjani Portland Cement Ltd",
+    "name": "Anjani Portland Cement Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "518091.BO",
     "isin": "",
@@ -38279,16 +37525,6 @@
     "name": "Prashant India Ltd",
     "exchange": "BSE",
     "yf_symbol": "519014.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "519031",
-    "name": "Shah Foods Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "519031.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -38336,7 +37572,7 @@
   },
   {
     "symbol": "519136",
-    "name": "Nahar Industrial Enterprises Ltd",
+    "name": "Nahar Industrial Enterprises Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "519136.BO",
     "isin": "",
@@ -38356,7 +37592,7 @@
   },
   {
     "symbol": "519156",
-    "name": "Vadilal Industries Ltd",
+    "name": "Vadilal Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "519156.BO",
     "isin": "",
@@ -38376,7 +37612,7 @@
   },
   {
     "symbol": "519183",
-    "name": "Adf Foods Ltd",
+    "name": "Adf Foods Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "519183.BO",
     "isin": "",
@@ -38455,40 +37691,10 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "519242",
-    "name": "Sarda Proteins Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "519242.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "519260",
-    "name": "Sanwaria Consumer Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "519260.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "519262",
     "name": "Prima Agro Ltd",
     "exchange": "BSE",
     "yf_symbol": "519262.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "519279",
-    "name": "Madhur Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "519279.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -38626,19 +37832,9 @@
   },
   {
     "symbol": "519421",
-    "name": "KSE Ltd",
+    "name": "KSE Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "519421.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "519439",
-    "name": "Pioneer Agro Extracts Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "519439.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -38706,7 +37902,7 @@
   },
   {
     "symbol": "519483",
-    "name": "TAI Industries Ltd",
+    "name": "TAI Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "519483.BO",
     "isin": "",
@@ -38756,7 +37952,7 @@
   },
   {
     "symbol": "519532",
-    "name": "Asian Tea & Exports Ltd",
+    "name": "Asian Tea & Exports Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "519532.BO",
     "isin": "",
@@ -38936,7 +38132,7 @@
   },
   {
     "symbol": "520075",
-    "name": "Samkrg Pistons & Rings Ltd",
+    "name": "Samkrg Pistons & Rings Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "520075.BO",
     "isin": "",
@@ -38966,7 +38162,7 @@
   },
   {
     "symbol": "520111",
-    "name": "Ratnamani Metals & Tubes Ltd",
+    "name": "Ratnamani Metals & Tubes Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "520111.BO",
     "isin": "",
@@ -39006,7 +38202,7 @@
   },
   {
     "symbol": "520123",
-    "name": "ABC India Ltd",
+    "name": "ABC India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "520123.BO",
     "isin": "",
@@ -39205,16 +38401,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "521082",
-    "name": "CLC Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "521082.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "521097",
     "name": "Amarjothi Spinning Mills Ltd",
     "exchange": "BSE",
@@ -39236,7 +38422,7 @@
   },
   {
     "symbol": "521109",
-    "name": "Nagreeka Exports Ltd",
+    "name": "Nagreeka Exports Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "521109.BO",
     "isin": "",
@@ -39316,7 +38502,7 @@
   },
   {
     "symbol": "521161",
-    "name": "Sri Lakshmi Saraswathi Textiles Arni Ltd",
+    "name": "Sri Lakshmi Saraswathi Textiles Arni Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "521161.BO",
     "isin": "",
@@ -39346,7 +38532,7 @@
   },
   {
     "symbol": "521178",
-    "name": "Sri Ramakrishna Mills Coimbatore Ltd",
+    "name": "Sri Ramakrishna Mills Coimbatore Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "521178.BO",
     "isin": "",
@@ -39359,16 +38545,6 @@
     "name": "Super Spinning Mills Ltd",
     "exchange": "BSE",
     "yf_symbol": "521180.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "521188",
-    "name": "United Textiles Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "521188.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -39396,7 +38572,7 @@
   },
   {
     "symbol": "521206",
-    "name": "Samtex Fashions Ltd",
+    "name": "Samtex Fashions Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "521206.BO",
     "isin": "",
@@ -39426,7 +38602,7 @@
   },
   {
     "symbol": "521220",
-    "name": "Damodar Industries Ltd",
+    "name": "Damodar Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "521220.BO",
     "isin": "",
@@ -39476,7 +38652,7 @@
   },
   {
     "symbol": "521234",
-    "name": "Sri Nachammai Cotton Mills Ltd",
+    "name": "Sri Nachammai Cotton Mills Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "521234.BO",
     "isin": "",
@@ -39496,19 +38672,9 @@
   },
   {
     "symbol": "521240",
-    "name": "Sambandam Spinning Mills Ltd",
+    "name": "Sambandam Spinning Mills Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "521240.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "521242",
-    "name": "Kandagiri Spinning Mills Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "521242.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -39556,7 +38722,7 @@
   },
   {
     "symbol": "522004",
-    "name": "Batliboi Ltd",
+    "name": "Batliboi Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522004.BO",
     "isin": "",
@@ -39696,7 +38862,7 @@
   },
   {
     "symbol": "522108",
-    "name": "Yuken India Ltd",
+    "name": "Yuken India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522108.BO",
     "isin": "",
@@ -39716,7 +38882,7 @@
   },
   {
     "symbol": "522122",
-    "name": "Voith Paper Fabrics India Ltd",
+    "name": "Voith Paper Fabrics India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522122.BO",
     "isin": "",
@@ -39746,7 +38912,7 @@
   },
   {
     "symbol": "522163",
-    "name": "Diamond Power Infrastructure Ltd",
+    "name": "Diamond Power Infrastructure Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522163.BO",
     "isin": "",
@@ -39756,7 +38922,7 @@
   },
   {
     "symbol": "522165",
-    "name": "Indsil Hydro Power and Manganese Ltd",
+    "name": "Indsil Hydro Power and Manganese Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522165.BO",
     "isin": "",
@@ -39765,18 +38931,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "522171",
-    "name": "TMT India Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "522171.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "522183",
-    "name": "ITL Industries Ltd",
+    "name": "ITL Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522183.BO",
     "isin": "",
@@ -39806,7 +38962,7 @@
   },
   {
     "symbol": "522207",
-    "name": "Rasandik Engineering Industries India Ltd",
+    "name": "Rasandik Engineering Industries India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522207.BO",
     "isin": "",
@@ -39846,7 +39002,7 @@
   },
   {
     "symbol": "522229",
-    "name": "Taneja Aerospace & Aviation Ltd",
+    "name": "Taneja Aerospace & Aviation Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522229.BO",
     "isin": "",
@@ -39856,7 +39012,7 @@
   },
   {
     "symbol": "522231",
-    "name": "Conart Engineers Ltd",
+    "name": "Conart Engineers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522231.BO",
     "isin": "",
@@ -39886,7 +39042,7 @@
   },
   {
     "symbol": "522241",
-    "name": "MM Forgings Ltd",
+    "name": "MM Forgings Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522241.BO",
     "isin": "",
@@ -39895,18 +39051,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "522245",
-    "name": "Iykot Hitech Toolroom Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "522245.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "522249",
-    "name": "Mayur Uniquoters Ltd",
+    "name": "Mayur Uniquoters Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522249.BO",
     "isin": "",
@@ -39926,7 +39072,7 @@
   },
   {
     "symbol": "522257",
-    "name": "Rajoo Engineers Ltd",
+    "name": "Rajoo Engineers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522257.BO",
     "isin": "",
@@ -39936,7 +39082,7 @@
   },
   {
     "symbol": "522261",
-    "name": "Dolphin Offshore Enterprises (India) Ltd",
+    "name": "Dolphin Offshore Enterprises (India) Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522261.BO",
     "isin": "",
@@ -39946,7 +39092,7 @@
   },
   {
     "symbol": "522267",
-    "name": "Veejay Lakshmi Engineering Works Ltd",
+    "name": "Veejay Lakshmi Engineering Works Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522267.BO",
     "isin": "",
@@ -39976,7 +39122,7 @@
   },
   {
     "symbol": "522281",
-    "name": "Ram Ratna Wires Ltd",
+    "name": "Ram Ratna Wires Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522281.BO",
     "isin": "",
@@ -40036,7 +39182,7 @@
   },
   {
     "symbol": "522295",
-    "name": "Control Print Ltd",
+    "name": "Control Print Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "522295.BO",
     "isin": "",
@@ -40056,7 +39202,7 @@
   },
   {
     "symbol": "523007",
-    "name": "Ansal Buildwell Ltd",
+    "name": "Ansal Buildwell Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523007.BO",
     "isin": "",
@@ -40096,7 +39242,7 @@
   },
   {
     "symbol": "523023",
-    "name": "Sinclairs Hotels Ltd",
+    "name": "Sinclairs Hotels Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523023.BO",
     "isin": "",
@@ -40146,7 +39292,7 @@
   },
   {
     "symbol": "523100",
-    "name": "Cosmo Ferrites Ltd",
+    "name": "Cosmo Ferrites Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523100.BO",
     "isin": "",
@@ -40196,7 +39342,7 @@
   },
   {
     "symbol": "523127",
-    "name": "EIH Associated Hotels Ltd",
+    "name": "EIH Associated Hotels Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523127.BO",
     "isin": "",
@@ -40206,7 +39352,7 @@
   },
   {
     "symbol": "523144",
-    "name": "Medi Caps Ltd",
+    "name": "Medi Caps Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523144.BO",
     "isin": "",
@@ -40235,18 +39381,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "523204",
-    "name": "Aban Offshore Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "523204.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "523207",
-    "name": "Kokuyo Camlin Ltd",
+    "name": "Kokuyo Camlin Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523207.BO",
     "isin": "",
@@ -40255,18 +39391,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "523222",
-    "name": "SRM Energy Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "523222.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "523229",
-    "name": "Bharat Seats Ltd",
+    "name": "Bharat Seats Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523229.BO",
     "isin": "",
@@ -40296,7 +39422,7 @@
   },
   {
     "symbol": "523248",
-    "name": "Machino Plastics Ltd",
+    "name": "Machino Plastics Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523248.BO",
     "isin": "",
@@ -40335,16 +39461,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "523277",
-    "name": "GV Films Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "523277.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "523283",
     "name": "Superhouse Ltd",
     "exchange": "BSE",
@@ -40366,7 +39482,7 @@
   },
   {
     "symbol": "523301",
-    "name": "TCPL Packaging Ltd",
+    "name": "TCPL Packaging Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523301.BO",
     "isin": "",
@@ -40456,7 +39572,7 @@
   },
   {
     "symbol": "523369",
-    "name": "DCM Shriram Industries Ltd",
+    "name": "DCM Shriram Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523369.BO",
     "isin": "",
@@ -40546,7 +39662,7 @@
   },
   {
     "symbol": "523405",
-    "name": "JM Financial Ltd",
+    "name": "JM Financial Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523405.BO",
     "isin": "",
@@ -40556,7 +39672,7 @@
   },
   {
     "symbol": "523411",
-    "name": "ADC India Communications Ltd",
+    "name": "ADC India Communications Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523411.BO",
     "isin": "",
@@ -40656,7 +39772,7 @@
   },
   {
     "symbol": "523489",
-    "name": "Chennai Meenakshi Multispeciality Hospital Ltd",
+    "name": "Chennai Meenakshi Multispeciality Hospital Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523489.BO",
     "isin": "",
@@ -40676,7 +39792,7 @@
   },
   {
     "symbol": "523537",
-    "name": "APM Industries Ltd",
+    "name": "APM Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523537.BO",
     "isin": "",
@@ -40736,7 +39852,7 @@
   },
   {
     "symbol": "523586",
-    "name": "Indian Toners & Developers Ltd",
+    "name": "Indian Toners & Developers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523586.BO",
     "isin": "",
@@ -40816,7 +39932,7 @@
   },
   {
     "symbol": "523638",
-    "name": "IP Rings Ltd",
+    "name": "IP Rings Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523638.BO",
     "isin": "",
@@ -40836,7 +39952,7 @@
   },
   {
     "symbol": "523648",
-    "name": "Plastiblends India Ltd",
+    "name": "Plastiblends India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523648.BO",
     "isin": "",
@@ -40876,7 +39992,7 @@
   },
   {
     "symbol": "523672",
-    "name": "Flex Foods Ltd",
+    "name": "Flex Foods Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523672.BO",
     "isin": "",
@@ -40945,18 +40061,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "523712",
-    "name": "JMG Corporation Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "523712.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "523716",
-    "name": "Ashiana Housing Ltd",
+    "name": "Ashiana Housing Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523716.BO",
     "isin": "",
@@ -40986,7 +40092,7 @@
   },
   {
     "symbol": "523736",
-    "name": "Dhunseri Ventures Ltd",
+    "name": "Dhunseri Ventures Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523736.BO",
     "isin": "",
@@ -41036,7 +40142,7 @@
   },
   {
     "symbol": "523792",
-    "name": "Mazda Ltd",
+    "name": "Mazda Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523792.BO",
     "isin": "",
@@ -41066,7 +40172,7 @@
   },
   {
     "symbol": "523828",
-    "name": "Menon Bearings Ltd",
+    "name": "Menon Bearings Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523828.BO",
     "isin": "",
@@ -41076,7 +40182,7 @@
   },
   {
     "symbol": "523832",
-    "name": "Mukat Pipes Ltd",
+    "name": "Mukat Pipes Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "523832.BO",
     "isin": "",
@@ -41175,16 +40281,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "523896",
-    "name": "Avi Products India Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "523896.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "524000",
     "name": "Poonawalla Fincorp Ltd",
     "exchange": "BSE",
@@ -41196,7 +40292,7 @@
   },
   {
     "symbol": "524019",
-    "name": "Kingfa Science & Technology (India) Ltd",
+    "name": "Kingfa Science & Technology (India) Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524019.BO",
     "isin": "",
@@ -41266,7 +40362,7 @@
   },
   {
     "symbol": "524075",
-    "name": "Albert David Ltd",
+    "name": "Albert David Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524075.BO",
     "isin": "",
@@ -41356,7 +40452,7 @@
   },
   {
     "symbol": "524200",
-    "name": "Vinati Organics Ltd",
+    "name": "Vinati Organics Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524200.BO",
     "isin": "",
@@ -41416,7 +40512,7 @@
   },
   {
     "symbol": "524218",
-    "name": "Resonance Specialties Ltd",
+    "name": "Resonance Specialties Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524218.BO",
     "isin": "",
@@ -41516,7 +40612,7 @@
   },
   {
     "symbol": "524332",
-    "name": "BCL Industries Ltd",
+    "name": "BCL Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524332.BO",
     "isin": "",
@@ -41536,7 +40632,7 @@
   },
   {
     "symbol": "524342",
-    "name": "Indo Borax & Chemicals Ltd",
+    "name": "Indo Borax & Chemicals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524342.BO",
     "isin": "",
@@ -41576,7 +40672,7 @@
   },
   {
     "symbol": "524394",
-    "name": "Vimta Labs Ltd",
+    "name": "Vimta Labs Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524394.BO",
     "isin": "",
@@ -41686,7 +40782,7 @@
   },
   {
     "symbol": "524470",
-    "name": "Syncom Formulations India Ltd",
+    "name": "Syncom Formulations India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524470.BO",
     "isin": "",
@@ -41696,7 +40792,7 @@
   },
   {
     "symbol": "524480",
-    "name": "Riddhi Siddhi Gluco Biols Ltd",
+    "name": "Riddhi Siddhi Gluco Biols Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524480.BO",
     "isin": "",
@@ -41745,16 +40841,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "524504",
-    "name": "Revati Media Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "524504.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "524506",
     "name": "Coral Laboratories Ltd",
     "exchange": "BSE",
@@ -41786,7 +40872,7 @@
   },
   {
     "symbol": "524518",
-    "name": "Krebs Biochemicals & Industries Ltd",
+    "name": "Krebs Biochemicals & Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524518.BO",
     "isin": "",
@@ -41806,7 +40892,7 @@
   },
   {
     "symbol": "524522",
-    "name": "Laffans Petrochemicals Ltd",
+    "name": "Laffans Petrochemicals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524522.BO",
     "isin": "",
@@ -41826,7 +40912,7 @@
   },
   {
     "symbol": "524542",
-    "name": "Sukhjit Starch & Chemicals Ltd",
+    "name": "Sukhjit Starch & Chemicals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524542.BO",
     "isin": "",
@@ -41866,7 +40952,7 @@
   },
   {
     "symbol": "524570",
-    "name": "Poddar Pigments Ltd",
+    "name": "Poddar Pigments Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524570.BO",
     "isin": "",
@@ -41896,7 +40982,7 @@
   },
   {
     "symbol": "524580",
-    "name": "Priya Ltd",
+    "name": "Priya Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524580.BO",
     "isin": "",
@@ -41946,7 +41032,7 @@
   },
   {
     "symbol": "524598",
-    "name": "AksharChem India Ltd",
+    "name": "AksharChem India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524598.BO",
     "isin": "",
@@ -42016,7 +41102,7 @@
   },
   {
     "symbol": "524628",
-    "name": "Parker Agrochem Exports Ltd",
+    "name": "Parker Agrochem Exports Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524628.BO",
     "isin": "",
@@ -42076,7 +41162,7 @@
   },
   {
     "symbol": "524648",
-    "name": "Indo Amines Ltd",
+    "name": "Indo Amines Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524648.BO",
     "isin": "",
@@ -42106,7 +41192,7 @@
   },
   {
     "symbol": "524663",
-    "name": "Bharat Immunologicals & Biologicals Corporation Ltd",
+    "name": "Bharat Immunologicals & Biologicals Corporation Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524663.BO",
     "isin": "",
@@ -42146,7 +41232,7 @@
   },
   {
     "symbol": "524687",
-    "name": "Basant Agro Tech India Ltd",
+    "name": "Basant Agro Tech India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524687.BO",
     "isin": "",
@@ -42199,26 +41285,6 @@
     "name": "Titan Biotech Ltd",
     "exchange": "BSE",
     "yf_symbol": "524717.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "524723",
-    "name": "Bijoy Hans Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "524723.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "524727",
-    "name": "Span Divergent Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "524727.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -42346,7 +41412,7 @@
   },
   {
     "symbol": "524818",
-    "name": "Dynamic Industries Ltd",
+    "name": "Dynamic Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "524818.BO",
     "isin": "",
@@ -42556,7 +41622,7 @@
   },
   {
     "symbol": "526159",
-    "name": "Nikhil Adhesives Ltd",
+    "name": "Nikhil Adhesives Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526159.BO",
     "isin": "",
@@ -42616,7 +41682,7 @@
   },
   {
     "symbol": "526193",
-    "name": "Royal Cushion Vinyl Products Ltd",
+    "name": "Royal Cushion Vinyl Products Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526193.BO",
     "isin": "",
@@ -42636,7 +41702,7 @@
   },
   {
     "symbol": "526217",
-    "name": "Hitech Corporation Ltd",
+    "name": "Hitech Corporation Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526217.BO",
     "isin": "",
@@ -42646,7 +41712,7 @@
   },
   {
     "symbol": "526225",
-    "name": "Bloom Dekor Ltd",
+    "name": "Bloom Dekor Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526225.BO",
     "isin": "",
@@ -42656,7 +41722,7 @@
   },
   {
     "symbol": "526227",
-    "name": "Filatex India Ltd",
+    "name": "Filatex India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526227.BO",
     "isin": "",
@@ -42826,7 +41892,7 @@
   },
   {
     "symbol": "526367",
-    "name": "Ganesh Housing Ltd",
+    "name": "Ganesh Housing Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526367.BO",
     "isin": "",
@@ -42846,7 +41912,7 @@
   },
   {
     "symbol": "526373",
-    "name": "Cindrella Hotels Ltd",
+    "name": "Cindrella Hotels Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526373.BO",
     "isin": "",
@@ -42856,7 +41922,7 @@
   },
   {
     "symbol": "526381",
-    "name": "Patel Integrated Logistics Ltd",
+    "name": "Patel Integrated Logistics Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526381.BO",
     "isin": "",
@@ -42866,7 +41932,7 @@
   },
   {
     "symbol": "526397",
-    "name": "Alphageo (India) Ltd",
+    "name": "Alphageo (India) Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526397.BO",
     "isin": "",
@@ -42906,7 +41972,7 @@
   },
   {
     "symbol": "526423",
-    "name": "Kriti Industries India Ltd",
+    "name": "Kriti Industries India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526423.BO",
     "isin": "",
@@ -43026,7 +42092,7 @@
   },
   {
     "symbol": "526479",
-    "name": "Sky Industries Ltd",
+    "name": "Sky Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526479.BO",
     "isin": "",
@@ -43095,16 +42161,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "526504",
-    "name": "Dolphin Medical Services Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "526504.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "526506",
     "name": "Systematix Corporate Services Ltd",
     "exchange": "BSE",
@@ -43116,7 +42172,7 @@
   },
   {
     "symbol": "526508",
-    "name": "Shahi Shipping Ltd",
+    "name": "Shahi Shipping Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526508.BO",
     "isin": "",
@@ -43236,7 +42292,7 @@
   },
   {
     "symbol": "526586",
-    "name": "Wim Plast Ltd",
+    "name": "Wim Plast Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526586.BO",
     "isin": "",
@@ -43266,7 +42322,7 @@
   },
   {
     "symbol": "526604",
-    "name": "Lippi Systems Ltd",
+    "name": "Lippi Systems Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526604.BO",
     "isin": "",
@@ -43435,18 +42491,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "526683",
-    "name": "Univa Foods Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "526683.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "526703",
-    "name": "Ecoplast Ltd",
+    "name": "Ecoplast Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526703.BO",
     "isin": "",
@@ -43496,7 +42542,7 @@
   },
   {
     "symbol": "526721",
-    "name": "Nicco Parks & Resorts Ltd",
+    "name": "Nicco Parks & Resorts Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526721.BO",
     "isin": "",
@@ -43546,7 +42592,7 @@
   },
   {
     "symbol": "526731",
-    "name": "Bright Brothers Ltd",
+    "name": "Bright Brothers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526731.BO",
     "isin": "",
@@ -43606,7 +42652,7 @@
   },
   {
     "symbol": "526775",
-    "name": "Valiant Communications Ltd",
+    "name": "Valiant Communications Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526775.BO",
     "isin": "",
@@ -43616,7 +42662,7 @@
   },
   {
     "symbol": "526783",
-    "name": "Dr Agarwals Eye Hospital Ltd",
+    "name": "Dr Agarwals Eye Hospital Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526783.BO",
     "isin": "",
@@ -43645,16 +42691,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "526799",
-    "name": "Union Quality Plastics Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "526799.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "526807",
     "name": "Seamec Ltd",
     "exchange": "BSE",
@@ -43676,7 +42712,7 @@
   },
   {
     "symbol": "526817",
-    "name": "Cheviot Company Ltd",
+    "name": "Cheviot Company Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526817.BO",
     "isin": "",
@@ -43686,7 +42722,7 @@
   },
   {
     "symbol": "526821",
-    "name": "Dai-Ichi Karkaria Ltd",
+    "name": "Dai-Ichi Karkaria Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526821.BO",
     "isin": "",
@@ -43706,7 +42742,7 @@
   },
   {
     "symbol": "526827",
-    "name": "Spice Islands Industries Ltd",
+    "name": "Spice Islands Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526827.BO",
     "isin": "",
@@ -43726,7 +42762,7 @@
   },
   {
     "symbol": "526839",
-    "name": "Shelter Infra Projects Ltd",
+    "name": "Shelter Infra Projects Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526839.BO",
     "isin": "",
@@ -43776,7 +42812,7 @@
   },
   {
     "symbol": "526853",
-    "name": "Bilcare Ltd",
+    "name": "Bilcare Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526853.BO",
     "isin": "",
@@ -43876,7 +42912,7 @@
   },
   {
     "symbol": "526885",
-    "name": "Sarla Performance Fibers Ltd",
+    "name": "Sarla Performance Fibers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526885.BO",
     "isin": "",
@@ -43946,7 +42982,7 @@
   },
   {
     "symbol": "526931",
-    "name": "Hariyana Ship Breakers Ltd",
+    "name": "Hariyana Ship Breakers Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "526931.BO",
     "isin": "",
@@ -44015,16 +43051,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "526959",
-    "name": "Woodsvilla Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "526959.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "526961",
     "name": "Last Mile Enterprises Ltd",
     "exchange": "BSE",
@@ -44079,16 +43105,6 @@
     "name": "Shri Bajrang Alliance Ltd",
     "exchange": "BSE",
     "yf_symbol": "526981.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "526983",
-    "name": "Ashoka Refineries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "526983.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -44205,16 +43221,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "530035",
-    "name": "Santosh Fine Fab Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530035.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "530037",
     "name": "Sparkle Gold Rock Ltd",
     "exchange": "BSE",
@@ -44249,16 +43255,6 @@
     "name": "Real Eco-Energy Ltd",
     "exchange": "BSE",
     "yf_symbol": "530053.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "530055",
-    "name": "Harmony Capital Service Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530055.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -44316,7 +43312,7 @@
   },
   {
     "symbol": "530075",
-    "name": "Antelopus Selan Energy Ltd",
+    "name": "Antelopus Selan Energy Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530075.BO",
     "isin": "",
@@ -44336,19 +43332,9 @@
   },
   {
     "symbol": "530079",
-    "name": "Faze Three Ltd",
+    "name": "Faze Three Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530079.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "530093",
-    "name": "ACE Edutrend Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530093.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -44396,7 +43382,7 @@
   },
   {
     "symbol": "530125",
-    "name": "Samrat Pharmachem Ltd",
+    "name": "Samrat Pharmachem Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530125.BO",
     "isin": "",
@@ -44426,7 +43412,7 @@
   },
   {
     "symbol": "530133",
-    "name": "Amco India Ltd",
+    "name": "Amco India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530133.BO",
     "isin": "",
@@ -44466,19 +43452,9 @@
   },
   {
     "symbol": "530145",
-    "name": "Kisan Mouldings Ltd",
+    "name": "Kisan Mouldings Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530145.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "530151",
-    "name": "Vijay Textiles Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530151.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -44525,30 +43501,10 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "530173",
-    "name": "Oscar Global Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530173.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "530175",
-    "name": "Odyssey Technologies Ltd",
+    "name": "Odyssey Technologies Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530175.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "530177",
-    "name": "VK Global Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530177.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -44606,7 +43562,7 @@
   },
   {
     "symbol": "530201",
-    "name": "Kallam Textiles Ltd",
+    "name": "Kallam Textiles Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530201.BO",
     "isin": "",
@@ -44866,7 +43822,7 @@
   },
   {
     "symbol": "530307",
-    "name": "Chaman Lal Setia Exports Ltd",
+    "name": "Chaman Lal Setia Exports Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530307.BO",
     "isin": "",
@@ -44876,7 +43832,7 @@
   },
   {
     "symbol": "530309",
-    "name": "Chandra Prabhu International Ltd",
+    "name": "Chandra Prabhu International Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530309.BO",
     "isin": "",
@@ -44896,7 +43852,7 @@
   },
   {
     "symbol": "530315",
-    "name": "Hindustan Tin Works Ltd",
+    "name": "Hindustan Tin Works Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530315.BO",
     "isin": "",
@@ -44916,7 +43872,7 @@
   },
   {
     "symbol": "530331",
-    "name": "Premco Global Ltd",
+    "name": "Premco Global Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530331.BO",
     "isin": "",
@@ -44936,7 +43892,7 @@
   },
   {
     "symbol": "530343",
-    "name": "Genus Power Infrastructures Ltd",
+    "name": "Genus Power Infrastructures Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530343.BO",
     "isin": "",
@@ -44976,7 +43932,7 @@
   },
   {
     "symbol": "530363",
-    "name": "Ugar Sugar Works Ltd",
+    "name": "Ugar Sugar Works Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530363.BO",
     "isin": "",
@@ -44986,7 +43942,7 @@
   },
   {
     "symbol": "530365",
-    "name": "Orient Bell Ltd",
+    "name": "Orient Bell Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530365.BO",
     "isin": "",
@@ -45056,7 +44012,7 @@
   },
   {
     "symbol": "530407",
-    "name": "EPIC Energy Ltd",
+    "name": "EPIC Energy Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530407.BO",
     "isin": "",
@@ -45166,7 +44122,7 @@
   },
   {
     "symbol": "530459",
-    "name": "Valson Industries Ltd",
+    "name": "Valson Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530459.BO",
     "isin": "",
@@ -45236,7 +44192,7 @@
   },
   {
     "symbol": "530517",
-    "name": "Relaxo Footwears Ltd",
+    "name": "Relaxo Footwears Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530517.BO",
     "isin": "",
@@ -45286,7 +44242,7 @@
   },
   {
     "symbol": "530545",
-    "name": "Cosco India Ltd",
+    "name": "Cosco India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530545.BO",
     "isin": "",
@@ -45316,7 +44272,7 @@
   },
   {
     "symbol": "530555",
-    "name": "Paramount Communications Ltd",
+    "name": "Paramount Communications Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530555.BO",
     "isin": "",
@@ -45329,16 +44285,6 @@
     "name": "NCL Research & Financial Services Ltd",
     "exchange": "BSE",
     "yf_symbol": "530557.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "530565",
-    "name": "Popees Cares Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530565.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -45425,26 +44371,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "530609",
-    "name": "Carnation Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530609.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "530611",
-    "name": "Sturdy Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530611.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "530615",
     "name": "Garg Furnace Ltd",
     "exchange": "BSE",
@@ -45525,16 +44451,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "530669",
-    "name": "Ace Engitech Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530669.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "530675",
     "name": "York Exports Ltd",
     "exchange": "BSE",
@@ -45555,16 +44471,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "530683",
-    "name": "Pithampur Poly Products Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530683.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "530689",
     "name": "Lykis Ltd",
     "exchange": "BSE",
@@ -45576,7 +44482,7 @@
   },
   {
     "symbol": "530695",
-    "name": "Prime Property Development Corporation Ltd",
+    "name": "Prime Property Development Corporation Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530695.BO",
     "isin": "",
@@ -45596,7 +44502,7 @@
   },
   {
     "symbol": "530699",
-    "name": "Raj Rayon Industries Ltd",
+    "name": "Raj Rayon Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530699.BO",
     "isin": "",
@@ -45716,7 +44622,7 @@
   },
   {
     "symbol": "530759",
-    "name": "Sterling Tools Ltd",
+    "name": "Sterling Tools Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530759.BO",
     "isin": "",
@@ -45729,16 +44635,6 @@
     "name": "Agarwal Fortune India Ltd",
     "exchange": "BSE",
     "yf_symbol": "530765.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "530771",
-    "name": "KLG Capital Services Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530771.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -45846,7 +44742,7 @@
   },
   {
     "symbol": "530821",
-    "name": "SSPDL Ltd",
+    "name": "SSPDL Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530821.BO",
     "isin": "",
@@ -45886,7 +44782,7 @@
   },
   {
     "symbol": "530843",
-    "name": "Cupid Ltd",
+    "name": "Cupid Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530843.BO",
     "isin": "",
@@ -45926,7 +44822,7 @@
   },
   {
     "symbol": "530871",
-    "name": "Chembond Material Technologies Ltd",
+    "name": "Chembond Material Technologies Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530871.BO",
     "isin": "",
@@ -45965,18 +44861,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "530889",
-    "name": "Alka India Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530889.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "530897",
-    "name": "NG Industries Ltd",
+    "name": "NG Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530897.BO",
     "isin": "",
@@ -46065,16 +44951,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "530929",
-    "name": "RRP Defense Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530929.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "530931",
     "name": "Stanpacks India Ltd",
     "exchange": "BSE",
@@ -46106,7 +44982,7 @@
   },
   {
     "symbol": "530953",
-    "name": "Sunil Agro Foods Ltd",
+    "name": "Sunil Agro Foods Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530953.BO",
     "isin": "",
@@ -46175,16 +45051,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "530985",
-    "name": "JPT Securities Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "530985.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "530991",
     "name": "Roopa Industries Ltd",
     "exchange": "BSE",
@@ -46216,7 +45082,7 @@
   },
   {
     "symbol": "530999",
-    "name": "Balaji Amines Ltd",
+    "name": "Balaji Amines Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "530999.BO",
     "isin": "",
@@ -46275,16 +45141,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531029",
-    "name": "Bharat Textiles & Proofing Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531029.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531033",
     "name": "Regal Entertainment & Consultants Ltd",
     "exchange": "BSE",
@@ -46299,16 +45155,6 @@
     "name": "Eraaya Lifespaces Ltd",
     "exchange": "BSE",
     "yf_symbol": "531035.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531039",
-    "name": "Swadha Nature Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531039.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -46349,16 +45195,6 @@
     "name": "Vintage Securities Ltd",
     "exchange": "BSE",
     "yf_symbol": "531051.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531065",
-    "name": "Oswal Overseas Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531065.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -46486,7 +45322,7 @@
   },
   {
     "symbol": "531120",
-    "name": "Patel Engineering Ltd",
+    "name": "Patel Engineering Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531120.BO",
     "isin": "",
@@ -46499,16 +45335,6 @@
     "name": "Kati Patang Lifestyle Ltd",
     "exchange": "BSE",
     "yf_symbol": "531126.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531127",
-    "name": "Mena Mani Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531127.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -46536,7 +45362,7 @@
   },
   {
     "symbol": "531144",
-    "name": "El Forge Ltd",
+    "name": "El Forge Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531144.BO",
     "isin": "",
@@ -46546,7 +45372,7 @@
   },
   {
     "symbol": "531146",
-    "name": "Medicamen Biotech Ltd",
+    "name": "Medicamen Biotech Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531146.BO",
     "isin": "",
@@ -46626,7 +45452,7 @@
   },
   {
     "symbol": "531162",
-    "name": "Emami Ltd",
+    "name": "Emami Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531162.BO",
     "isin": "",
@@ -46639,16 +45465,6 @@
     "name": "Kemistar Corporation Ltd",
     "exchange": "BSE",
     "yf_symbol": "531163.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531164",
-    "name": "Laser Diamonds Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531164.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -46725,16 +45541,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531191",
-    "name": "Filtron Engineers Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531191.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531199",
     "name": "Glance Finance Ltd",
     "exchange": "BSE",
@@ -46769,16 +45575,6 @@
     "name": "Spright Agro Ltd",
     "exchange": "BSE",
     "yf_symbol": "531205.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531207",
-    "name": "Cresanto Global Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531207.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -46836,7 +45632,7 @@
   },
   {
     "symbol": "531216",
-    "name": "Comfort Intech Ltd",
+    "name": "Comfort Intech Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531216.BO",
     "isin": "",
@@ -46866,7 +45662,7 @@
   },
   {
     "symbol": "531223",
-    "name": "Anjani Synthetics Ltd",
+    "name": "Anjani Synthetics Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531223.BO",
     "isin": "",
@@ -46945,18 +45741,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531240",
-    "name": "Shamrock Industrial Company Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531240.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531241",
-    "name": "Linc Ltd",
+    "name": "Linc Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531241.BO",
     "isin": "",
@@ -46976,7 +45762,7 @@
   },
   {
     "symbol": "531253",
-    "name": "India Gelatine & Chemicals Ltd",
+    "name": "India Gelatine & Chemicals Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531253.BO",
     "isin": "",
@@ -47015,26 +45801,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531259",
-    "name": "Esha Media Research Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531259.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531260",
-    "name": "Refex Renewables & Infrastructure Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531260.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531262",
     "name": "Equilateral Enterprises Ltd",
     "exchange": "BSE",
@@ -47045,18 +45811,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531265",
-    "name": "Progrex Ventures Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531265.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531266",
-    "name": "VST Tillers Tractors Ltd",
+    "name": "VST Tillers Tractors Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531266.BO",
     "isin": "",
@@ -47069,16 +45825,6 @@
     "name": "B2B Software Technologies Ltd",
     "exchange": "BSE",
     "yf_symbol": "531268.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531272",
-    "name": "Nikki Global Finance Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531272.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -47205,16 +45951,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531300",
-    "name": "Amit International Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531300.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531301",
     "name": "Tusaldah Ltd",
     "exchange": "BSE",
@@ -47315,16 +46051,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531327",
-    "name": "Charms Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531327.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531328",
     "name": "Kretto Syscon Ltd",
     "exchange": "BSE",
@@ -47346,7 +46072,7 @@
   },
   {
     "symbol": "531335",
-    "name": "Zydus Wellness Ltd",
+    "name": "Zydus Wellness Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531335.BO",
     "isin": "",
@@ -47506,7 +46232,7 @@
   },
   {
     "symbol": "531381",
-    "name": "Arihant Foundations & Housing Ltd",
+    "name": "Arihant Foundations & Housing Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531381.BO",
     "isin": "",
@@ -47605,26 +46331,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531406",
-    "name": "ANS Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531406.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531409",
-    "name": "Alchemist Corporation Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531409.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531411",
     "name": "Tuni Textile Mills Ltd",
     "exchange": "BSE",
@@ -47686,7 +46392,7 @@
   },
   {
     "symbol": "531431",
-    "name": "Shakti Pumps India Ltd",
+    "name": "Shakti Pumps India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531431.BO",
     "isin": "",
@@ -47755,16 +46461,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531444",
-    "name": "Vardhman Concrete Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531444.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531449",
     "name": "GRM Overseas Ltd",
     "exchange": "BSE",
@@ -47776,7 +46472,7 @@
   },
   {
     "symbol": "531453",
-    "name": "Mohit Industries Ltd",
+    "name": "Mohit Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531453.BO",
     "isin": "",
@@ -47905,18 +46601,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531496",
-    "name": "Omkar Overseas Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531496.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531497",
-    "name": "Madhucon Projects Ltd",
+    "name": "Madhucon Projects Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531497.BO",
     "isin": "",
@@ -47926,7 +46612,7 @@
   },
   {
     "symbol": "531499",
-    "name": "Sybly Industries Ltd",
+    "name": "Sybly Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531499.BO",
     "isin": "",
@@ -47956,7 +46642,7 @@
   },
   {
     "symbol": "531503",
-    "name": "Maris Spinners Ltd",
+    "name": "Maris Spinners Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531503.BO",
     "isin": "",
@@ -48015,16 +46701,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531515",
-    "name": "Mahan Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531515.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531518",
     "name": "Vikas Proppant & Granite Ltd",
     "exchange": "BSE",
@@ -48046,7 +46722,7 @@
   },
   {
     "symbol": "531525",
-    "name": "ACE Software Exports Ltd",
+    "name": "ACE Software Exports Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531525.BO",
     "isin": "",
@@ -48096,7 +46772,7 @@
   },
   {
     "symbol": "531539",
-    "name": "Rishabh Digha Steel & Allied Products Ltd",
+    "name": "Rishabh Digha Steel & Allied Products Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531539.BO",
     "isin": "",
@@ -48109,16 +46785,6 @@
     "name": "Maruti Infrastructure Ltd",
     "exchange": "BSE",
     "yf_symbol": "531540.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531541",
-    "name": "Kobo Biotech Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531541.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -48385,16 +47051,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531613",
-    "name": "Meyer Apparel Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531613.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531616",
     "name": "Starcom Information Technology Ltd",
     "exchange": "BSE",
@@ -48416,7 +47072,7 @@
   },
   {
     "symbol": "531626",
-    "name": "Orosil Smiths India Ltd",
+    "name": "Orosil Smiths India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531626.BO",
     "isin": "",
@@ -48466,7 +47122,7 @@
   },
   {
     "symbol": "531638",
-    "name": "Suraj Ltd",
+    "name": "Suraj Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531638.BO",
     "isin": "",
@@ -48499,16 +47155,6 @@
     "name": "Tokyo Finance Ltd",
     "exchange": "BSE",
     "yf_symbol": "531644.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531647",
-    "name": "BJ Duplex Boards Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531647.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -48625,16 +47271,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531677",
-    "name": "Aris International Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531677.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531680",
     "name": "Mayur Leather Products Ltd",
     "exchange": "BSE",
@@ -48659,16 +47295,6 @@
     "name": "Frontline Financial Services Ltd",
     "exchange": "BSE",
     "yf_symbol": "531685.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531686",
-    "name": "Advik Laboratories Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531686.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -48726,7 +47352,7 @@
   },
   {
     "symbol": "531717",
-    "name": "Vidhi Specialty Food Ingredients Ltd",
+    "name": "Vidhi Specialty Food Ingredients Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531717.BO",
     "isin": "",
@@ -48816,7 +47442,7 @@
   },
   {
     "symbol": "531744",
-    "name": "Gini Silk Mills Ltd",
+    "name": "Gini Silk Mills Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531744.BO",
     "isin": "",
@@ -48945,18 +47571,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531794",
-    "name": "Seshachal Technologies Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531794.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531795",
-    "name": "Atul Auto Ltd",
+    "name": "Atul Auto Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531795.BO",
     "isin": "",
@@ -49045,26 +47661,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531825",
-    "name": "RCC Cements Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531825.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531832",
-    "name": "Nagarjuna Agri Tech Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531832.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531834",
     "name": "Natura Hue Chem Ltd",
     "exchange": "BSE",
@@ -49096,7 +47692,7 @@
   },
   {
     "symbol": "531842",
-    "name": "Lahoti Overseas Ltd",
+    "name": "Lahoti Overseas Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531842.BO",
     "isin": "",
@@ -49106,7 +47702,7 @@
   },
   {
     "symbol": "531845",
-    "name": "Zenith Steel Pipes & Industries Ltd",
+    "name": "Zenith Steel Pipes & Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531845.BO",
     "isin": "",
@@ -49126,7 +47722,7 @@
   },
   {
     "symbol": "531847",
-    "name": "Asian Star Company Ltd",
+    "name": "Asian Star Company Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531847.BO",
     "isin": "",
@@ -49209,16 +47805,6 @@
     "name": "SVA India Ltd",
     "exchange": "BSE",
     "yf_symbol": "531885.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531887",
-    "name": "Tacent Projects Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531887.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -49375,16 +47961,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531929",
-    "name": "Innocorp Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531929.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531930",
     "name": "Sarthak Industries Ltd",
     "exchange": "BSE",
@@ -49465,16 +48041,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "531960",
-    "name": "Kashyap Tele-Medicines Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531960.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "531962",
     "name": "Shree Metalloys Ltd",
     "exchange": "BSE",
@@ -49526,19 +48092,9 @@
   },
   {
     "symbol": "531979",
-    "name": "Hind Aluminium Industries Ltd",
+    "name": "Hind Aluminium Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "531979.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "531980",
-    "name": "Senthil Infotek Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "531980.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -49646,7 +48202,7 @@
   },
   {
     "symbol": "532015",
-    "name": "Gravity India Ltd",
+    "name": "Gravity India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532015.BO",
     "isin": "",
@@ -49736,7 +48292,7 @@
   },
   {
     "symbol": "532051",
-    "name": "Swelect Energy Systems Ltd",
+    "name": "Swelect Energy Systems Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532051.BO",
     "isin": "",
@@ -49756,7 +48312,7 @@
   },
   {
     "symbol": "532054",
-    "name": "KDDL Ltd",
+    "name": "KDDL Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532054.BO",
     "isin": "",
@@ -49805,16 +48361,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "532072",
-    "name": "Interworld Digital Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532072.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "532078",
     "name": "Monind Ltd",
     "exchange": "BSE",
@@ -49856,7 +48402,7 @@
   },
   {
     "symbol": "532100",
-    "name": "Indo City Infotech Ltd",
+    "name": "Indo City Infotech Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532100.BO",
     "isin": "",
@@ -49869,16 +48415,6 @@
     "name": "SBEC Sugar Ltd",
     "exchange": "BSE",
     "yf_symbol": "532102.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "532105",
-    "name": "Mega Fin India Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532105.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -49939,16 +48475,6 @@
     "name": "SMC Credits Ltd",
     "exchange": "BSE",
     "yf_symbol": "532138.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "532139",
-    "name": "G-Tech Info-Training Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532139.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -50089,16 +48615,6 @@
     "name": "Saregama India Ltd",
     "exchange": "BSE",
     "yf_symbol": "532163.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "532164",
-    "name": "Minolta Finance Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532164.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -50576,7 +49092,7 @@
   },
   {
     "symbol": "532326",
-    "name": "Intense Technologies Ltd",
+    "name": "Intense Technologies Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532326.BO",
     "isin": "",
@@ -50586,7 +49102,7 @@
   },
   {
     "symbol": "532329",
-    "name": "Danlaw Technologies India Ltd",
+    "name": "Danlaw Technologies India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532329.BO",
     "isin": "",
@@ -50645,18 +49161,8 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "532336",
-    "name": "Baron Infotech Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532336.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "532339",
-    "name": "Compucom Software Ltd",
+    "name": "Compucom Software Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532339.BO",
     "isin": "",
@@ -50676,7 +49182,7 @@
   },
   {
     "symbol": "532341",
-    "name": "IZMO Ltd",
+    "name": "IZMO Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532341.BO",
     "isin": "",
@@ -50936,7 +49442,7 @@
   },
   {
     "symbol": "532380",
-    "name": "Baba Arts Ltd",
+    "name": "Baba Arts Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532380.BO",
     "isin": "",
@@ -51065,16 +49571,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "532403",
-    "name": "Fourth Generation Information Systems Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532403.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "532404",
     "name": "Saven Technologies Ltd",
     "exchange": "BSE",
@@ -51176,7 +49672,7 @@
   },
   {
     "symbol": "532430",
-    "name": "BF Utilities Ltd",
+    "name": "BF Utilities Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532430.BO",
     "isin": "",
@@ -51229,16 +49725,6 @@
     "name": "Cera Sanitaryware Ltd",
     "exchange": "BSE",
     "yf_symbol": "532443.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "532444",
-    "name": "T Spiritual World Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532444.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -51316,7 +49802,7 @@
   },
   {
     "symbol": "532467",
-    "name": "Hazoor Multi Projects Ltd",
+    "name": "Hazoor Multi Projects Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532467.BO",
     "isin": "",
@@ -51326,7 +49812,7 @@
   },
   {
     "symbol": "532468",
-    "name": "Kama Holdings Ltd",
+    "name": "Kama Holdings Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532468.BO",
     "isin": "",
@@ -51366,7 +49852,7 @@
   },
   {
     "symbol": "532478",
-    "name": "United Breweries Ltd",
+    "name": "United Breweries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532478.BO",
     "isin": "",
@@ -51386,7 +49872,7 @@
   },
   {
     "symbol": "532482",
-    "name": "Granules India Ltd",
+    "name": "Granules India Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532482.BO",
     "isin": "",
@@ -51466,7 +49952,7 @@
   },
   {
     "symbol": "532503",
-    "name": "Rajapalayam Mills Ltd",
+    "name": "Rajapalayam Mills Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532503.BO",
     "isin": "",
@@ -51476,7 +49962,7 @@
   },
   {
     "symbol": "532504",
-    "name": "Navin Fluorine International Ltd",
+    "name": "Navin Fluorine International Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532504.BO",
     "isin": "",
@@ -51516,7 +50002,7 @@
   },
   {
     "symbol": "532509",
-    "name": "Suprajit Engineering Ltd",
+    "name": "Suprajit Engineering Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532509.BO",
     "isin": "",
@@ -51656,7 +50142,7 @@
   },
   {
     "symbol": "532539",
-    "name": "UNO Minda Ltd",
+    "name": "UNO Minda Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532539.BO",
     "isin": "",
@@ -51696,7 +50182,7 @@
   },
   {
     "symbol": "532548",
-    "name": "Century Plyboards (India) Ltd",
+    "name": "Century Plyboards (India) Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532548.BO",
     "isin": "",
@@ -51789,16 +50275,6 @@
     "name": "Xchanging Solutions Ltd",
     "exchange": "BSE",
     "yf_symbol": "532616.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "532621",
-    "name": "Morarjee Textiles Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532621.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -52055,16 +50531,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "532665",
-    "name": "Rajvir Industries Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532665.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "532666",
     "name": "FCS Software Solutions Ltd",
     "exchange": "BSE",
@@ -52199,16 +50665,6 @@
     "name": "Celebrity Fashions Ltd",
     "exchange": "BSE",
     "yf_symbol": "532695.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "532696",
-    "name": "Educomp Solutions Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532696.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -52549,16 +51005,6 @@
     "name": "GTN Textiles Ltd",
     "exchange": "BSE",
     "yf_symbol": "532744.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "532745",
-    "name": "Inditrade Capital Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532745.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -53095,16 +51541,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "532832",
-    "name": "Embassy Developments Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532832.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "532834",
     "name": "Camlin Fine Sciences Ltd",
     "exchange": "BSE",
@@ -53265,16 +51701,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "532866",
-    "name": "Quintegra Solutions Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532866.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "532867",
     "name": "V2 Retail Ltd",
     "exchange": "BSE",
@@ -53399,16 +51825,6 @@
     "name": "SEL Manufacturing Company Ltd",
     "exchange": "BSE",
     "yf_symbol": "532886.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "532887",
-    "name": "Neueon Corporation Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "532887.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -53916,7 +52332,7 @@
   },
   {
     "symbol": "532974",
-    "name": "Aditya Birla Money Ltd",
+    "name": "Aditya Birla Money Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "532974.BO",
     "isin": "",
@@ -54089,16 +52505,6 @@
     "name": "Sicagen India Ltd",
     "exchange": "BSE",
     "yf_symbol": "533014.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "533018",
-    "name": "Simplex Mills Company Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "533018.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -55155,16 +53561,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "533400",
-    "name": "Future Consumer Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "533400.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "533407",
     "name": "True Green Bio Energy Ltd",
     "exchange": "BSE",
@@ -55229,16 +53625,6 @@
     "name": "Kridhan Infra Ltd",
     "exchange": "BSE",
     "yf_symbol": "533482.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "533499",
-    "name": "Bharatiya Global Infomedia Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "533499.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -56355,30 +54741,10 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "536846",
-    "name": "Yuranus Infrastructure Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "536846.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "536960",
     "name": "Motilal Oswal Nifty Midcap 100 ETF",
     "exchange": "BSE",
     "yf_symbol": "536960.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "536965",
-    "name": "B. P. Capital Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "536965.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -56875,16 +55241,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "538537",
-    "name": "Omansh Enterprises Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "538537.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "538539",
     "name": "Annvrridhhi  Ventures Ltd",
     "exchange": "BSE",
@@ -57185,16 +55541,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "538684",
-    "name": "Encash Entertainment Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "538684.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "538685",
     "name": "Shemaroo Entertainment Ltd",
     "exchange": "BSE",
@@ -57385,16 +55731,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "538786",
-    "name": "Citizen Infoline Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "538786.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "538787",
     "name": "Goenka Business & Finance Ltd",
     "exchange": "BSE",
@@ -57429,16 +55765,6 @@
     "name": "Shree Ajit Pulp And Paper Ltd",
     "exchange": "BSE",
     "yf_symbol": "538795.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "538812",
-    "name": "Aanchal Ispat Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "538812.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -57649,16 +55975,6 @@
     "name": "Kanchi Karpooram Ltd",
     "exchange": "BSE",
     "yf_symbol": "538896.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "538897",
-    "name": "Shri Niwas Leasing And Finance Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "538897.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -57885,16 +56201,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "538993",
-    "name": "Purohit Construction Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "538993.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "539005",
     "name": "Jayatma Enterprises Ltd",
     "exchange": "BSE",
@@ -58015,16 +56321,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "539032",
-    "name": "Fraser and Company Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539032.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "539040",
     "name": "Tirupati Innovar Ltd",
     "exchange": "BSE",
@@ -58119,16 +56415,6 @@
     "name": "Consecutive Commodities Ltd",
     "exchange": "BSE",
     "yf_symbol": "539091.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539096",
-    "name": "Aananda Lakshmi Spinning Mills Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539096.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -58475,16 +56761,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "539198",
-    "name": "Capfin India Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539198.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "539199",
     "name": "SG Finserve Ltd",
     "exchange": "BSE",
@@ -58629,16 +56905,6 @@
     "name": "Chemiesynth (Vapi) Ltd",
     "exchange": "BSE",
     "yf_symbol": "539230.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539246",
-    "name": "Jyotirgamya Enterprises Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539246.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -58809,16 +57075,6 @@
     "name": "Oswal Greentech Ltd",
     "exchange": "BSE",
     "yf_symbol": "539290.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539291",
-    "name": "Vasudhagama Enterprises Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539291.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -59015,30 +57271,10 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "539378",
-    "name": "Soni Medicare Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539378.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "539383",
     "name": "Mahaveer Infoway Ltd",
     "exchange": "BSE",
     "yf_symbol": "539383.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539384",
-    "name": "Krishna Capital and Securities Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539384.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -59309,16 +57545,6 @@
     "name": "LIC MF EXCHANGE TRADED FUND- NIFTY 50",
     "exchange": "BSE",
     "yf_symbol": "539480.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539486",
-    "name": "Geetanjali Credit and Capital Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539486.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -59605,16 +57831,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "539561",
-    "name": "Supha Pharmachem Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539561.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "539562",
     "name": "Aarnav Fashions Ltd",
     "exchange": "BSE",
@@ -59629,16 +57845,6 @@
     "name": "Sunshine Capital Ltd",
     "exchange": "BSE",
     "yf_symbol": "539574.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539584",
-    "name": "Sharanam Infraproject and Trading Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539584.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -59715,16 +57921,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "539621",
-    "name": "BCL Enterprises Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539621.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "539636",
     "name": "Precision Camshafts Ltd",
     "exchange": "BSE",
@@ -59789,16 +57985,6 @@
     "name": "RGF Capital Markets Ltd",
     "exchange": "BSE",
     "yf_symbol": "539669.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539673",
-    "name": "Radhagobind Commercial Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539673.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -60165,16 +58351,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "539861",
-    "name": "SKIL Infrastructure Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539861.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "539864",
     "name": "Ghushine Fintrrade Ocean Ltd",
     "exchange": "BSE",
@@ -60375,16 +58551,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "539947",
-    "name": "Jindal Leasefin Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539947.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "539956",
     "name": "TAAL Tech Ltd",
     "exchange": "BSE",
@@ -60439,16 +58605,6 @@
     "name": "ICICI Prudential BSE Midcap Select ETF",
     "exchange": "BSE",
     "yf_symbol": "539980.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539982",
-    "name": "Advance Syntex Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539982.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -60699,16 +58855,6 @@
     "name": "Dhatre Udyog Ltd",
     "exchange": "BSE",
     "yf_symbol": "540080.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "540081",
-    "name": "SAB Events & Governance Now Media Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "540081.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -61209,16 +59355,6 @@
     "name": "Pricol Ltd",
     "exchange": "BSE",
     "yf_symbol": "540293.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "540310",
-    "name": "Classic Filaments Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "540310.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -61935,16 +60071,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "540709",
-    "name": "Reliance Home Finance Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "540709.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "540710",
     "name": "Capacite Infraprojects Ltd",
     "exchange": "BSE",
@@ -62535,16 +60661,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "540955",
-    "name": "Tasty Dairy Specialities Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "540955.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "540956",
     "name": "Bhatia Communications & Retail (India) Ltd",
     "exchange": "BSE",
@@ -62699,16 +60815,6 @@
     "name": "Hindustan Aeronautics Ltd",
     "exchange": "BSE",
     "yf_symbol": "541154.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "541161",
-    "name": "Dharan Infra-EPC Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "541161.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -63655,16 +61761,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "542377",
-    "name": "Aar Shyam India Investment Company Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "542377.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "542383",
     "name": "Ritco Logistics Ltd",
     "exchange": "BSE",
@@ -63759,16 +61855,6 @@
     "name": "UTI BSE Sensex Next 50 ETF",
     "exchange": "BSE",
     "yf_symbol": "542513.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "542524",
-    "name": "Ambassador Intra Holdings Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "542524.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -64265,16 +62351,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "542851",
-    "name": "Gensol Engineering Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "542851.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "542852",
     "name": "Vishwaraj Sugar Industries Ltd",
     "exchange": "BSE",
@@ -64329,16 +62405,6 @@
     "name": "Anuroop Packaging Ltd",
     "exchange": "BSE",
     "yf_symbol": "542865.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "542866",
-    "name": "Colab Platforms Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "542866.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -65439,16 +63505,6 @@
     "name": "DRC Systems India Ltd",
     "exchange": "BSE",
     "yf_symbol": "543268.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "543269",
-    "name": "Adjia Technologies Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "543269.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -66585,16 +64641,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "543451",
-    "name": "AGS Transact Technologies Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "543451.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "543453",
     "name": "Alkosign Ltd",
     "exchange": "BSE",
@@ -67289,16 +65335,6 @@
     "name": "Olatech Solutions Ltd",
     "exchange": "BSE",
     "yf_symbol": "543578.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "543579",
-    "name": "Naturo Indiabull Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "543579.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",
@@ -74496,7 +72532,7 @@
   },
   {
     "symbol": "544620",
-    "name": "DSP MSCI India ETF",
+    "name": "MSCIADD",
     "exchange": "BSE",
     "yf_symbol": "544620.BO",
     "isin": "",
@@ -75746,7 +73782,7 @@
   },
   {
     "symbol": "590006",
-    "name": "Amrutanjan Health Care Ltd",
+    "name": "Amrutanjan Health Care Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "590006.BO",
     "isin": "",
@@ -75766,7 +73802,7 @@
   },
   {
     "symbol": "590018",
-    "name": "Hisar Metal Industries Ltd",
+    "name": "Hisar Metal Industries Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "590018.BO",
     "isin": "",
@@ -75836,7 +73872,7 @@
   },
   {
     "symbol": "590041",
-    "name": "Kavveri Defence & Wireless Technologies Ltd",
+    "name": "Kavveri Defence & Wireless Technologies Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "590041.BO",
     "isin": "",
@@ -75956,7 +73992,7 @@
   },
   {
     "symbol": "590075",
-    "name": "Lambodhara Textile Ltd",
+    "name": "Lambodhara Textile Ltd-$",
     "exchange": "BSE",
     "yf_symbol": "590075.BO",
     "isin": "",
@@ -76255,26 +74291,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "780001",
-    "name": "Jaisukh Dealers Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "780001.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "780013",
-    "name": "Cityon Systems (India) Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "780013.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "780014",
     "name": "Has Lifestyle Ltd",
     "exchange": "BSE",
@@ -76349,6 +74365,16 @@
     "name": "Allcargo Terminals Ltd",
     "exchange": "BSE",
     "yf_symbol": "890228.BO",
+    "isin": "",
+    "type": "STOCK",
+    "sector": "None",
+    "market_cap_category": "BSE_UNCLASSIFIED"
+  },
+  {
+    "symbol": "890229",
+    "name": "ANNVRRIDHHI VENTURES Ltd",
+    "exchange": "BSE",
+    "yf_symbol": "890229.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",

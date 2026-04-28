@@ -6,8 +6,8 @@ import random
 import math
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Any
-import asyncio
 from app.services.stock_universe import STOCK_UNIVERSE
+from app.services import data_fetcher
 
 router = APIRouter()
 
@@ -106,35 +106,43 @@ async def get_indices():
     result = []
     # Bulk fetch indices history with timeout
     try:
-        # yfinance download can hang, wrap in thread with timeout
         def download_indices():
-            return yf.download(indices, period="10d", interval="1d", group_by='ticker', progress=False)
+            try:
+                return yf.download(indices, period="10d", interval="1d", group_by='ticker', progress=False)
+            except Exception as e:
+                print(f"yfinance download failed for indices: {e}")
+                return pd.DataFrame()
             
         data = await asyncio.wait_for(asyncio.to_thread(download_indices), timeout=25.0)
         
-        for symbol in indices:
-            try:
-                hist = data[symbol] if len(indices) > 1 else data
-                if not hist.empty and len(hist) >= 2:
-                    curr = float(hist['Close'].iloc[-1])
-                    prev = float(hist['Close'].iloc[-2])
-                    change = curr - prev
-                    change_pct = (change / prev) * 100 if prev != 0 else 0
-                    
-                    sparkline = hist['Close'].tail(7).dropna().tolist()
-                    
-                    result.append({
-                        "symbol": symbol,
-                        "name": names.get(symbol, symbol),
-                        "price": round(curr, 2),
-                        "change": round(change, 2),
-                        "change_pct": round(change_pct, 2),
-                        "sparkline": [round(x, 2) for x in sparkline],
-                        "status": "OPEN"
-                    })
-            except Exception as e:
-                print(f"Index fetch error for {symbol}: {e}")
-                continue
+        if not data.empty:
+            for symbol in indices:
+                try:
+                    hist = data[symbol] if len(indices) > 1 else data
+                    if not hist.empty and len(hist) >= 2:
+                        # Use get_stock_info for accurate live price and flags
+                        info = data_fetcher.get_stock_info(symbol)
+                        curr = info["price"]
+                        prev = float(hist['Close'].iloc[-2])
+                        change = info["change"]
+                        change_pct = info["change_pct"]
+                        
+                        sparkline = hist['Close'].tail(7).dropna().tolist()
+                        
+                        result.append({
+                            "symbol": symbol,
+                            "name": names.get(symbol, symbol),
+                            "price": round(curr, 2),
+                            "change": round(change, 2),
+                            "change_pct": round(change_pct, 2),
+                            "sparkline": [round(x, 2) for x in sparkline],
+                            "status": "OPEN" if info["market_open"] else "CLOSED",
+                            "market_open": info["market_open"],
+                            "stale": info["stale"]
+                        })
+                except Exception as e:
+                    print(f"Index data processing error for {symbol}: {e}")
+                    continue
     except Exception as e:
         print(f"Bulk index fetch error (likely timeout): {e}")
 
@@ -167,44 +175,53 @@ async def get_movers(sort: str = "volume"):
     try:
         # Bulk download all tickers at once with timeout
         def download_movers():
-            return yf.download(NSE_30_TICKERS, period="5d", interval="1d", group_by='ticker', progress=False)
+            try:
+                return yf.download(NSE_30_TICKERS, period="5d", interval="1d", group_by='ticker', progress=False)
+            except Exception as e:
+                print(f"yfinance download failed for movers: {e}")
+                return pd.DataFrame()
             
         data = await asyncio.wait_for(asyncio.to_thread(download_movers), timeout=25.0)
         
-        for sym in NSE_30_TICKERS:
-            try:
-                hist = data[sym]
-                if not hist.empty and len(hist) >= 2:
-                    curr = float(hist['Close'].iloc[-1])
-                    prev = float(hist['Close'].iloc[-2])
-                    high = float(hist['High'].iloc[-1])
-                    low = float(hist['Low'].iloc[-1])
-                    open_p = float(hist['Open'].iloc[-1])
-                    try:
-                        vol_raw = hist['Volume'].iloc[-1]
-                        vol = int(vol_raw) if not math.isnan(vol_raw) else 0
-                    except:
-                        vol = 0
-                    
-                    change = curr - prev
-                    change_pct = (change / prev) * 100 if prev != 0 else 0
-                    volatility = ((high - low) / open_p) * 100 if open_p and open_p != 0 else 0
-                    
-                    mini_chart = hist['Close'].tail(5).dropna().tolist()
+        if not data.empty:
+            for sym in NSE_30_TICKERS:
+                try:
+                    hist = data[sym]
+                    if not hist.empty and len(hist) >= 2:
+                        # Use get_stock_info for accurate live price
+                        info = data_fetcher.get_stock_info(sym)
+                        curr = info["price"]
+                        prev = float(hist['Close'].iloc[-2])
+                        high = float(hist['High'].iloc[-1])
+                        low = float(hist['Low'].iloc[-1])
+                        open_p = float(hist['Open'].iloc[-1])
+                        try:
+                            vol_raw = hist['Volume'].iloc[-1]
+                            vol = int(vol_raw) if not math.isnan(vol_raw) else 0
+                        except:
+                            vol = 0
+                        
+                        change = info["change"]
+                        change_pct = info["change_pct"]
+                        volatility = ((high - low) / open_p) * 100 if open_p and open_p != 0 else 0
+                        
+                        mini_chart = hist['Close'].tail(5).dropna().tolist()
 
-                    data_list.append({
-                        "symbol": sym,
-                        "name": sym.split('.')[0],
-                        "price": round(curr, 2),
-                        "change": round(change, 2),
-                        "change_pct": round(change_pct, 2),
-                        "volume": vol,
-                        "volatility": round(volatility, 2),
-                        "mini_chart": [round(x, 2) for x in mini_chart]
-                    })
-            except Exception as e:
-                print(f"Mover fetch error for {sym}: {e}")
-                continue
+                        data_list.append({
+                            "symbol": sym,
+                            "name": sym.split('.')[0],
+                            "price": round(curr, 2),
+                            "change": round(change, 2),
+                            "change_pct": round(change_pct, 2),
+                            "volume": vol,
+                            "volatility": round(volatility, 2),
+                            "mini_chart": [round(x, 2) for x in mini_chart],
+                            "market_open": info["market_open"],
+                            "stale": info["stale"]
+                        })
+                except Exception as e:
+                    print(f"Mover data processing error for {sym}: {e}")
+                    continue
     except Exception as e:
         print(f"Bulk mover fetch error (likely timeout): {e}")
 
@@ -281,12 +298,11 @@ async def get_earnings():
     
     for sym in NSE_30_TICKERS:
         try:
-            t = yf.Ticker(sym)
-            cal = t.calendar
+            # yfinance calendar is very brittle
+            def get_cal():
+                return yf.Ticker(sym).calendar
+            cal = await asyncio.wait_for(asyncio.to_thread(get_cal), timeout=5.0)
             if cal is not None and not cal.empty:
-                # Expecting a dict or dataframe with 'Earnings Date'
-                # For this implementation, we'll use a mix of real data check and mock
-                # because yfinance calendar is frequently empty for NSE.
                 pass
         except:
             pass

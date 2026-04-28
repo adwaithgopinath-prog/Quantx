@@ -6,6 +6,7 @@ import time
 from datetime import datetime, timedelta
 from sklearn.linear_model import LinearRegression
 from typing import List, Dict, Optional
+from app.services import data_fetcher
 
 router = APIRouter()
 
@@ -25,13 +26,16 @@ def set_cached_prediction(symbol, data):
 
 def calculate_predictions(symbol: str):
     # Fetch 2 years of data
-    ticker = yf.Ticker(symbol)
+    formatted_symbol = data_fetcher.format_ticker(symbol)
+    ticker = yf.Ticker(formatted_symbol)
     df = ticker.history(period="2y")
     
     if df.empty or len(df) < 100:
         return None
 
-    current_price = float(df['Close'].iloc[-1])
+    info = data_fetcher.get_stock_info(symbol)
+    current_price = info["price"]
+    market_open = info["market_open"]
     
     # ─── Model 1: Linear Regression (Trend) ─────────────────────────
     # We use all 2 years for the long-term trend
@@ -163,14 +167,14 @@ def calculate_predictions(symbol: str):
             "monte_carlo_skew": "POSITIVE" if mc_results["12M"]["base"] > lr_preds["12M"] else "NEGATIVE"
         },
         "history": df['Close'].tail(252).round(2).tolist(),
+        "market_open": market_open,
+        "stale": info["stale"],
         "generated_at": datetime.now().isoformat()
     }
 
 @router.get("/predict/{symbol}")
 async def get_prediction(symbol: str):
-    # Ensure .NS for Indian stocks if not provided
-    if not symbol.endswith('.NS') and not symbol.endswith('.BO'):
-        symbol = f"{symbol}.NS"
+    symbol = data_fetcher.format_ticker(symbol)
         
     cached = get_cached_prediction(symbol)
     if cached: return cached

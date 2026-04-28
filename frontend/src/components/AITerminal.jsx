@@ -102,8 +102,13 @@ export default function AITerminal({
         <div className="bg-[#141720] border border-[#1e2333] rounded-xl p-5 shadow-xl">
           <div className="flex justify-between items-start">
             <div className="flex flex-col gap-1">
-              <h1 className="text-2xl font-bold font-[Syne] uppercase tracking-tight">
+              <h1 className="text-2xl font-bold font-[Syne] uppercase tracking-tight flex items-center gap-3">
                 {data?.info?.full_name || symbol?.replace('.NS', '') || "Reliance Industries"}
+                {data?.info?.market_closed && (
+                  <span className="px-2 py-0.5 bg-[#ff4444]/20 text-[#ff4444] text-[9px] font-bold rounded border border-[#ff4444]/30 animate-pulse">
+                    MARKET CLOSED
+                  </span>
+                )}
               </h1>
               <div className="flex gap-2 items-center">
                 <span className="text-[10px] font-bold bg-[#1e2333] px-2 py-0.5 rounded text-[#8a9ab5]">NSE</span>

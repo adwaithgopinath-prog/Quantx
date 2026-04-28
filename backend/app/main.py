@@ -2,9 +2,16 @@ import sys
 import os
 import asyncio
 import random
+import logging
+import subprocess
+import time
+from datetime import datetime, timedelta
 
-# Ensure the backend directory is on the Python path so that
-# both local (uvicorn) and Vercel/Render serverless invocations work correctly.
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("QuantX")
+
+# Ensure the backend directory is on the Python path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from fastapi import FastAPI, WebSocket, Request
@@ -41,8 +48,33 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(endpoints.router, prefix="/api", tags=["Endpoints"])
 
+@app.get("/api/ping")
+def ping():
+    return {"status": "ok"}
+
+def check_and_fetch_stocks():
+    data_dir = os.path.join(os.path.dirname(__file__), "data")
+    json_path = os.path.join(data_dir, "all_stocks.json")
+    
+    needs_fetch = False
+    if not os.path.exists(json_path):
+        needs_fetch = True
+    else:
+        file_time = os.path.getmtime(json_path)
+        if time.time() - file_time > 7 * 24 * 60 * 60: # 7 days
+            needs_fetch = True
+            
+    if needs_fetch:
+        fetch_script = os.path.join(data_dir, "fetch_stocks.py")
+        try:
+            subprocess.run([sys.executable, fetch_script], check=True)
+        except Exception as e:
+            print(f"Error running fetch_stocks.py: {e}")
+
 @app.on_event("startup")
 async def startup_event():
+    # Ensure stock list is current
+    check_and_fetch_stocks()
     # Start the Market Data Collection Engine (Pipeline)
     market_engine.start_engine()
     # Load the Comprehensive Stock Universe
@@ -69,6 +101,18 @@ async def startup_event():
 @app.websocket("/ws/ticker/{symbol}")
 async def websocket_endpoint(websocket: WebSocket, symbol: str):
     await websocket.accept()
+    
+    # Background heartbeat task
+    async def send_heartbeat():
+        try:
+            while True:
+                await asyncio.sleep(30)
+                await websocket.send_json({"type": "HEARTBEAT", "timestamp": datetime.now().isoformat()})
+        except Exception:
+            pass
+
+    heartbeat_task = asyncio.create_task(send_heartbeat())
+    
     try:
         info = data_fetcher.get_stock_info(symbol)
         base_price = info.get("price", 150.0)
@@ -92,6 +136,8 @@ async def websocket_endpoint(websocket: WebSocket, symbol: str):
             await asyncio.sleep(0.5)
     except Exception as e:
         logger.error(f"WS Disconnected for {symbol}: {e}")
+    finally:
+        heartbeat_task.cancel()
 
 @app.websocket("/ws/trades/{symbol}")
 async def trade_websocket(websocket: WebSocket, symbol: str):

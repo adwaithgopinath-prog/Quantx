@@ -5,21 +5,14 @@ from app.database import SessionLocal
 import os
 
 # For simplicity, we use a single user ID for local terminal mode
-DEFAULT_USER_ID = 1
 
-def ensure_user(db: Session):
-    user = db.query(User).filter(User.id == DEFAULT_USER_ID).first()
-    if not user:
-        user = User(id=DEFAULT_USER_ID, name="QuantX Trader", email="trader@quantx.ai")
-        db.add(user)
-        db.commit()
-        db.refresh(user)
-    return user
-
-def get_portfolio():
+def get_portfolio(user_id: int):
     db = SessionLocal()
     try:
-        user = ensure_user(db)
+        user = db.query(User).filter(User.id == user_id).first()
+        if not user:
+             return {"balance": 0, "positions": {}, "history": []}
+        
         positions = db.query(Portfolio).filter(Portfolio.user_id == user.id).all()
         history = db.query(Order).filter(Order.user_id == user.id).order_by(Order.created_at.desc()).all()
         
@@ -50,10 +43,13 @@ def get_portfolio():
     finally:
         db.close()
 
-def execute_trade(symbol, side, price, quantity):
+def execute_trade(user_id: int, symbol, side, price, quantity):
     db = SessionLocal()
     try:
-        user = ensure_user(db)
+        user = db.query(User).filter(User.id == user_id).first()
+        if not user:
+            return {"status": "error", "message": "User not found"}
+            
         symbol = symbol.upper()
         total_cost = price * quantity
         
@@ -96,8 +92,8 @@ def execute_trade(symbol, side, price, quantity):
     finally:
         db.close()
 
-def get_stats(current_prices: dict):
-    port_data = get_portfolio()
+def get_stats(user_id: int, current_prices: dict):
+    port_data = get_portfolio(user_id)
     total_equity = port_data["balance"]
     pos_details = []
     
@@ -125,3 +121,4 @@ def get_stats(current_prices: dict):
         "total_pnl": round(total_equity - 100000.0, 2),
         "history": port_data["history"]
     }
+
