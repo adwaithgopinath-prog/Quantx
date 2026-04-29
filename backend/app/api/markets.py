@@ -1,11 +1,11 @@
 import asyncio
 import logging
-from fastapi import APIRouter
-import yfinance as yf
-import pandas as pd
-import time
 import random
 import math
+import time
+import yfinance as yf
+import pandas as pd
+from fastapi import APIRouter
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Any
 from app.services.stock_universe import STOCK_UNIVERSE
@@ -81,7 +81,7 @@ SECTOR_MAP = {
     "Auto": ["M&M.NS", "MARUTI.NS"],
     "Energy": ["RELIANCE.NS", "POWERGRID.NS", "NTPC.NS", "ONGC.NS", "COALINDIA.NS"],
     "FMCG": ["NESTLEIND.NS", "HINDUNILVR.NS", "ASIANPAINT.NS", "TITAN.NS"],
-    "Metals": ["JSWSTEEL.NS", "TATASTEEL.NS", "ADANIENT.NS"],
+    "Metals": ["JSWSTEEL.NS", "TATASTEEL.NS", "ADANIENTS.NS"],
     "Infra": ["LT.NS", "ADANIPORTS.NS"],
     "Realty": [], # No stocks in the provided 30 strictly match Realty, but we'll include it as requested
     "Telecom": [] # Same for Telecom
@@ -171,6 +171,11 @@ async def get_movers(sort: str = "volume"):
     cached = get_cached_data(key)
     if cached: return cached
 
+    from app.services import stock_universe
+    def get_stock_name(symbol):
+        entry = stock_universe.SEARCH_INDEX.get(symbol.replace('.NS','').replace('.BO',''))
+        return entry['name'] if entry else symbol.split('.')[0]
+
     data_list = []
     try:
         # Bulk download all tickers at once with timeout
@@ -188,6 +193,7 @@ async def get_movers(sort: str = "volume"):
                 try:
                     hist = data[sym]
                     if not hist.empty and len(hist) >= 2:
+
                         # Use get_stock_info for accurate live price
                         info = data_fetcher.get_stock_info(sym)
                         curr = info["price"]
@@ -209,7 +215,7 @@ async def get_movers(sort: str = "volume"):
 
                         data_list.append({
                             "symbol": sym,
-                            "name": sym.split('.')[0],
+                            "name": get_stock_name(sym),
                             "price": round(curr, 2),
                             "change": round(change, 2),
                             "change_pct": round(change_pct, 2),

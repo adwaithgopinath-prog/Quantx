@@ -427,10 +427,11 @@ function MoverRow({ rank, data, setActiveSymbol, navigate }) {
       <td className={`px-6 py-4 text-right text-[11px] font-mono text-gray-400`}>{formatVol(data.volume)}</td>
       <td className="px-6 py-4 text-center">
         <div className="flex items-end justify-center gap-0.5 h-6">
-          {data.mini_chart.map((val, i) => {
-            const min = Math.min(...data.mini_chart);
-            const max = Math.max(...data.mini_chart);
-            const height = ((val - min) / (max - min)) * 100;
+          {(data.mini_chart || []).map((val, i) => {
+            const arr = data.mini_chart || [];
+            const min = Math.min(...arr);
+            const max = Math.max(...arr);
+            const height = max === min ? 50 : ((val - min) / (max - min)) * 100;
             return (
               <div 
                 key={i} 

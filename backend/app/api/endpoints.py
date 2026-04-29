@@ -190,6 +190,9 @@ async def get_dashboard_data(request: Request, symbol: str, current_user: models
     history = data_fetcher.get_stock_history(symbol, period="2y")
     stock_info = data_fetcher.get_stock_info(symbol)
 
+    if stock_info.get('error') == 'data_unavailable':
+        return {'error': 'Price data unavailable for this symbol'}
+
     if history.empty:
         return {"error": "Symbol not found"}
 
@@ -311,7 +314,7 @@ def get_algo_signals(symbol: str, timeframe: str = "1h", current_user: models.Us
 @router.get("/algo/scan")
 def scan_signals(timeframe: str = "1h", current_user: models.User = Depends(get_current_user)):
     """Run a full market scan across watchlist symbols."""
-    watchlist = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "MM.NS", "WIPRO.NS"]
+    watchlist = ["RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "M&M.NS", "WIPRO.NS"]
     results = []
     for sym in watchlist:
         try:
@@ -518,7 +521,11 @@ def get_chat_response(request: Request, query: str, symbol: str, current_user: m
 # ─── Market Trending ──────────────────────────────────────────────────────────
 @router.get("/market/trending")
 def get_trending_market():
-    symbols = data_fetcher.get_trending_symbols()
+    symbols = [
+        'RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS', 'INFY.NS', 'ICICIBANK.NS', 
+        'SBIN.NS', 'HINDUNILVR.NS', 'BHARTIARTL.NS', 'ADANIENTS.NS', 'ITC.NS', 
+        'M&M.NS', 'BAJFINANCE.NS'
+    ]
     trending_data = []
     for s in symbols:
         info = data_fetcher.get_stock_info(s)

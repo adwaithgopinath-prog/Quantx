@@ -16500,17 +16500,6 @@
     "market_cap_category": "MICRO"
   },
   {
-    "symbol": "OMKARCHEM",
-    "name": "Omkar Speciality Chemicals Limited",
-    "exchange": "NSE",
-    "yf_symbol": "OMKARCHEM.NS",
-    "isin": "",
-    "series": "EQ",
-    "type": "STOCK",
-    "sector": null,
-    "market_cap_category": "MICRO"
-  },
-  {
     "symbol": "OMNI",
     "name": "Omnitech Engineering Limited",
     "exchange": "NSE",
@@ -35431,16 +35420,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "513309",
-    "name": "Golkonda Aluminium Extrusions Ltd-$",
-    "exchange": "BSE",
-    "yf_symbol": "513309.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "513337",
     "name": "Gujarat Toolroom Ltd",
     "exchange": "BSE",
@@ -53471,16 +53450,6 @@
     "market_cap_category": "BSE_UNCLASSIFIED"
   },
   {
-    "symbol": "533317",
-    "name": "Omkar Speciality Chemicals Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "533317.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
     "symbol": "533326",
     "name": "Texmaco Rail & Engineering Ltd",
     "exchange": "BSE",
@@ -57835,16 +57804,6 @@
     "name": "Aarnav Fashions Ltd",
     "exchange": "BSE",
     "yf_symbol": "539562.BO",
-    "isin": "",
-    "type": "STOCK",
-    "sector": "None",
-    "market_cap_category": "BSE_UNCLASSIFIED"
-  },
-  {
-    "symbol": "539574",
-    "name": "Sunshine Capital Ltd",
-    "exchange": "BSE",
-    "yf_symbol": "539574.BO",
     "isin": "",
     "type": "STOCK",
     "sector": "None",

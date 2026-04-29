@@ -14,3 +14,4 @@ for u in urls:
         print(r.status_code)
     except Exception as e:
         print("ERROR:", e)
+ 

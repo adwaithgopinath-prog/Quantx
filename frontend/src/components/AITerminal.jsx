@@ -14,31 +14,35 @@ export default function AITerminal({
   const [searchQuery, setSearchQuery] = useState('');
 
   // Formatting helpers
-  const price = Number(livePrice?.price || data?.current_price || 1365.21);
-  const change = Number(livePrice?.change || data?.change || 0.14);
-  const changePct = Number(livePrice?.change_pct || data?.change_pct || 0.65);
+  const price = Number(livePrice?.price || data?.current_price || data?.price || 0);
+  const change = Number(livePrice?.change || data?.change || 0);
+  const changePct = Number(livePrice?.change_pct || data?.change_pct || 0);
   const isPos = change >= 0;
 
   // Watchlist (Left Sidebar)
-  const [watchlist, setWatchlist] = useState([
-    { symbol: 'RELIANCE', rsi: 53.2, status: 'BUY' },
-    { symbol: 'TCS', rsi: 48.5, status: 'HOLD' },
-    { symbol: 'HDFCBANK', rsi: 32.1, status: 'BUY' },
-    { symbol: 'INFY', rsi: 61.4, status: 'SELL' },
-    { symbol: 'TATAMOTORS', rsi: 55.7, status: 'HOLD' },
-    { symbol: 'SBIN', rsi: 42.1, status: 'BUY' },
-    { symbol: 'BHARTIARTL', rsi: 58.9, status: 'HOLD' },
-  ]);
+  const [watchlist, setWatchlist] = useState([]);
 
-  // Update watchlist RSI mock
+  // Fetch real RSI values on mount
   useEffect(() => {
-    const interval = setInterval(() => {
-      setWatchlist(prev => prev.map(item => ({
-        ...item,
-        rsi: (Number(item.rsi) + (Math.random() - 0.5)).toFixed(1)
-      })));
-    }, 2000);
-    return () => clearInterval(interval);
+    const symbols = ['RELIANCE', 'TCS', 'HDFCBANK', 'INFY', 'TATAMOTORS', 'SBIN', 'BHARTIARTL'];
+    const fetchWatchlistData = async () => {
+      const results = await Promise.all(symbols.map(async (s) => {
+        try {
+          const res = await fetch(`/api/algo/signals/${s}.NS`);
+          const signalData = await res.json();
+          return {
+            symbol: s,
+            rsi: signalData.indicators?.rsi ? Number(signalData.indicators.rsi).toFixed(1) : '—',
+            status: signalData.master_signal || 'HOLD'
+          };
+        } catch (err) {
+          console.error(`Error fetching RSI for ${s}:`, err);
+          return { symbol: s, rsi: '—', status: 'HOLD' };
+        }
+      }));
+      setWatchlist(results);
+    };
+    fetchWatchlistData();
   }, []);
 
   const getStatusColor = (status) => {
@@ -118,7 +122,7 @@ export default function AITerminal({
             </div>
             <div className="text-right">
               <div className="text-3xl font-bold font-mono">
-                ₹{price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                {price === 0 ? '—' : `₹${price.toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
               </div>
               <div className={`text-sm font-bold flex items-center justify-end gap-1 ${isPos ? 'text-[#00ff88]' : 'text-[#ff4444]'}`}>
                 {isPos ? '▲' : '▼'} {change.toFixed(2)} ({changePct.toFixed(2)}%)
@@ -220,7 +224,14 @@ export default function AITerminal({
 
         {/* Indicators Grid */}
         <div className="grid grid-cols-3 gap-4">
-           <IndicatorCard title="RSI (14)" value="53.27" status="NEUTRAL" statusColor="text-[#ff9800]" progress={53.27} progressColor="bg-[#ff9800]" />
+           <IndicatorCard 
+             title="RSI (14)" 
+             value={data?.indicators?.rsi ? Number(data.indicators.rsi).toFixed(2) : '—'} 
+             status={data?.indicators?.rsi > 70 ? 'OVERBOUGHT' : data?.indicators?.rsi < 30 ? 'OVERSOLD' : 'NEUTRAL'} 
+             statusColor={data?.indicators?.rsi > 70 ? 'text-[#ff4444]' : data?.indicators?.rsi < 30 ? 'text-[#00ff88]' : 'text-[#ff9800]'} 
+             progress={data?.indicators?.rsi || 50} 
+             progressColor={data?.indicators?.rsi > 70 ? 'bg-[#ff4444]' : data?.indicators?.rsi < 30 ? 'bg-[#00ff88]' : 'bg-[#ff9800]'} 
+           />
            <IndicatorCard title="MACD (12,26,9)" value="-11.06" status="BEARISH CROSS" statusColor="text-[#ff4444]" sparkline={[3,5,8,12,15,12,8,5,3]} />
            <div className="bg-[#141720] border border-[#1e2333] p-4 rounded-xl shadow-lg relative overflow-hidden flex flex-col justify-between h-[130px]">
              <div className="absolute top-0 right-0 w-24 h-24 bg-[#00ff88]/5 rounded-full blur-3xl" />
