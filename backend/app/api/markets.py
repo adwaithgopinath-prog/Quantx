@@ -1,3 +1,5 @@
+import asyncio
+import logging
 from fastapi import APIRouter
 import yfinance as yf
 import pandas as pd
@@ -8,6 +10,8 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Any
 from app.services.stock_universe import STOCK_UNIVERSE
 from app.services import data_fetcher
+
+logger = logging.getLogger("MarketRouter")
 
 router = APIRouter()
 
@@ -43,12 +47,15 @@ def clean_json_data(obj: Any) -> Any:
 
 # Simple in-memory cache
 cache = {}
-CACHE_EXPIRY = 60 # 60 seconds
+
+def get_router_cache_ttl():
+    from app.services.data_fetcher import is_market_open
+    return 15 if is_market_open() else 300
 
 def get_cached_data(key):
     if key in cache:
         data, timestamp = cache[key]
-        if time.time() - timestamp < CACHE_EXPIRY:
+        if time.time() - timestamp < get_router_cache_ttl():
             return data
     return None
 
@@ -58,11 +65,11 @@ def set_cached_data(key, data):
 # Tickers provided by user - Expanded to include more major stocks
 NSE_30_TICKERS = [
     "RELIANCE.NS", "TCS.NS", "INFY.NS", "HDFCBANK.NS", "ICICIBANK.NS",
-    "WIPRO.NS", "BAJFINANCE.NS", "SBIN.NS", "MM.NS", "MARUTI.NS",
+    "WIPRO.NS", "BAJFINANCE.NS", "SBIN.NS", "M&M.NS", "MARUTI.NS",
     "AXISBANK.NS", "KOTAKBANK.NS", "LT.NS", "ASIANPAINT.NS", "TITAN.NS",
     "NESTLEIND.NS", "HINDUNILVR.NS", "SUNPHARMA.NS", "DRREDDY.NS", "CIPLA.NS",
     "DIVISLAB.NS", "TECHM.NS", "POWERGRID.NS", "NTPC.NS", "ONGC.NS",
-    "COALINDIA.NS", "ADANIENT.NS", "ADANIPORTS.NS", "JSWSTEEL.NS", "TATASTEEL.NS",
+    "COALINDIA.NS", "ADANIENTS.NS", "ADANIPORTS.NS", "JSWSTEEL.NS", "TATASTEEL.NS",
     "TATAMOTORS.NS", "ITC.NS", "BHARTIARTL.NS", "ZOMATO.NS", "NYKAA.NS"
 ]
 
@@ -71,7 +78,7 @@ SECTOR_MAP = {
     "IT": ["TCS.NS", "INFY.NS", "WIPRO.NS", "TECHM.NS"],
     "Banking": ["HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS", "AXISBANK.NS", "KOTAKBANK.NS", "BAJFINANCE.NS"],
     "Pharma": ["SUNPHARMA.NS", "DRREDDY.NS", "CIPLA.NS", "DIVISLAB.NS"],
-    "Auto": ["MM.NS", "MARUTI.NS"],
+    "Auto": ["M&M.NS", "MARUTI.NS"],
     "Energy": ["RELIANCE.NS", "POWERGRID.NS", "NTPC.NS", "ONGC.NS", "COALINDIA.NS"],
     "FMCG": ["NESTLEIND.NS", "HINDUNILVR.NS", "ASIANPAINT.NS", "TITAN.NS"],
     "Metals": ["JSWSTEEL.NS", "TATASTEEL.NS", "ADANIENT.NS"],
@@ -110,7 +117,7 @@ async def get_indices():
             try:
                 return yf.download(indices, period="10d", interval="1d", group_by='ticker', progress=False)
             except Exception as e:
-                print(f"yfinance download failed for indices: {e}")
+                logger.error(f"yfinance download failed for indices: {e}")
                 return pd.DataFrame()
             
         data = await asyncio.wait_for(asyncio.to_thread(download_indices), timeout=25.0)
@@ -140,27 +147,20 @@ async def get_indices():
                             "market_open": info["market_open"],
                             "stale": info["stale"]
                         })
+                    else:
+                        logger.warning(f"No data for index {symbol}, skipping")
+                        continue
                 except Exception as e:
-                    print(f"Index data processing error for {symbol}: {e}")
+                    logger.error(f"Index data processing error for {symbol}: {e}")
                     continue
+        else:
+            logger.warning("No index data downloaded")
     except Exception as e:
-        print(f"Bulk index fetch error (likely timeout): {e}")
+        logger.error(f"Bulk index fetch error (likely timeout): {e}")
 
-    # Fallback/Mock for missing indices to ensure 4 cards
-    if len(result) < 4:
-        print(f"Indices: only {len(result)} found, filling with mock data")
-        existing = [r['symbol'] for r in result]
-        for symbol in indices:
-            if symbol not in existing:
-                    result.append({
-                        "symbol": symbol,
-                        "name": names.get(symbol, symbol),
-                        "price": 22453.20 if "NSEI" in symbol else 73852.10 if "BSESN" in symbol else 13542.10 if "CNXMID" in symbol else 20453.10,
-                        "change": 45.2,
-                        "change_pct": 0.21,
-                        "sparkline": [22300, 22350, 22400, 22380, 22420, 22450, 22453],
-                        "status": "CLOSED"
-                    })
+    # Remove fallback/mock for missing indices
+    if not result:
+        logger.warning("No indices data available")
     
     set_cached_data(key, result)
     return clean_json_data(result)
@@ -178,7 +178,7 @@ async def get_movers(sort: str = "volume"):
             try:
                 return yf.download(NSE_30_TICKERS, period="5d", interval="1d", group_by='ticker', progress=False)
             except Exception as e:
-                print(f"yfinance download failed for movers: {e}")
+                logger.error(f"yfinance download failed for movers: {e}")
                 return pd.DataFrame()
             
         data = await asyncio.wait_for(asyncio.to_thread(download_movers), timeout=25.0)
@@ -220,24 +220,15 @@ async def get_movers(sort: str = "volume"):
                             "stale": info["stale"]
                         })
                 except Exception as e:
-                    print(f"Mover data processing error for {sym}: {e}")
+                    logger.error(f"Mover data processing error for {sym}: {e}")
                     continue
     except Exception as e:
-        print(f"Bulk mover fetch error (likely timeout): {e}")
+        logger.error(f"Bulk mover fetch error (likely timeout): {e}")
 
-    # Fallback to mock data if yfinance is completely failing/blocking
+    # Remove fallback to mock data
     if not data_list:
-        for sym in NSE_30_TICKERS:
-            data_list.append({
-                "symbol": sym,
-                "name": sym.split('.')[0],
-                "price": random.uniform(500, 4000),
-                "change": random.uniform(-50, 50),
-                "change_pct": random.uniform(-2, 2),
-                "volume": random.randint(1000000, 50000000),
-                "volatility": random.uniform(1, 5),
-                "mini_chart": [random.uniform(100, 110) for _ in range(5)]
-            })
+        logger.warning("No mover data available, returning empty list")
+        return []
 
     # Sort
     if sort == "volume":

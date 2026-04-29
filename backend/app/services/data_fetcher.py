@@ -22,32 +22,21 @@ logger = logging.getLogger("DataFetcher")
 # Structure: {cache_key: (data, timestamp)}
 HISTORY_CACHE = {}
 INFO_CACHE = {}
-CACHE_TTL = 60  # 60 seconds TTL
 
-def is_market_open():
-    """
-    Detects if the Indian Market (NSE/BSE) is currently open.
-    IST: 9:15 AM - 3:30 PM, Monday - Friday.
-    """
-    try:
-        tz = pytz.timezone('Asia/Kolkata')
-        now = datetime.now(tz)
-        
-        # Check weekend
-        if now.weekday() >= 5:
-            return False
-            
-        market_open_time = time(9, 15)
-        market_close_time = time(15, 30)
-        current_time = now.time()
-        
-        if current_time < market_open_time or current_time > market_close_time:
-            return False
-            
-        return True
-    except Exception as e:
-        logger.error(f"Error checking market status: {e}")
-        return True # Default to True to avoid false warnings if error
+def get_cache_ttl():
+    return 15 if is_market_open() else 300
+
+def is_market_open() -> bool:
+    ist = pytz.timezone("Asia/Kolkata")
+    now = datetime.now(ist)
+    # Mon=0, Fri=4
+    if now.weekday() > 4:
+        return False
+    market_open = now.replace(hour=9, minute=15, second=0)
+    market_close = now.replace(hour=15, minute=30, second=0)
+    return market_open <= now <= market_close
+
+BSE_ONLY = {"BAJAJ-AUTO", "HEROMOTOCO"}
 
 def format_ticker(symbol: str, exchange: str = "NSE"):
     """
@@ -72,18 +61,16 @@ def format_ticker(symbol: str, exchange: str = "NSE"):
     if symbol.isdigit() and len(symbol) == 6:
         return f"{symbol}.BO"
         
-    # If exchange is explicitly GLOBAL or it looks like a global ticker (no dot)
-    # we don't add any suffix.
-    if exchange.upper() == "GLOBAL" or "." not in symbol:
+    # If exchange is explicitly GLOBAL, do not add suffix
+    if exchange.upper() == "GLOBAL":
         return symbol
     
-    # Otherwise, default to NSE for Indian stocks if no suffix
-    if exchange.upper() == "NSE":
-        return f"{symbol}.NS"
-    if exchange.upper() == "BSE":
+    # Check if BSE only
+    if symbol in BSE_ONLY or exchange.upper() == "BSE":
         return f"{symbol}.BO"
         
-    return symbol
+    # Otherwise, default to NSE
+    return f"{symbol}.NS"
 
 def validate_symbol(symbol: str):
     """
@@ -125,7 +112,7 @@ def get_stock_history(symbol: str, period: str = "3mo", source: str = "yahoo"):
     # Check cache first
     if cache_key in HISTORY_CACHE:
         data, timestamp = HISTORY_CACHE[cache_key]
-        if (now - timestamp).total_seconds() < CACHE_TTL:
+        if (now - timestamp).total_seconds() < get_cache_ttl():
             return data
 
     df = pd.DataFrame()
@@ -160,42 +147,18 @@ def get_stock_history(symbol: str, period: str = "3mo", source: str = "yahoo"):
         return get_polygon_data(symbol)
     
     if df.empty:
-        logger.warning(f"Returning mock data for {symbol} due to empty fetch")
-        # Generate MORE REALISTIC mock data if symbol is missing/invalid
-        dates = pd.date_range(end=pd.Timestamp.now(), periods=90)
-        base = random.uniform(500, 2500)
-        prices = []
-        curr = base
-        for _ in range(90):
-            curr += random.uniform(-curr*0.02, curr*0.02)
-            prices.append(curr)
-        
-        df = pd.DataFrame({
-            "Open": [p * 0.99 for p in prices],
-            "High": [p * 1.01 for p in prices],
-            "Low": [p * 0.98 for p in prices],
-            "Close": prices,
-            "Volume": [random.randint(500000, 5000000) for _ in range(90)]
-        }, index=dates)
+        logger.error(f"No data available for {symbol}, returning empty")
+        return pd.DataFrame()
     
     return df
 
 def get_alpha_vantage_data(symbol: str, api_key: str = "YOUR_API_KEY"):
-    dates = pd.date_range(end=pd.Timestamp.now(), periods=10)
-    df = pd.DataFrame({
-        "Open": [random.uniform(500, 2000) for _ in range(10)],
-        "Close": [random.uniform(500, 2000) for _ in range(10)],
-        "Volume": [random.randint(100000, 500000) for _ in range(10)]
-    }, index=dates)
-    return df
+    logger.warning("Alpha Vantage/Polygon not configured, returning empty data")
+    return pd.DataFrame()
 
 def get_polygon_data(symbol: str, api_key: str = "YOUR_API_KEY"):
-    return {
-        "ticker": symbol,
-        "todaysChange": random.uniform(-2, 2),
-        "lastTrade": {"price": random.uniform(500, 2500), "size": 100},
-        "source": "Polygon.io Tick Tape"
-    }
+    logger.warning("Alpha Vantage/Polygon not configured, returning empty data")
+    return pd.DataFrame()
 
 def get_stock_info(symbol: str, exchange: str = "NSE"):
     """
@@ -216,21 +179,30 @@ def get_stock_info(symbol: str, exchange: str = "NSE"):
     try:
         ticker = yf.Ticker(symbol)
         
-        # 1. Primary: fast_info["last_price"]
+        # Step 1: try ticker.fast_info.last_price
         try:
-            current_price = ticker.fast_info.get("last_price")
+            current_price = ticker.fast_info.last_price
+            if current_price is not None and not pd.isna(current_price) and current_price != 0:
+                current_price = round(float(current_price), 2)
         except:
             current_price = None
             
-        # 2. Fallback: info["regularMarketPrice"]
-        if current_price is None or pd.isna(current_price):
+        # Step 2 & 3: else try ticker.info variants
+        if current_price is None or pd.isna(current_price) or current_price == 0:
             try:
                 info = ticker.info
-                current_price = info.get("regularMarketPrice")
+                # Step 2: currentPrice
+                current_price = info.get("currentPrice")
+                # Step 3: regularMarketPrice
+                if current_price is None or pd.isna(current_price) or current_price == 0:
+                    current_price = info.get("regularMarketPrice")
+                
+                if current_price:
+                    current_price = round(float(current_price), 2)
             except:
                 info = {}
         else:
-            # Still try to get basic info for metadata if possible
+            # Metadata only, no price mixing
             try:
                 info = ticker.info
             except:
@@ -272,7 +244,7 @@ def get_stock_info(symbol: str, exchange: str = "NSE"):
         "sector": info.get("sector", "Sector Unknown"),
         "full_name": info.get("longName", original_symbol),
         "volume": info.get("volume", 0),
-        "price": round(float(current_price), 2) if current_price else 0,
+        "price": current_price if current_price else 0,
         "change": round(float(change), 2),
         "change_pct": round(float(change_pct), 2),
         "market_open": market_open,
@@ -291,7 +263,7 @@ def get_sector_performance():
         "Financial Services": ["HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS", "KOTAKBANK.NS"],
         "Energy": ["RELIANCE.NS", "ONGC.NS", "BPCL.NS", "COALINDIA.NS"],
         "Healthcare": ["SUNPHARMA.NS", "DRREDDY.NS", "CIPLA.NS", "APOLLOHOSP.NS"],
-        "Consumer Cyclical": ["MM.NS", "MARUTI.NS", "EICHERMOT.NS"],
+        "Consumer Cyclical": ["M&M.NS", "MARUTI.NS", "EICHERMOT.NS"],
         "Basic Materials": ["TATASTEEL.NS", "JSWSTEEL.NS", "HINDALCO.NS", "ULTRACEMCO.NS"]
     }
     
@@ -328,7 +300,7 @@ def get_trending_symbols():
     return [
         "RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", 
         "ICICIBANK.NS", "SBIN.NS", "HINDUNILVR.NS", "BHARTIARTL.NS",
-        "ADANIENT.NS", "ITC.NS", "MM.NS", "BAJFINANCE.NS"
+        "ADANIENTS.NS", "ITC.NS", "M&M.NS", "BAJFINANCE.NS"
     ]
 
 def format_for_chart(df: pd.DataFrame):

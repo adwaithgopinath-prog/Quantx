@@ -114,8 +114,6 @@ async def websocket_endpoint(websocket: WebSocket, symbol: str):
     heartbeat_task = asyncio.create_task(send_heartbeat())
     
     try:
-        info = data_fetcher.get_stock_info(symbol)
-        base_price = info.get("price", 150.0)
         while True:
             try:
                 # Check for client messages (like pong)
@@ -125,15 +123,19 @@ async def websocket_endpoint(websocket: WebSocket, symbol: str):
             except asyncio.TimeoutError:
                 pass
             
-            jitter = random.uniform(-base_price * 0.0005, base_price * 0.0005)
-            base_price += jitter
-            await websocket.send_json({
-                "symbol": symbol.upper(),
-                "price": round(base_price, 2),
-                "change": round(jitter, 4),
-                "timestamp": datetime.now().isoformat()
-            })
-            await asyncio.sleep(0.5)
+            info = data_fetcher.get_stock_info(symbol)
+            if not info.get('error'):
+                await websocket.send_json({
+                    'symbol': symbol.upper(),
+                    'price': info['price'],
+                    'change': info['change'],
+                    'change_pct': info['change_pct'],
+                    'market_open': info['market_open'],
+                    'stale': info['stale'],
+                    'timestamp': datetime.now().isoformat()
+                })
+            interval = 15 if data_fetcher.is_market_open() else 300
+            await asyncio.sleep(interval)
     except Exception as e:
         logger.error(f"WS Disconnected for {symbol}: {e}")
     finally:
@@ -147,7 +149,7 @@ async def trade_websocket(websocket: WebSocket, symbol: str):
             await asyncio.sleep(random.randint(5, 10))
             side = random.choice(["BUY", "SELL"])
             info = data_fetcher.get_stock_info(symbol)
-            price = info.get("price", 150.0) + random.uniform(-2, 2)
+            price = info.get("price", 150.0)
             await websocket.send_json({
                 "type": "TRADE_EXECUTION",
                 "symbol": symbol.upper(),
@@ -167,9 +169,10 @@ async def depth_websocket(websocket: WebSocket, symbol: str):
     """
     await websocket.accept()
     try:
-        info = data_fetcher.get_stock_info(symbol)
-        price = info.get("price", 150.0)
         while True:
+            info = data_fetcher.get_stock_info(symbol)
+            price = info.get("price", 150.0)
+            
             # Generate 10 levels of bids and asks
             bids = []
             asks = []
@@ -202,9 +205,10 @@ async def hft_websocket(websocket: WebSocket, symbol: str):
     """
     await websocket.accept()
     try:
-        info = data_fetcher.get_stock_info(symbol)
-        price = info.get("price", 150.0)
         while True:
+            info = data_fetcher.get_stock_info(symbol)
+            price = info.get("price", 150.0)
+            
             # Bursts of micro-trades
             burst_size = random.randint(1, 5)
             for _ in range(burst_size):

@@ -3,10 +3,14 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 import time
+import asyncio
+import logging
 from datetime import datetime, timedelta
 from sklearn.linear_model import LinearRegression
 from typing import List, Dict, Optional
 from app.services import data_fetcher
+
+logger = logging.getLogger("PredictionRouter")
 
 router = APIRouter()
 
@@ -34,6 +38,10 @@ def calculate_predictions(symbol: str):
         return None
 
     info = data_fetcher.get_stock_info(symbol)
+    if info.get('error') == 'data_unavailable' or info.get('price', 0) == 0:
+        logger.warning(f"No price data available for {symbol}, cannot predict.")
+        return None
+        
     current_price = info["price"]
     market_open = info["market_open"]
     
@@ -174,20 +182,20 @@ def calculate_predictions(symbol: str):
 
 @router.get("/predict/{symbol}")
 async def get_prediction(symbol: str):
-    symbol = data_fetcher.format_ticker(symbol)
-        
     cached = get_cached_prediction(symbol)
     if cached: return cached
     
     try:
-        result = calculate_predictions(symbol)
+        result = await asyncio.to_thread(calculate_predictions, symbol)
         if not result:
             raise HTTPException(status_code=404, detail="Prediction unavailable for this symbol")
         
         set_cached_prediction(symbol, result)
         return result
+    except HTTPException:
+        raise
     except Exception as e:
-        print(f"Prediction error for {symbol}: {e}")
+        logger.error(f"Prediction error for {symbol}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/predict/portfolio")
@@ -207,21 +215,28 @@ async def predict_portfolio(portfolio: Dict = Body(...)):
     proj_1m = total_now
     proj_6m = total_now
     proj_12m = total_now
+    failed_symbols = []
     
     for pos in positions:
         sym = pos['symbol']
         qty = float(pos['quantity'])
         
-        pred = await get_prediction(sym)
-        curr_p = pred['current_price']
-        
-        total_now += (curr_p * qty)
-        proj_1m += (pred['prediction']['1M']['base'] * qty)
-        proj_6m += (pred['prediction']['6M']['base'] * qty)
-        proj_12m += (pred['prediction']['12M']['base'] * qty)
-        
+        try:
+            pred = await get_prediction(sym)
+            curr_p = pred['current_price']
+            
+            total_now += (curr_p * qty)
+            proj_1m += (pred['prediction']['1M']['base'] * qty)
+            proj_6m += (pred['prediction']['6M']['base'] * qty)
+            proj_12m += (pred['prediction']['12M']['base'] * qty)
+        except Exception as e:
+            logger.warning(f"Skipping prediction for {sym}: {e}")
+            failed_symbols.append(sym)
+            continue
+            
     return {
         "current_value": round(total_now, 2),
+        "failed_symbols": failed_symbols,
         "projections": {
             "1M": round(proj_1m, 2),
             "6M": round(proj_6m, 2),
